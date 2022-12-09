@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import PrincipalTitle from './components/atoms/PrincipalTitle';
+import ComponentsArea from './components/organisms/ComponentsArea';
+import NavMenu from './components/organisms/NavMenu';
 
 function App() {
+  const [stage, setStage] = useState('initial');
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavMenu setStage={setStage} />
+      {stage === 'initial' && (
+        <>
+          <PrincipalTitle>{'Olá Devs :)'}</PrincipalTitle>
+        </>
+      )}
+      {stage === 'components' && (
+        <>
+          <ComponentsArea />
+        </>
+      )}
     </div>
   );
 }
