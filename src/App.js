@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import './App.css';
-import PrincipalTitle from './components/atoms/PrincipalTitle';
-import ComponentsArea from './components/organisms/ComponentsArea';
-import NavMenu from './components/organisms/NavMenu';
+import React, { useState } from 'react'
+import './App.css'
+import PrincipalTitle from './components/atoms/PrincipalTitle'
+import ComponentsArea from './components/organisms/ComponentsArea'
+import NavMenu from './components/organisms/NavMenu'
 
-function App() {
-  const [stage, setStage] = useState('initial');
+const App = () => {
+  const [stage, setStage] = useState('initial')
 
   return (
     <div className="App">
@@ -21,7 +21,7 @@ function App() {
         </>
       )}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

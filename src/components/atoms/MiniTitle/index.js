@@ -1,11 +1,18 @@
-import * as S from "./styles.js";
+import React from 'react'
+import PropTypes from 'prop-types'
+import * as S from './styles.js'
 
 const MiniTitle = ({ span, text }) => {
   return (
     <S.DivWrapper>
       <S.H2Title><S.SpanText>{span}</S.SpanText>{text}</S.H2Title>
     </S.DivWrapper>
-  );
-};
+  )
+}
 
-export default MiniTitle;
+MiniTitle.propTypes = {
+  span: PropTypes.node,
+  text: PropTypes.node
+}
+
+export default MiniTitle
