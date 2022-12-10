@@ -11,6 +11,7 @@ export const Menu = styled.ul`
 export const MenuItem = styled.li`
   padding: 5px 10px;
   text-decoration: underline;
+  cursor: pointer;
 
   :hover {
     color: #1FB1F0;

@@ -17,7 +17,7 @@ const NavMenu = ({ setStage }) => {
 }
 
 NavMenu.propTypes = {
-  setStage: PropTypes.node.isRequired
+  setStage: PropTypes.func.isRequired
 }
 
 export default NavMenu
