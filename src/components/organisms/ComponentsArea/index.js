@@ -1,6 +1,8 @@
 import React from 'react'
 import MiniTitle from '../../atoms/MiniTitle/index.js'
 import PrincipalTitle from '../../atoms/PrincipalTitle/index.js'
+import Anchor from '../../atoms/Anchor/index.js'
+
 import * as S from './styles.js'
 
 
@@ -13,6 +15,7 @@ const ComponentsArea = () => {
       {miniTitleCollection.map((item, index) => (
         <MiniTitle key={index} span="R$ " text={item.price} />
       ))}
+      <Anchor />
     </S.Wrapper>
   )
 }
