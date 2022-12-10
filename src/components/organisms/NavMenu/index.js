@@ -1,16 +1,23 @@
-import * as S from './styles.js';
+import React from 'react'
+import PropTypes from 'prop-types'
+import * as S from './styles.js'
+
 
 const NavMenu = ({ setStage }) => {
   const changeStage = (step) => {
-    setStage(step);
-  };
+    setStage(step)
+  }
 
   return (
     <S.Menu>
       <S.MenuItem onClick={() => changeStage('initial')}>Home</S.MenuItem> |
       <S.MenuItem onClick={() => changeStage('components')}>Components</S.MenuItem>
     </S.Menu>
-  );
-};
+  )
+}
 
-export default NavMenu;
+NavMenu.propTypes = {
+  setStage: PropTypes.node.isRequired
+}
+
+export default NavMenu

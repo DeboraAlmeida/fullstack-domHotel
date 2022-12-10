@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const DivWrapper = styled.div`
-`;
+`
 
 export const SpanText = styled.span`
   color: #02732A
-`;
+`
 
-export const H2Title = styled.h2``;
+export const H2Title = styled.h2``
