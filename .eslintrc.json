@@ -20,6 +20,8 @@
         "eol-last": "off",
         "no-multiple-empty-lines": "off",
         "no-trailing-spaces": "off",
-        "padded-blocks": "off"
+        "padded-blocks": "off",
+        "no-unused-vars": "warn",
+        "comma-spacing": "warn"
     }
 }
