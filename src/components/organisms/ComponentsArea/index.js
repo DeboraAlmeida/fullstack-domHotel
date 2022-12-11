@@ -17,7 +17,7 @@ const ComponentsArea = () => {
       {miniTitleCollection.map((item, index) => (
         <MiniTitle key={index} span="R$ " text={item.price} />
       ))}
-      <Anchor />
+      <Anchor msg='ancora' />
       <S.ImageContainer>
         {imageColletion.map(image => (
             <ImageDefault key={image.id} src={image.url} />
