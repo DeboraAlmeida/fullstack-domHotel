@@ -3,7 +3,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import * as S from './styles.js'
-import { verde } from '../../../pallete.js'
+import { pallete } from '../../../pallete.js'
 
 /**
  * 
@@ -40,7 +40,7 @@ export default function Anchor({
   href,
   target = '_self',
   action,
-  hoverColor = verde,
+  hoverColor = pallete.greenDefault,
   title,
   className
 }) {

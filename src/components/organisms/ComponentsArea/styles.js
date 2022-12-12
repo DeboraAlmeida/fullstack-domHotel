@@ -18,4 +18,12 @@ export const ImageContainer = styled.div`
 export const formContainer = styled.form`
   width: 500px;
   margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+
+  textarea{
+    margin-bottom: 35px;
+  }
 `

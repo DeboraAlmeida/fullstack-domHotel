@@ -19,3 +19,5 @@ export const textarea = styled.textarea`
     border: 2px solid ${props => props.focusColor};
   }
 `
+
+export const empty = styled.textarea``

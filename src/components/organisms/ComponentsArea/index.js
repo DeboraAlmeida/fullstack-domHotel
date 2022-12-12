@@ -7,11 +7,12 @@ import Anchor from '../../atoms/Anchor/index.js'
 import ImageDefault from '../../atoms/ImageDefault/index.js'
 import DescriptionParagraph from '../../atoms/DescriptionParagraph/index.js'
 import TextArea from '../../atoms/TextArea/index.js'
+import Button from '../../atoms/Button/index.js'
 
 
 const ComponentsArea = () => {
   const miniTitleCollection = [{ price: '150,00' }, { price: '250,00' }, { price: '350,00' }]
-  const imageColletion = [{ id: 1, url: 'https://img.freepik.com/premium-vector/cute-koala-hanging-tree-with-cub-cartoon_346903-877.jpg?w=2000' }, { id: 2, url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCLWy7WPxUezxRDww85wVzeLbUxbF5f101qKdB6KnPCOs9YXLZHsxqqh32qWew_fVLf4s&usqp=CAU' }]
+  const imageColletion = [{ id: 1, url: 'https://img.freepik.com/premium-vector/cute-koala-hanging-tree-with-cub-cartoon_346903-877.jpg?w=200' }, { id: 2, url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCLWy7WPxUezxRDww85wVzeLbUxbF5f101qKdB6KnPCOs9YXLZHsxqqh32qWew_fVLf4s&usqp=CAU' }]
 
   return (
     <S.Wrapper>
@@ -28,10 +29,9 @@ const ComponentsArea = () => {
       <DescriptionParagraph msg='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.' />
 
       <S.formContainer>
-        <TextArea
-          placeholder='Digite Aqui'
-          autoFocus
-        />
+        <TextArea width='300px' placeholder='Digite Aqui' autoFocus />
+
+        <Button>ENVIAR</Button>
       </S.formContainer>
 
     </S.Wrapper>

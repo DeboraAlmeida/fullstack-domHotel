@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import * as S from './styles.js'
-import { verde } from '../../../pallete.js'
+import { pallete } from '../../../pallete.js'
 
 
 /**
@@ -58,13 +58,13 @@ export default function TextArea({
   className,
   autoFocus,
   disabled = false,
-  focusColor = verde,
+  focusColor = pallete.greenDefault,
   name,
   id,
   width = '100%'
 }) {
 
-  const Component = useDefaultStyle ? S.textarea : 'textarea'
+  const Component = useDefaultStyle ? S.textarea : S.empty
   const ref = useRef()
   const [border, setBorder] = useState('transparent')
 
