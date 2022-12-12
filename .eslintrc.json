@@ -22,6 +22,9 @@
         "no-trailing-spaces": "off",
         "padded-blocks": "off",
         "no-unused-vars": "warn",
-        "comma-spacing": "warn"
+        "comma-spacing": "warn",
+        "react/prop-types": "off",
+        "comma-dangle": "warn",
+        "spaced-comment": "warn"
     }
 }
