@@ -5,6 +5,7 @@ import Anchor from '../../atoms/Anchor/index.js'
 
 import * as S from './styles.js'
 import ImageDefault from '../../atoms/ImageDefault/index.js'
+import DescriptionParagraph from '../../atoms/DescriptionParagraph/index.js'
 
 
 const ComponentsArea = () => {
@@ -23,6 +24,9 @@ const ComponentsArea = () => {
           <ImageDefault key={image.id} src={image.url} />
         ))}
       </S.ImageContainer>
+      <DescriptionParagraph
+        msg='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.'
+      />
     </S.Wrapper>
   )
 }
