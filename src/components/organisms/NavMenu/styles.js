@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { pallete } from '../../../pallete'
 
 export const Menu = styled.ul`
   display: flex;
@@ -14,6 +15,6 @@ export const MenuItem = styled.li`
   cursor: pointer;
 
   :hover {
-    color: #1FB1F0;
+    color: ${pallete.greenDefault};
   }
 `

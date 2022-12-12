@@ -14,3 +14,17 @@ export const ImageContainer = styled.div`
     margin: 10px
   }
 `
+
+export const formContainer = styled.form`
+  max-width: 500px;
+  width: 100%;
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+
+  textarea{
+    margin-bottom: 35px;
+  }
+`

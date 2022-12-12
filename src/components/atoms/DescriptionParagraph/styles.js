@@ -2,6 +2,7 @@
 
 import styled from 'styled-components'
 
-export const Wrapper = styled.div`
-
+export const p = styled.p`
+  font-size: ${props => props.fontSize}px;
+  text-transform: ${props => props.textTransform};
 `
