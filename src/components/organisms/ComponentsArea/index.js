@@ -1,11 +1,12 @@
 import React from 'react'
+import * as S from './styles.js'
+
 import MiniTitle from '../../atoms/MiniTitle/index.js'
 import PrincipalTitle from '../../atoms/PrincipalTitle/index.js'
 import Anchor from '../../atoms/Anchor/index.js'
-
-import * as S from './styles.js'
 import ImageDefault from '../../atoms/ImageDefault/index.js'
 import DescriptionParagraph from '../../atoms/DescriptionParagraph/index.js'
+import TextArea from '../../atoms/TextArea/index.js'
 
 
 const ComponentsArea = () => {
@@ -24,9 +25,15 @@ const ComponentsArea = () => {
           <ImageDefault key={image.id} src={image.url} />
         ))}
       </S.ImageContainer>
-      <DescriptionParagraph
-        msg='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.'
-      />
+      <DescriptionParagraph msg='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.' />
+
+      <S.formContainer>
+        <TextArea
+          placeholder='Digite Aqui'
+          autoFocus
+        />
+      </S.formContainer>
+
     </S.Wrapper>
   )
 }

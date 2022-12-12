@@ -3,6 +3,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import * as S from './styles.js'
+import { verde } from '../../../pallete.js'
 
 /**
  * 
@@ -20,7 +21,7 @@ import * as S from './styles.js'
  * @example
  * 
  *  <Anchor
- *    msg='ancora'
+ *    msg='ancora' // required
  *    useDefaultStyle={false}
  *    href='https://github.com/flaviano-rodrigues'
  *    hourColor='#038C33'
@@ -39,7 +40,7 @@ export default function Anchor({
   href,
   target = '_self',
   action,
-  hoverColor = '#038C33',
+  hoverColor = verde,
   title,
   className
 }) {
@@ -56,7 +57,7 @@ export default function Anchor({
 
   return (
     <Component
-      
+
       // Atributos do styled-components
       hoverColor={hoverColor}
 

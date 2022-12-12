@@ -14,3 +14,8 @@ export const ImageContainer = styled.div`
     margin: 10px
   }
 `
+
+export const formContainer = styled.form`
+  width: 500px;
+  margin: 50px auto;
+`
