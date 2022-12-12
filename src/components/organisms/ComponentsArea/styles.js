@@ -16,7 +16,8 @@ export const ImageContainer = styled.div`
 `
 
 export const formContainer = styled.form`
-  width: 500px;
+  max-width: 500px;
+  width: 100%;
   margin: 50px auto;
   display: flex;
   flex-direction: column;

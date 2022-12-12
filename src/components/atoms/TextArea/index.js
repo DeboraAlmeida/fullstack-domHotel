@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import * as S from './styles.js'
 import { pallete } from '../../../pallete.js'
+import autosize from 'autosize'
 
 
 /**
@@ -69,15 +70,19 @@ export default function TextArea({
   const [border, setBorder] = useState('transparent')
 
 
-  const handleHeight = () => {
-    ref.current.style.height = 'inherit'
-    ref.current.style.height = `${(ref.current.scrollHeight - 30)}px`
-
+  const handleVal = () => {
     ref.current.value.length > 0 && !disabled ? setBorder(focusColor) : setBorder('transparent')
   }
 
   useEffect(() => {
-    return () => ref.current ? handleHeight() : null
+    return () => {
+      if (ref.current) {
+        handleVal()
+        autosize(ref.current)
+      } else {
+        autosize.destroy(ref.current)
+      }
+    }
   }, [])
 
   return (
@@ -92,7 +97,6 @@ export default function TextArea({
       // Atributos padrões do HTML
       placeholder={placeholder}
       defaultValue={defaultValue}
-      onKeyUp={handleHeight}
       maxLength={limit}
       rows={rows}
       cols={cols}
@@ -101,6 +105,7 @@ export default function TextArea({
       disabled={disabled}
       name={name}
       id={id}
+      onChange={handleVal}
 
       // Atributos do React
       ref={ref}
