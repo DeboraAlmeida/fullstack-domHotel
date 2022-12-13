@@ -8,6 +8,7 @@ import ImageDefault from '../../atoms/ImageDefault/index.js'
 import DescriptionParagraph from '../../atoms/DescriptionParagraph/index.js'
 import TextArea from '../../atoms/TextArea/index.js'
 import Button from '../../atoms/Button/index.js'
+import Dropboximage from '../DropboxImage/index.js'
 
 
 const ComponentsArea = () => {
@@ -34,6 +35,11 @@ const ComponentsArea = () => {
         <Button>ENVIAR</Button>
       </S.formContainer>
 
+      <S.DropboxContainer>
+        <Dropboximage srcImage={<ImageDefault src={'https://cdn-icons-png.flaticon.com/512/2985/2985150.png'} />}>
+          Descrição do DropBox
+        </Dropboximage>
+      </S.DropboxContainer>      
     </S.Wrapper>
   )
 }

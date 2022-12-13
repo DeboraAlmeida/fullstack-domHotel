@@ -28,3 +28,12 @@ export const formContainer = styled.form`
     margin-bottom: 35px;
   }
 `
+export const DropboxContainer = styled.div`
+  width: 150px;
+  margin: auto;
+
+  div div:first-child {
+    border: 2px solid black;
+    border-radius: 10px;
+  }
+`
