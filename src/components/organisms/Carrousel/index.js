@@ -5,7 +5,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import ImageDefault from '../../atoms/ImageDefault/index.js'
 
-const ArquivosImg = () => {
+const Carrousel = () => {
     return (
         <carousel>
         <div>
@@ -24,4 +24,4 @@ const ArquivosImg = () => {
     )
 }
 
-export default arquivos
+export default Carrousel
