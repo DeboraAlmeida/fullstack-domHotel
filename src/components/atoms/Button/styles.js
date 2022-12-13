@@ -2,6 +2,27 @@
 
 import styled from 'styled-components'
 
-export const Wrapper = styled.div`
+export const button = styled.button`
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: none;
+  border-radius: .5rem;
+  text-decoration: none;
+
+  ${props => props.disabled
+    ? 'opacity:  .5; cursor: not-allowed'
+    : 'cursor: pointer'
+  };
+
+  width: ${props => props.width};
+  background-color: ${props => props.backgroundColor};
+  color: ${props => props.color};
+  padding: ${props => props.paddingVertical + ' ' + props.paddingHorizontal};
+
+  &:hover {
+    background-color: ${props => props.hoverColor};
+  }
 
 `
+
+export const empty = styled.button``

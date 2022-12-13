@@ -8,5 +8,6 @@ export const a = styled.a`
 
   &:hover {
     text-decoration: underline;
+    color: ${props => props.hoverColor};
   }
 `
