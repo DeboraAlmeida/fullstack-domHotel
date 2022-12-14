@@ -9,6 +9,7 @@ import DescriptionParagraph from '../../atoms/DescriptionParagraph/index.js'
 import TextArea from '../../atoms/TextArea/index.js'
 import Button from '../../atoms/Button/index.js'
 import Dropboximage from '../DropboxImage/index.js'
+import Carrousel from '../Carrousel/index.js'
 
 
 const ComponentsArea = () => {
@@ -39,7 +40,11 @@ const ComponentsArea = () => {
         <Dropboximage srcImage={<ImageDefault src={'https://cdn-icons-png.flaticon.com/512/2985/2985150.png'} />}>
           Descrição do DropBox
         </Dropboximage>
-      </S.DropboxContainer>      
+      </S.DropboxContainer>
+      <S.CarrouselContainer>
+        <Carrousel img1={'https://img.freepik.com/vetores-premium/desenho-animado-da-xicara-de-cha-com-bolha-de-coala-bonito-coala_138676-2079.jpg?w=2000'} img2={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4v4G9uFz9DUNZlqSDgAro5vbaXT2luk5U1GhQWUOF_12GzAoCF-nVRhSYRVT2upXo2NQ&usqp=CAU'} img3={'https://img.freepik.com/vetores-premium/desenho-animado-da-xicara-de-cha-com-bolha-de-coala-bonito-coala_138676-2079.jpg?w=2000'} img4={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4v4G9uFz9DUNZlqSDgAro5vbaXT2luk5U1GhQWUOF_12GzAoCF-nVRhSYRVT2upXo2NQ&usqp=CAU'} altText={'LegendImage'}>
+        </Carrousel> 
+      </S.CarrouselContainer>     
     </S.Wrapper>
   )
 }
