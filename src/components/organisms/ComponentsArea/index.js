@@ -11,6 +11,7 @@ import Button from '../../atoms/Button/index.js'
 import Dropboximage from '../DropboxImage/index.js'
 import GenericInput from '../../atoms/GenericInput/index.js'
 import SubTitle from '../../atoms/SubTitle/index.js'
+import UnorderedList from '../../atoms/UnorderedList/index.js'
 
 
 const ComponentsArea = () => {
@@ -61,6 +62,7 @@ const ComponentsArea = () => {
           Descrição do DropBox
         </Dropboximage>
       </S.DropboxContainer>
+      <UnorderedList arr={['Christian', 'Debora', 'Flaviano', 'Larissa']} />
     </S.Wrapper>
   )
 }
