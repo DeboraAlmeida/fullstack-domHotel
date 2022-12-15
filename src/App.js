@@ -4,6 +4,7 @@ import PrincipalTitle from './components/atoms/PrincipalTitle'
 import ComponentsArea from './components/organisms/ComponentsArea'
 import NavMenu from './components/organisms/NavMenu'
 import Carrousel from './components/organisms/Carrousel'
+import Navbar from './components/atoms/NavBar'
 
 const App = () => {
   const [stage, setStage] = useState('initial')

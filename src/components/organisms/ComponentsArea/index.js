@@ -10,6 +10,7 @@ import TextArea from '../../atoms/TextArea/index.js'
 import Button from '../../atoms/Button/index.js'
 import Dropboximage from '../DropboxImage/index.js'
 import Carrousel from '../Carrousel/index.js'
+import Navbar from '../../atoms/NavBar/index.js'
 
 
 const ComponentsArea = () => {
@@ -18,6 +19,7 @@ const ComponentsArea = () => {
 
   return (
     <S.Wrapper>
+      <Navbar/>
       <PrincipalTitle>Página de Components</PrincipalTitle>
       {miniTitleCollection.map((item, index) => (
         <MiniTitle key={index} span="R$ " text={item.price} />
