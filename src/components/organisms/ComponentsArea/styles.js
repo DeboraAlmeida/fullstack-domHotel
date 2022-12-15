@@ -37,3 +37,7 @@ export const DropboxContainer = styled.div`
     border-radius: 10px;
   }
 `
+export const CarrouselContainer = styled.div`
+  width: 200px;
+  margin: auto;
+`
