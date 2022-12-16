@@ -11,7 +11,6 @@ import Button from '../../atoms/Button/index.js'
 import Dropboximage from '../DropboxImage/index.js'
 
 import Carrousel from '../Carrousel/index.js'
-import Navbar from '../../atoms/NavBar/index.js'
 
 import GenericInput from '../../atoms/GenericInput/index.js'
 import SubTitle from '../../atoms/SubTitle/index.js'
@@ -40,7 +39,6 @@ const ComponentsArea = () => {
 
   return (
     <S.Wrapper>
-      <Navbar/>
       <PrincipalTitle>Página de Components</PrincipalTitle>
       <SubTitle>Subtitle aqui!</SubTitle>
       {miniTitleCollection.map((item, index) => (
@@ -57,9 +55,9 @@ const ComponentsArea = () => {
       <S.formContainer>
         <TextArea width='300px' placeholder='Digite Aqui' autoFocus />
 
-      {inputsData.map((element, index) => (
-        <GenericInput key={index} type={element.type} placeholder={element.placeholder} />
-      ))}
+        {inputsData.map((element, index) => (
+          <GenericInput key={index} type={element.type} placeholder={element.placeholder} />
+        ))}
         <Button>ENVIAR</Button>
       </S.formContainer>
 
@@ -71,8 +69,8 @@ const ComponentsArea = () => {
 
       <S.CarrouselContainer>
         <Carrousel img1={'https://img.freepik.com/vetores-premium/desenho-animado-da-xicara-de-cha-com-bolha-de-coala-bonito-coala_138676-2079.jpg?w=2000'} img2={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4v4G9uFz9DUNZlqSDgAro5vbaXT2luk5U1GhQWUOF_12GzAoCF-nVRhSYRVT2upXo2NQ&usqp=CAU'} img3={'https://img.freepik.com/vetores-premium/desenho-animado-da-xicara-de-cha-com-bolha-de-coala-bonito-coala_138676-2079.jpg?w=2000'} img4={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4v4G9uFz9DUNZlqSDgAro5vbaXT2luk5U1GhQWUOF_12GzAoCF-nVRhSYRVT2upXo2NQ&usqp=CAU'} altText={'LegendImage'}>
-        </Carrousel> 
-      </S.CarrouselContainer>     
+        </Carrousel>
+      </S.CarrouselContainer>
 
       <UnorderedList arr={['Christian', 'Debora', 'Flaviano', 'Larissa']} />
     </S.Wrapper>

@@ -1,15 +1,16 @@
 import React from 'react'
-import Anchor from '../Anchor'
+import { Link } from 'react-router-dom'
+import * as S from './styles'
 
-function Navbar () {
+function Navbar() {
   return (
-        <nav>
-           <Anchor href='/' target='_blank' msg='Home | '></Anchor>
-           <Anchor href='/' target='_blank' msg='Acomodações | '></Anchor>
-           <Anchor href='/' target='_blank' msg='Reservas | '></Anchor>
-           <Anchor href='/' target='_blank' msg='Sobre | '></Anchor>
-           <Anchor href='/' target='_blank' msg='Contatos'></Anchor>
-        </nav>
+    <S.Nav>
+      <li><Link to='/'>Home</Link> |</li>
+      <li><Link to='/acomodacoes' >Acomodações</Link> |</li>
+      <li><Link to='/reservas' >Reservas </Link> |</li>
+      <li><Link to='/sobre' >Sobre </Link> |</li>
+      <li><Link to='/contato' >Contato </Link> |</li>
+    </S.Nav>
   )
 }
 
