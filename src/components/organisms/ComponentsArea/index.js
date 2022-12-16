@@ -13,10 +13,6 @@ import Carrousel from '../Carrousel/index.js'
 import GenericInput from '../../atoms/GenericInput/index.js'
 import SubTitle from '../../atoms/SubTitle/index.js'
 import UnorderedList from '../../atoms/UnorderedList/index.js'
-import Navbar from '../../atoms/NavBar/index.js'
-import GenericInput from '../../atoms/GenericInput/index.js'
-import SubTitle from '../../atoms/SubTitle/index.js'
-import UnorderedList from '../../atoms/UnorderedList/index.js'
 
 
 
@@ -60,9 +56,9 @@ const ComponentsArea = () => {
         {inputsData.map((element, index) => (
           <GenericInput key={index} type={element.type} placeholder={element.placeholder} />
         ))}
-      {inputsData.map((element, index) => (
-        <GenericInput key={index} type={element.type} placeholder={element.placeholder} />
-      ))}
+        {inputsData.map((element, index) => (
+          <GenericInput key={index} type={element.type} placeholder={element.placeholder} />
+        ))}
         <Button>ENVIAR</Button>
       </S.formContainer>
 
