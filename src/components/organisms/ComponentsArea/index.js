@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
 import * as S from './styles.js'
 
+import Anchor from '../../atoms/Anchor/index.js'
+import Button from '../../atoms/Button/index.js'
+import DescriptionParagraph from '../../atoms/DescriptionParagraph/index.js'
+import GenericInput from '../../atoms/GenericInput/index.js'
+import ImageDefault from '../../atoms/ImageDefault/index.js'
 import MiniTitle from '../../atoms/MiniTitle/index.js'
 import PrincipalTitle from '../../atoms/PrincipalTitle/index.js'
-import Anchor from '../../atoms/Anchor/index.js'
-import ImageDefault from '../../atoms/ImageDefault/index.js'
-import DescriptionParagraph from '../../atoms/DescriptionParagraph/index.js'
-import TextArea from '../../atoms/TextArea/index.js'
-import Button from '../../atoms/Button/index.js'
-import Dropboximage from '../DropboxImage/index.js'
-import Carrousel from '../Carrousel/index.js'
-import GenericInput from '../../atoms/GenericInput/index.js'
 import SubTitle from '../../atoms/SubTitle/index.js'
+import TextArea from '../../atoms/TextArea/index.js'
 import UnorderedList from '../../atoms/UnorderedList/index.js'
+import Carrousel from '../Carrousel/index.js'
+import Dropboximage from '../DropboxImage/index.js'
 
 
 
@@ -42,7 +42,10 @@ const ComponentsArea = () => {
       {miniTitleCollection.map((item, index) => (
         <MiniTitle key={index} span="R$ " text={item.price} />
       ))}
-      <Anchor href='/' target='_blank' msg='ancora' />
+      <Anchor
+        msg='ancora'
+        href='/sobre'
+      />
       <S.ImageContainer>
         {imageColletion.map(image => (
           <ImageDefault key={image.id} src={image.url} />
