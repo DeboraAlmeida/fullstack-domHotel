@@ -1,12 +1,13 @@
 import React from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './App.css'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from './pages/home/index'
-import Acomodacoes from './pages/acomodacoes/index'
-import Reservas from './pages/reservas/index'
-import Contato from './pages/contato/index'
-import Sobre from './pages/sobre/index'
 import Navbar from './components/atoms/NavBar'
+import Footer from './components/organisms/Footer'
+import Acomodacoes from './pages/acomodacoes/index'
+import Contato from './pages/contato/index'
+import Home from './pages/home/index'
+import Reservas from './pages/reservas/index'
+import Sobre from './pages/sobre/index'
 import Template from './template/template'
 
 // import Carrousel from './components/organisms/Carrousel'
@@ -24,8 +25,9 @@ const App = () => {
           <Route path='/reservas' element={<Reservas />} />
           <Route path='/contato' element={<Contato />} />
           <Route path='/sobre' element={<Sobre />} />
-        </Routes>      
+        </Routes>
       </Template>
+      <Footer />
     </Router>
   )
 }

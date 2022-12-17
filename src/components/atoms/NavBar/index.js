@@ -1,15 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import Anchor from '../../atoms/Anchor/index.js'
 import * as S from './styles'
+
 
 function Navbar() {
   return (
     <S.Nav>
-      <li><Link to='/'>Home</Link></li>|
-      <li><Link to='/acomodacoes' >Acomodações</Link></li>|
-      <li><Link to='/reservas' >Reservas </Link></li>|
-      <li><Link to='/sobre' >Sobre </Link></li>|
-      <li><Link to='/contato' >Contato </Link></li>|
+      <li><Anchor hoverColor='' msg='Home' href='/' /></li>|
+      <li><Anchor hoverColor='' msg='Acomodações' href='/acomodacoes' /></li>|
+      <li><Anchor hoverColor='' msg='Reservas' href='/reservas' /></li>|
+      <li><Anchor hoverColor='' msg='Sobre' href='/sobre' /></li>|
+      <li><Anchor hoverColor='' msg='Contato' href='/contato' /></li>
     </S.Nav>
   )
 }
