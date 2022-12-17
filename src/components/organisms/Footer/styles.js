@@ -18,6 +18,7 @@ export const SingleContent = styled.div`
 
     p {
       margin-left: 0;
+      padding: 0 20px
     }
   }
 `
