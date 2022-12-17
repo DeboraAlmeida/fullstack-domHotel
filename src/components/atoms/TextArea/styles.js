@@ -8,11 +8,12 @@ export const textarea = styled.textarea`
   padding: 1rem;
   border-radius: .5rem;
   box-shadow: 5px 5px 5px rgba(160,160,160,.9);
-  resize: vertical;
+  resize: none;
   outline: none;
 
   text-transform: ${props => props.textTransform};
   width: ${props => props.width};
+  height: ${props => props.height};
   border: 2px solid ${props => props.border};
   
   &:focus {
