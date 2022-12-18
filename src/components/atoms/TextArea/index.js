@@ -1,11 +1,9 @@
 // Arquivo criado: 10/12/2022 às 11:55
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import * as S from './styles.js'
 import { pallete } from '../../../pallete.js'
-import autosize from 'autosize'
-
 
 /**
  * 
@@ -23,6 +21,7 @@ import autosize from 'autosize'
  * @param {string} name - Nome do input.
  * @param {string} id - Id do input.
  * @param {string} width - Largura do input.
+ * @param {string} height - Altura do input.
  * 
  * @returns {JSX.Element} - Componente TextArea.
  * 
@@ -43,6 +42,7 @@ import autosize from 'autosize'
  *   name='meu-input'
  *   id='meu-input'
  *   width='100%'
+ *  height='150px'
  * />
  * 
  */
@@ -62,7 +62,8 @@ export default function TextArea({
   focusColor = pallete.greenDefault,
   name,
   id,
-  width = '100%'
+  width = '100%',
+  height = '150px'
 }) {
 
   const Component = useDefaultStyle ? S.textarea : S.empty
@@ -74,16 +75,6 @@ export default function TextArea({
     ref.current.value.length > 0 && !disabled ? setBorder(focusColor) : setBorder('transparent')
   }
 
-  useEffect(() => {
-    return () => {
-      if (ref.current) {
-        handleVal()
-        autosize(ref.current)
-      } else {
-        autosize.destroy(ref.current)
-      }
-    }
-  }, [])
 
   return (
     <Component
@@ -93,6 +84,7 @@ export default function TextArea({
       focusColor={focusColor}
       width={width}
       border={border}
+      height={height}
 
       // Atributos padrões do HTML
       placeholder={placeholder}
@@ -128,5 +120,6 @@ TextArea.propTypes = {
   focusColor: PropTypes.string,
   name: PropTypes.string,
   id: PropTypes.string,
-  width: PropTypes.string
+  width: PropTypes.string,
+  height: PropTypes.string
 }
