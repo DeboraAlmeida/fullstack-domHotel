@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
 `
 
 export const formContainer = styled.form`
-  max-width: 500px;
+  max-width: 600px;
   width: 100%;
   margin: 50px auto;
   display: flex;
@@ -19,6 +19,12 @@ export const formContainer = styled.form`
 
   .invalidOption{
     color: gray;
+  }
+
+  textarea, button{
+    margin: 16px auto;
+    text-transform: uppercase ;
+    font-family:Helvetica, sans-serif ;
   }
 
 `

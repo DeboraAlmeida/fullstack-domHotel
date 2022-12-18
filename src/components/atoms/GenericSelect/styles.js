@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const SelectInput = styled.select`
     border: 2px solid transparent;
     background-color: rgba(204, 204, 204, 0.12);
+    margin: 16px auto;
     padding: 1rem;
     width: 100%;
     text-transform: uppercase;

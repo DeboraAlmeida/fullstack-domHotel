@@ -24,7 +24,7 @@ export const Contato = () => {
           <option value="ouvidoria">Ouvidoria</option>
           <option value="departamento_financeiro">Departamento Financeiro</option>
         </GenericSelect>
-        <TextArea placeholder='Deixe um comentário:' />
+        <TextArea placeholder='Deixe um comentário:' rows={10}/>
         <Button>Enviar</Button>
       </S.formContainer>
     </S.Wrapper>
