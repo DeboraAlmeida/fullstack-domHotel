@@ -4,6 +4,7 @@ import * as S from './styles'
 import PrincipalTitle from '../../components/atoms/PrincipalTitle'
 import SubTitle from '../../components/atoms/SubTitle'
 import GenericInput from '../../components/atoms/GenericInput'
+import GenericSelect from '../../components/atoms/GenericSelect'
 import TextArea from '../../components/atoms/TextArea'
 import Button from '../../components/atoms/Button'
 
@@ -17,12 +18,14 @@ export const Contato = () => {
         <GenericInput type='text' placeholder='Nome' />
         <GenericInput type='email' placeholder='E-mail' />
         <GenericInput type='text' placeholder='Telefone' />
-        <GenericInput type='date' placeholder='Assunto de interesse' id='subject' name='subject'>
+        <GenericSelect id='subject' name='subject'>
+          <option value="" disabled selected className='invalidOption'>Assunto de interesse</option>
           <option value="cancelamento">Cancelamento de Reserva</option>
           <option value="ouvidoria">Ouvidoria</option>
           <option value="departamento_financeiro">Departamento Financeiro</option>
-        </GenericInput>
+        </GenericSelect>
         <TextArea placeholder='Deixe um comentário:' />
+        <Button>Enviar</Button>
       </S.formContainer>
     </S.Wrapper>
   )

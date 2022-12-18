@@ -16,4 +16,9 @@ export const formContainer = styled.form`
   textarea{
     margin-bottom: 35px;
   }
+
+  .invalidOption{
+    color: gray;
+  }
+
 `
