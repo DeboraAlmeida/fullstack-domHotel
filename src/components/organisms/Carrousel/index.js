@@ -1,4 +1,4 @@
-import React from 'react'
+/* import React from 'react'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import ImageDefault from '../../atoms/ImageDefault/index.js'
@@ -21,4 +21,4 @@ const Carrousel = ({ img1, img2, img3, img4, altText }) => {
         </Carousel>
   )
 }
-export default Carrousel
+export default Carrousel */

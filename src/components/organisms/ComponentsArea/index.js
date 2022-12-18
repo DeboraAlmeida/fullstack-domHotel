@@ -68,10 +68,10 @@ const ComponentsArea = () => {
         </Dropboximage>
       </S.DropboxContainer>
 
-      <S.CarrouselContainer>
+     {/*  <S.CarrouselContainer>
         <Carrousel img1={'https://img.freepik.com/vetores-premium/desenho-animado-da-xicara-de-cha-com-bolha-de-coala-bonito-coala_138676-2079.jpg?w=2000'} img2={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4v4G9uFz9DUNZlqSDgAro5vbaXT2luk5U1GhQWUOF_12GzAoCF-nVRhSYRVT2upXo2NQ&usqp=CAU'} img3={'https://img.freepik.com/vetores-premium/desenho-animado-da-xicara-de-cha-com-bolha-de-coala-bonito-coala_138676-2079.jpg?w=2000'} img4={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4v4G9uFz9DUNZlqSDgAro5vbaXT2luk5U1GhQWUOF_12GzAoCF-nVRhSYRVT2upXo2NQ&usqp=CAU'} altText={'LegendImage'}>
         </Carrousel>
-      </S.CarrouselContainer>
+      </S.CarrouselContainer> */}
 
       <UnorderedList arr={['Christian', 'Debora', 'Flaviano', 'Larissa']} />
     </S.Wrapper>
