@@ -1,7 +1,22 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1{
+    margin: 50px 0;
+  }
+  h2{
+    margin: 40px 0 20px 0;
+    padding: 10px;
+    text-transform: uppercase;
+  }
+`
+export const Container = styled.div`
+  display: block;
+  max-width: 600px;
+  width: 100%;
 `
 
 export const formContainer = styled.form`
@@ -14,15 +29,18 @@ export const formContainer = styled.form`
   
 
   textarea{
-    margin-bottom: 35px;
+    margin:0 0 35px 0;
   }
 
   .invalidOption{
     color: gray;
   }
 
-  textarea, button{
-    margin: 16px auto;
+  button {
+    margin: 16px 0 0 0;
+  }
+
+  textarea, button{    
     text-transform: uppercase ;
     font-family:Helvetica, sans-serif ;
   }
