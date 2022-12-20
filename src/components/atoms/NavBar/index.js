@@ -1,15 +1,17 @@
 import React from 'react'
-import Anchor from '../Anchor'
+import Anchor from '../../atoms/Anchor/index.js'
+import * as S from './styles'
 
-function Navbar () {
+
+function Navbar() {
   return (
-        <nav>
-           <Anchor href='/' target='_blank' msg='Home | '></Anchor>
-           <Anchor href='/' target='_blank' msg='Acomodações | '></Anchor>
-           <Anchor href='/' target='_blank' msg='Reservas | '></Anchor>
-           <Anchor href='/' target='_blank' msg='Sobre | '></Anchor>
-           <Anchor href='/' target='_blank' msg='Contatos'></Anchor>
-        </nav>
+    <S.Nav>
+      <li><Anchor hoverColor='' msg='Home' href='/' /></li>|
+      <li><Anchor hoverColor='' msg='Acomodações' href='/acomodacoes' /></li>|
+      <li><Anchor hoverColor='' msg='Reservas' href='/reservas' /></li>|
+      <li><Anchor hoverColor='' msg='Sobre' href='/sobre' /></li>|
+      <li><Anchor hoverColor='' msg='Contato' href='/contato' /></li>
+    </S.Nav>
   )
 }
 

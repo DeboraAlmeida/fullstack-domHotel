@@ -1,28 +1,34 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './App.css'
-import PrincipalTitle from './components/atoms/PrincipalTitle'
-import ComponentsArea from './components/organisms/ComponentsArea'
-import NavMenu from './components/organisms/NavMenu'
-import Carrousel from './components/organisms/Carrousel'
 import Navbar from './components/atoms/NavBar'
+import Footer from './components/organisms/Footer'
+import Acomodacoes from './pages/acomodacoes/index'
+import Contato from './pages/contato/index'
+import Home from './pages/home/index'
+import Reservas from './pages/reservas/index'
+import Sobre from './pages/sobre/index'
+import Template from './template/template'
+
+// import Carrousel from './components/organisms/Carrousel'
+// import Navbar from './components/atoms/NavBar'
 
 const App = () => {
-  const [stage, setStage] = useState('initial')
 
   return (
-    <div className="App">
-      <NavMenu setStage={setStage} />
-      {stage === 'initial' && (
-        <>
-          <PrincipalTitle>{'Olá Devs :)'}</PrincipalTitle>
-        </>
-      )}
-      {stage === 'components' && (
-        <>
-          <ComponentsArea />
-        </>
-      )}
-    </div>
+    <Router>
+      <Navbar />
+      <Template>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/acomodacoes' element={<Acomodacoes />} />
+          <Route path='/reservas' element={<Reservas />} />
+          <Route path='/contato' element={<Contato />} />
+          <Route path='/sobre' element={<Sobre />} />
+        </Routes>
+      </Template>
+      <Footer />
+    </Router>
   )
 }
 

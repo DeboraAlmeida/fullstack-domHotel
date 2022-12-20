@@ -1,35 +1,36 @@
 // Arquivo criado: 10/12/2022 às 11:55
 
-import React from 'react'
 import PropTypes from 'prop-types'
-import * as S from './styles.js'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { pallete } from '../../../pallete.js'
+import * as S from './styles.js'
 
 /**
  * 
- * @param {string} msg - Texto que será exibido na âncora
- * @param {boolean} useDefaultStyle - Define se a âncora terá o estilo padrão
- * @param {string} href - Define o link da âncora
- * @param {string} target - Define o target da âncora
- * @param {function} action - Ele executa uma função ao clicar na âncora e ignora o link
- * @param {string} hoverColor - Define a cor do hover da âncora (padrão: #038C33)
- * @param {string} title - Define o título da âncora
- * @param {string} className - Você pode passar uma classe para estilizar a âncora se quiser
+ * @param {string} msg - Mensagem que será exibida no componente
+ * @param {boolean} useDefaultStyle - Se true, o componente terá o estilo padrão. Se false, o componente não terá estilo
+ * @param {string} href - Link para onde o usuário será redirecionado
+ * @param {string} target - Atributo target do HTML
+ * @param {function} action - Função que será executada quando o usuário clicar no componente (Ignora o link)
+ * @param {string} hoverColor - Cor que será exibida quando o usuário passar o mouse por cima do componente
+ * @param {string} title - Atributo title do HTML
+ * @param {string} className - Atributo className do HTML
  * 
- * @returns {JSX.Element} - Retorna o componente âncora
+ * @returns {JSX.Element} - Componente Anchor
  * 
  * @example
  * 
- *  <Anchor
+ * <Anchor
  *    msg='ancora' // required
  *    useDefaultStyle={false}
  *    href='https://github.com/flaviano-rodrigues'
  *    hourColor='#038C33'
  *    target='_blank'
  *    title='Clique aqui para acessar o meu GitHub'
+ *    className='classe'
  *    action={() => console.log('clicou')} // Ignora o link
  *  />
- * 
  * 
  */
 
@@ -46,12 +47,16 @@ export default function Anchor({
 }) {
 
   const Component = useDefaultStyle ? S.a : 'a'
+  const navigate = useNavigate()
 
 
   const fun = (a) => {
     if (action) {
       a.preventDefault()
       action()
+    } else if (href && target === '_self') {
+      a.preventDefault()
+      navigate(href)
     }
   }
 
