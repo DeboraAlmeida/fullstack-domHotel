@@ -6,5 +6,6 @@ export const pallete = {
   greenDefault: '#038C33',
   greenDark: '#02732A',
   fontPrincipal: '"Roboto",sans-serif',
-  fontSecundaria: 'Helvetica,sans-serif'
+  fontSecundaria: 'Helvetica,sans-serif',
+  gold: '#b49c21'
 }
