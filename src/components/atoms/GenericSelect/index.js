@@ -3,7 +3,7 @@ import * as S from './styles.js'
 
 const GenericSelect = ({ id, aName, children }) => {
   return (
-        <S.SelectInput id={id} name={aName}>
+        <S.SelectInput defaultValue={'checked'} id={id} name={aName}>
             { children }
         </S.SelectInput>
 
