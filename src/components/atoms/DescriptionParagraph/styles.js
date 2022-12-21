@@ -3,6 +3,5 @@
 import styled from 'styled-components'
 
 export const p = styled.p`
-  font-size: ${props => props.fontSize}px;
   text-transform: ${props => props.textTransform};
 `
