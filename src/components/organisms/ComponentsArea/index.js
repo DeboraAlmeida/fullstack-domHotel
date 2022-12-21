@@ -19,6 +19,7 @@ import Dropboximage from '../DropboxImage/index.js'
 const ComponentsArea = () => {
   const miniTitleCollection = [{ price: '150,00' }, { price: '250,00' }, { price: '350,00' }]
   const imageColletion = [{ id: 1, url: 'https://img.freepik.com/premium-vector/cute-koala-hanging-tree-with-cub-cartoon_346903-877.jpg?w=200' }, { id: 2, url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCLWy7WPxUezxRDww85wVzeLbUxbF5f101qKdB6KnPCOs9YXLZHsxqqh32qWew_fVLf4s&usqp=CAU' }]
+  const carrouselImages = [{ src: 'https://img.freepik.com/vetores-premium/desenho-animado-da-xicara-de-cha-com-bolha-de-coala-bonito-coala_138676-2079.jpg?w=2000' }, { src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4v4G9uFz9DUNZlqSDgAro5vbaXT2luk5U1GhQWUOF_12GzAoCF-nVRhSYRVT2upXo2NQ&usqp=CAU' }, { src: 'https://img.freepik.com/vetores-premium/desenho-animado-da-xicara-de-cha-com-bolha-de-coala-bonito-coala_138676-2079.jpg?w=2000' }, { src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4v4G9uFz9DUNZlqSDgAro5vbaXT2luk5U1GhQWUOF_12GzAoCF-nVRhSYRVT2upXo2NQ&usqp=CAU' }]
   const [inputsData] = useState([
     {
       type: 'text',
@@ -72,8 +73,7 @@ const ComponentsArea = () => {
       </S.DropboxContainer>
 
       <S.CarrouselContainer>
-        <Carrousel img1={'https://img.freepik.com/vetores-premium/desenho-animado-da-xicara-de-cha-com-bolha-de-coala-bonito-coala_138676-2079.jpg?w=2000'} img2={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4v4G9uFz9DUNZlqSDgAro5vbaXT2luk5U1GhQWUOF_12GzAoCF-nVRhSYRVT2upXo2NQ&usqp=CAU'} img3={'https://img.freepik.com/vetores-premium/desenho-animado-da-xicara-de-cha-com-bolha-de-coala-bonito-coala_138676-2079.jpg?w=2000'} img4={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4v4G9uFz9DUNZlqSDgAro5vbaXT2luk5U1GhQWUOF_12GzAoCF-nVRhSYRVT2upXo2NQ&usqp=CAU'} altText={'LegendImage'}>
-        </Carrousel>
+        <Carrousel imgCollection={carrouselImages} altText={'Images Carrousel'} />
       </S.CarrouselContainer>
 
       <UnorderedList arr={['Christian', 'Debora', 'Flaviano', 'Larissa']} />

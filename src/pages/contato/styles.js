@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   h1{
     margin: 50px 0;
   }
@@ -14,12 +15,14 @@ export const Wrapper = styled.div`
   }
 `
 export const Container = styled.div`
-  display: block;
+  display: flex;
+  flex-direction:column;
+  align-items:left;
   max-width: 600px;
   width: 100%;
 `
 
-export const formContainer = styled.form`
+export const FormContainer = styled.form`
   max-width: 600px;
   width: 100%;
   margin: 50px auto;
@@ -32,10 +35,6 @@ export const formContainer = styled.form`
     margin:0 0 35px 0;
   }
 
-  .invalidOption{
-    color: gray;
-  }
-
   button {
     margin: 16px 0 0 0;
   }
@@ -43,6 +42,12 @@ export const formContainer = styled.form`
   textarea, button{    
     text-transform: uppercase ;
     font-family:Helvetica, sans-serif ;
+  }
+
+  @media (max-width: 640px) {
+    .inputsContainer{
+      width:80%;      
+    }
   }
 
 `
