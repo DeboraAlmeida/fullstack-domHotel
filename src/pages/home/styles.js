@@ -8,13 +8,21 @@ export const PText = styled.p`
   text-align: justify;
   margin: 30px 15px;
 `
-export const Title = styled.div`
+export const Titulo = styled.div`
   text-align: center;
-
-  h1{
-    margin :50px 5px 50px 15px;
-  }
+  margin :50px 5px 50px 15px;
 `
+export const Subtitulo = styled.div`
+  text-align: center;
+  margin :50px 5px 30px 15px;
+`
+export const Destaque = styled.div`
+  text-align: left;
+  span{
+    font-size: 1rem;
+    margin: 5px 15px;
+  }
+  `
 export const ContainerCarrosel = styled.div`
   display: flex;
   align-items: left;
@@ -36,7 +44,7 @@ export const ImageHome = styled.div`
   img{
     width: 30%;
     padding: 20px 5px 20px 15px;
-    margin-top: 30px;
+    margin-top: 15px;
     border-radius: 45px;
   }
 `
