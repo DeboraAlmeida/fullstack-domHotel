@@ -1,8 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './App.css'
-import Navbar from './components/atoms/NavBar'
 import Footer from './components/organisms/Footer'
+import Header from './components/organisms/Header'
 import Acomodacoes from './pages/acomodacoes/index'
 import Contato from './pages/contato/index'
 import Home from './pages/home/index'
@@ -17,7 +17,7 @@ const App = () => {
 
   return (
     <Router>
-      <Navbar />
+      <Header />
       <Template>
         <Routes>
           <Route path='/' element={<Home />} />
