@@ -1,10 +1,10 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import * as S from './styles'
 
-const GenericLabel = ({ itsFor, children }) => {
+const GenericLabel = ({ id, children }) => {
   return (
-        <S.LabelFor htmlFor='itsFor'>{children}</S.LabelFor>
+        <S.LabelFor htmlFor={id}>{children}</S.LabelFor>
 
   )
 }
