@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import * as S from './styles.js'
-import DescriptionParagraph from '../../atoms/DescriptionParagraph'
 
-const Dropboximage = ({ srcImage, children }) => {
+const Dropboximage = ({ srcImage, description }) => {
   const [showDescription, setShowDescription] = useState(false)
 
   const handleImage = () => {
@@ -16,7 +15,7 @@ const Dropboximage = ({ srcImage, children }) => {
     </S.BoxImage>
     {showDescription && (
       <S.BoxDescription>
-        <DescriptionParagraph msg={children} />
+        {description}
       </S.BoxDescription>
     )}    
   </S.Wrapper>
