@@ -12,6 +12,6 @@ const GenericLabel = ({ id, children }) => {
 export default GenericLabel
 
 GenericLabel.propTypes = {
-  itsFor: PropTypes.node,
+  id: PropTypes.node,
   children: PropTypes.node
 }
