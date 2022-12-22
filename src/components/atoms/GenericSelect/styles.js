@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const InputTypes = styled.input`
+export const SelectInput = styled.select`
     border: 2px solid transparent;
     background-color: rgba(204, 204, 204, 0.12);
     margin: 0 0 35px 0;
@@ -13,4 +13,8 @@ export const InputTypes = styled.input`
         outline: none;
         border: 2px solid #02732A;
     }
+    
 `
+
+
+    
