@@ -1,9 +1,12 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
+import * as S from './styles'
 
 const PrincipalTitle = ({ children }) => {
   return (
-    <h1>{children}</h1>
+    <>
+      <S.TitleH1>{children}</S.TitleH1>
+    </>
   )
 }
 

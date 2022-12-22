@@ -5,9 +5,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  h1{
-    margin: 50px 0;
-  }
+  
   h2{
     margin: 40px 0 20px 0;
     padding: 10px;
@@ -43,11 +41,4 @@ export const FormContainer = styled.form`
     text-transform: uppercase ;
     font-family:Helvetica, sans-serif ;
   }
-
-  @media (max-width: 640px) {
-    .inputsContainer{
-      width:80%;      
-    }
-  }
-
 `

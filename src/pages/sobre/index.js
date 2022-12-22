@@ -30,11 +30,7 @@ export const Sobre = () => {
 
   return (
     <S.Container>
-      <div className='-title'>
-        <PrincipalTitle>Quem Somos</PrincipalTitle>
-        <S.Line />
-      </div>
-
+      <PrincipalTitle>Quem Somos</PrincipalTitle>
       <div className='-mensagem'>
         <div className='-mensagem-img'>
           <ImageDefault
