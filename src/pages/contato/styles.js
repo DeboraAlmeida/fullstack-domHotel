@@ -7,8 +7,7 @@ export const Wrapper = styled.div`
   text-align: center;
   
   h2{
-    margin: 40px 0 20px 0;
-    padding: 10px;
+    
     text-transform: uppercase;
   }
 `
