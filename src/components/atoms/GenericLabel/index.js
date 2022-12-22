@@ -4,8 +4,7 @@ import * as S from './styles'
 
 const GenericLabel = ({ id, children }) => {
   return (
-        <S.LabelFor htmlFor={id}>{children}</S.LabelFor>
-
+    <S.LabelFor htmlFor={id}>{children}</S.LabelFor>
   )
 }
 
