@@ -1,44 +1,40 @@
 // Arquivo criado: 15/12/2022 às 20:47
 import React from 'react'
-import '../../App.css'
+import Anchor from '../../components/atoms/Anchor'
 import DescriptionParagraph from '../../components/atoms/DescriptionParagraph'
 import ImageDefault from '../../components/atoms/ImageDefault'
-import MiniTitle from '../../components/atoms/MiniTitle'
 import PrincipalTitle from '../../components/atoms/PrincipalTitle'
 import SubTitle from '../../components/atoms/SubTitle'
-import coz4 from './images/coz4.jpg'
-import quarto1 from './images/quarto1.jpg'
-import quarto2 from './images/quarto2.jpg'
-import quarto3 from './images/quarto3.jpg'
+import { content } from './data'
 import * as S from './styles'
 
 export const Home = () => {
-
   return (
-    <div className='App'>
-      <body className='PageTitle'>
-        <S.Titulo>
-          <PrincipalTitle> Conheça nosso Hotel </PrincipalTitle>
-        </S.Titulo>
-        <S.PText><DescriptionParagraph msg="Sejam bem vindos ao Dom Hotel, o local feito para você apreciar todo o luxo, conforto e lazer que podemos oferecer. Localizados no estado de São Paulo, nosso ambiente é composto por suítes premiadas, que oferecem o que tem de melhor em charme e sofisticação. Aqui você encontra o lugar ideal para passar uma noite ou as férias inteiras. Com uma explêndida área de lazer, contamos com 3 piscinas, todas aquecidas,com ilhas especiais para aproveitar aquele drink ou uma bela refeição e um espaço especial para os pequenos, com a charmosa piscina infantil. Temos ainda a nossa jacuzzi para uso dos hospedes, área de churrasco para eventos com os amigos, salão de festas para os eventos sociais mais esperados, academia, sala de jogos, quadra de tênis, quadra de futebol e voleibol e sauna. Além de tudo isso, nossa diversidade gastronômica une o que há de melhor na cozinha brasileira com os pratos mais famosos ao redor do mundo! Uma explosão de cultura e sabor para o seu paladar" /></S.PText>
-        <S.Subtitulo><SubTitle>Nossas Acomodações</SubTitle></S.Subtitulo>
-        <S.ImageHome>
-        <ImageDefault src={quarto1}/>
-        <ImageDefault src={quarto2}/>
-        <ImageDefault src={quarto3}/>
-        </S.ImageHome>
-        <S.PText><DescriptionParagraph msg="Premiadas por seu design individual e moderno nossas suítes foram pensadas para o seu conforto! São 3 opções de acomodações variadas, para você se sentir especial. Contamos com banheiros amplos, camas super cofortáveis, opções de quartos duplos e triplos, Wi-fi e escrivaninha, tvs com os melhores streamings e um serviço de quarto eficiente, garantindo uma estadia segura e empolgante"/></S.PText>
-        <S.Destaque><MiniTitle span = 'Conheça mais sobre nossos serviços!'/></S.Destaque>
-        <S.Subtitulo><SubTitle>Gastronomia</SubTitle></S.Subtitulo> 
-        <S.ContainerCarrosel>    
-          <DescriptionParagraph msg="Adeptos da Nova Gastronomia Brasileira, nossos chefs são responsáveis por criar pratos valorizando os ingredientes locais, com as técnicas já conhecidas pelas cozinhas do mundo inteiro. Essa valorização da nossa culinária faz com que os chefs do Dom Hotel entreguem uma nova experiência aos amantes da boa comida.
-          Aqui você vai experimentar variações originais do conhecido Churrasco Gaúcho, passando pelo Acarajé Baiano, Vatapá Paraense e a variedade saborosa da Pizza Paulista. Esses e outros pratos conhecidos com um toque especial e profissional vão levar você a uma experiência enriquecedora. Cardápios variados com opções de entrada, saladas, pratos principais e sobremesas maravilhosas. Nossa carta de vinhos irá te impressionar! Um trabalho feito com carinho e muita pesquisa harmoniza nossos pratos com os melhores títulos de cada temporada. E não para por aí! Temos ainda jantares temáticos que farão da sua estadia uma lembrança mais que agradável "/>
-          <S.CarrouselDiv><ImageDefault src={coz4}/></S.CarrouselDiv>
-        </S.ContainerCarrosel>
-      </body>
-    </div>
+    <S.Wrapper>
+        <PrincipalTitle>{content.section1.title}</PrincipalTitle>
+        <DescriptionParagraph msg={content.section1.description} />
+        <SubTitle>{content.section2.title}</SubTitle>
+        <S.AccommodationContainer>
+          <S.ImageContainer>
+            {content.section1.imageCollection.map((img, index) => (
+              <ImageDefault key={index} src={img.src}/>
+            ))}
+          </S.ImageContainer>
+          <DescriptionParagraph msg={content.section2.description}/>
+          <Anchor msg={content.section2.link} href={content.section2.path}/>
+        </S.AccommodationContainer>
+        <S.GastronomyContainer>   
+          <S.GastronomyDescription>
+            <SubTitle>{content.section3.title}</SubTitle> 
+            <DescriptionParagraph msg={content.section3.description1}/>   
+            <DescriptionParagraph msg={content.section3.description2}/>          
+          </S.GastronomyDescription> 
+          <S.GastronomyImage>
+            <ImageDefault src={content.section3.image.src}/>
+          </S.GastronomyImage>
+        </S.GastronomyContainer>
+    </S.Wrapper>
   )
-
 }
 
 export default Home
