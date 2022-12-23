@@ -1,50 +1,90 @@
 import styled from 'styled-components'
+import { pallete } from '../../pallete'
 
-export const p = styled.p`
-  color: black;
-
-`
-export const PText = styled.p`
-  text-align: justify;
-  margin: 30px 15px;
-`
-export const Titulo = styled.div`
-  text-align: center;
-  margin :50px 5px 50px 15px;
-`
-export const Subtitulo = styled.div`
-  text-align: center;
-  margin :50px 5px 30px 15px;
-`
-export const Destaque = styled.div`
-  text-align: left;
-  span{
-    font-size: 1rem;
-    margin: 5px 15px;
+export const Wrapper = styled.div`
+  h2 {
+    margin: 30px 0;
+    text-align: center;
   }
-  `
-export const ContainerCarrosel = styled.div`
-  display: flex;
-  align-items: left;
-  p{
+
+  p {
     text-align: justify;
-    width: 75%;
+    text-indent: 50px;
   }
 `
-export const CarrouselDiv = styled.div`
-  width: 25%;
-  height: 20%;
-  border: 5px solid white;
-  padding-left: 20px;
-`
-export const ImageHome = styled.div`
-  display: flex;
-  justify-content:space-between;
+export const AccommodationContainer = styled.div`
+  a {
+    color: ${pallete.greenDefault};
+    font-weight: bold;
+  }
 
-  img{
-    width: 30%;
-    padding: 20px 5px 20px 15px;
-    margin-top: 15px;
-    border-radius: 45px;
+  p {
+    margin: 30px 0px 15px;
+  }
+`
+
+export const ImageContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+
+  img {
+    width: 28%;
+  }
+
+  @media screen and (max-width: 576px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    
+    img {
+    width: 80%;
+  }
+  }
+`
+
+export const GastronomyContainer = styled.div`
+  display: flex;
+  justify-content:space-evenly;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 50px;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    margin-top: 30px;
+  }
+
+`
+export const GastronomyDescription = styled.div`
+  display: flex;
+  flex-direction: column; 
+  margin-right: 50px;
+  padding: 50px;
+
+  p {
+      margin-bottom: 20px;
+    }
+
+  h2{ 
+    margin-top: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 0;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 50px;
+  }
+
+`
+export const GastronomyImage = styled.div`
+  display:flex;
+  justify-content: flex-start;
+  padding-right: 80px;
+
+  @media screen and (max-width: 768px) {
+    padding: 0;
   }
 `
