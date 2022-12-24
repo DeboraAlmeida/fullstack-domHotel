@@ -1,5 +1,13 @@
 import styled from 'styled-components'
 
+export const PrincipalContainer = styled.div`
+  @media screen and (max-width: 667px) {
+    h2, span{
+      text-align: center;
+    }
+  }
+`
+
 export const FormContainer = styled.form`
   margin-top: 50px;
   display: flex;
