@@ -20,7 +20,7 @@ export const Reservas = () => {
     },
     {
       id: '3',
-      type: 'number',
+      type: 'tel',
       label: 'Telefone'
     }
 
