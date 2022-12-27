@@ -43,3 +43,45 @@ export const ReserveItem = styled.div`
     width:100%;
   }
 `
+
+// Estilo do Modal
+export const ContainerModal = styled.div`
+  display: block;
+  width: 40%;
+  margin: auto;
+  background-color: red;
+  
+  
+  @media screen and (maxwidth: 760px) {
+    margin-top: 25px;
+  }
+  `
+export const HeaderModal = styled.div`
+  text-align: left;
+`
+
+export const ModalOptions = styled.div`
+  display: flex;
+  background-color: blue;
+    
+  ul {
+    padding: 15px 0px;
+    margin: 0;
+    text-align: start;
+  }
+  ul li {
+    padding-bottom: 20px;
+    padding: 0px 20px 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px
+  }
+  ul li input {
+    margin-top: 20px;
+  }
+  ul li span {
+    text-align: right;
+  }
+`
