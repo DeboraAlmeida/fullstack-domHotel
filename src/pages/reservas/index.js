@@ -59,6 +59,50 @@ export const Reservas = () => {
     }
     
   ])
+  const optionsCollection = [
+    {
+      type: 'checkbox',
+      name: 'Mordomo',
+      id: 'Mordomo',
+      msg: 'Serviço de Mordomo',
+      price: 'R$ 150,00'
+    },
+    {
+      type: 'checkbox',
+      name: 'Cofre',
+      id: 'Cofre',
+      msg: 'Cofre no quarto',
+      price: 'R$ 150,00'
+    },
+    {
+      type: 'checkbox',
+      name: 'Pet',
+      id: 'Pet',
+      msg: 'Hospedagem para Pet',
+      price: 'R$ 150,00'
+    },
+    {
+      type: 'checkbox',
+      name: 'Café',
+      id: 'Café',
+      msg: 'Incluso café da manhã',
+      price: 'R$ 150,00'
+    },
+    {
+      type: 'checkbox',
+      name: 'Massagem',
+      id: 'Massagem',
+      msg: 'Cadeira de massagem no quarto',
+      price: 'R$ 150,00'
+    },
+    {
+      type: 'checkbox',
+      name: 'Ac',
+      id: 'Ac',
+      msg: 'Ar condicionado no talo!!!',
+      price: 'R$ 150,00'
+    }
+  ]
 
   const [modalOpen, setModalOpen] = useState(false)
 
@@ -82,57 +126,37 @@ export const Reservas = () => {
           </S.ReserveItem>
         ))}
       </S.ContainerReserve>
+      
+      {/* Aqui iniciam os modais */}
+
       <S.ContainerModal>
-        < Modal isOpen={modalOpen} setisOpen={setModalOpen}>
-        <div className='HeaderModal'>
-          <SubTitle>Mais serviços</SubTitle>
-        </div>
+        <Modal isOpen={modalOpen} setIsOpen={setModalOpen}>
+          <S.HeaderModal>
+            <SubTitle>Mais serviços</SubTitle>
+          </S.HeaderModal>
           <S.ModalOptions>
             <ul>
-              <li>
+              {optionsCollection.map((element) => (
+                <li key={element.id}>
+                <S.ModalCont>
                 <GenericLabel>
-                  <GenericInput type='checkbox' name='Mordomo' id='Mordomo'></GenericInput>
+                <GenericInput type={element.type} name={element.name} id={element.id}></GenericInput>
                 </GenericLabel>
-                <DescriptionParagraph msg= 'Serviço de Mordomo'></DescriptionParagraph><SpanText>R$ 150,00</SpanText>
+                <DescriptionParagraph msg={element.msg}></DescriptionParagraph></S.ModalCont><SpanText>{element.price}</SpanText>
               </li>
-              <li>
-                <GenericLabel>
-                  <GenericInput type='checkbox' name='cofre' id='cofre'></GenericInput>
-                </GenericLabel>
-                <DescriptionParagraph msg= 'Cofre no quarto'></DescriptionParagraph><SpanText>R$ 150,00</SpanText>
-              </li>
-              <li>
-                <GenericLabel>
-                  <GenericInput type='checkbox' name='pet' id='pet'></GenericInput>
-                </GenericLabel>
-                <DescriptionParagraph msg= 'Hospedagem para pets' ></DescriptionParagraph><SpanText>R$ 150,00</SpanText>
-              </li>
-              <li>
-                <GenericLabel>
-                  <GenericInput type='checkbox' name='café' id='café'></GenericInput>
-                </GenericLabel>
-                <DescriptionParagraph msg='Incluso Café da manhã'></DescriptionParagraph><SpanText>R$ 150,00</SpanText>
-              </li>
-              <li>
-                <GenericLabel>
-                  <GenericInput type='checkbox' name='massagem' id='massagem'></GenericInput>
-                </GenericLabel>
-                <DescriptionParagraph msg= 'Cadeira de massagem no quarto'></DescriptionParagraph><SpanText>R$ 150,00</SpanText>
-              </li>
-              <li>
-                <GenericLabel>
-                  <GenericInput type='checkbox' name='ac' id='ac'></GenericInput>
-                </GenericLabel>
-                <DescriptionParagraph msg= 'Ar condicionado no talo!!!'></DescriptionParagraph>
-                <SpanText>R$ 150,00</SpanText>
-              </li>
+              ))}
             </ul>
           </S.ModalOptions>
+          <S.Btn01>
+            <Button>Confirmar</Button>
+          </S.Btn01>
         </Modal>
-      <div>
-        <Button action={ (handleClick) => { setModalOpen(true) }}>Mais Serviços</Button>
-      </div>
     </S.ContainerModal>
+      <S.Btn01>
+        <S.BtnModal1>
+        <Button useDefaultStyle={false} action={(HandleClick) => { setModalOpen(true) }}>Mais Serviços</Button>
+        </S.BtnModal1>
+      </S.Btn01>
     </S.PrincipalContainer>
   )
 
