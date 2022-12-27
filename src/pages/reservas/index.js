@@ -5,6 +5,7 @@ import GenericInput from '../../components/atoms/GenericInput'
 import GenericLabel from '../../components/atoms/GenericLabel'
 import MiniTitle from '../../components/atoms/MiniTitle'
 import PrincipalTitle from '../../components/atoms/PrincipalTitle'
+import UnorderedList from '../../components/atoms/UnorderedList'
 import * as S from './styles'
 
 export const Reservas = () => {
@@ -56,7 +57,7 @@ export const Reservas = () => {
     
   ])
   
-  const [ResumeItens] = useState([
+  const [resumeItens] = useState([
     { 
       id: 'resume-room',
       name: 'Quarto: ',
@@ -111,11 +112,9 @@ export const Reservas = () => {
         </S.ContainerReserve>
       </S.FormContainer>
         <S.ContainerResume>
-            <ul>
-            {ResumeItens.map((element, index) => (
-              <li key ={index} className={element.class}>{element.name} {element.content} </li>
-            ))}
-            </ul>
+            <UnorderedList arr={resumeItens.map((element) => (
+              `${element.name} ${element.content}`
+            ))} />
             <Button width='100%'>Confirmar</Button>
         </S.ContainerResume>
     </S.PrincipalContainer>

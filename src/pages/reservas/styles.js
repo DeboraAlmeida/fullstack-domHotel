@@ -64,13 +64,12 @@ export const ContainerResume = styled.div`
   ul {
     margin: 0 0 16px 0;
     padding: 0 0 0 32px;
-    list-style: none;
   }
   ul > li {
     margin: 10px;
     padding: 3px;
   }
-  .marginBottom {
+  li:nth-child(odd) {
     margin-bottom: 30px;
   }
 `
