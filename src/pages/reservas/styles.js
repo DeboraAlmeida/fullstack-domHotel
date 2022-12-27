@@ -46,11 +46,12 @@ export const ReserveItem = styled.div`
 `
 
 export const containerQuartos = styled.div`
-  width: 100%;
-  max-width: 70%;
-  margin: 0 auto;
 
+  margin-top: 20px;
+  
   .-wraper{
+    max-width: 70%;
+    margin: 0 auto;
     margin-top: 40px;
   }
 
