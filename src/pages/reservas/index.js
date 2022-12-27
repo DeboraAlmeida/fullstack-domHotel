@@ -1,13 +1,18 @@
 // Arquivo criado: 15/12/2022 às 20:49
-import React, { useState } from 'react'
+import React from 'react'
 import GenericInput from '../../components/atoms/GenericInput'
 import GenericLabel from '../../components/atoms/GenericLabel'
+import ImageDefault from '../../components/atoms/ImageDefault'
 import MiniTitle from '../../components/atoms/MiniTitle'
 import PrincipalTitle from '../../components/atoms/PrincipalTitle'
+import premium from './images/acomodacao_premium.jpg'
+import standard from './images/acomodacao_standard.jpg'
+import vip from './images/acomodacao_vip.jpg'
 import * as S from './styles'
 
+
 export const Reservas = () => {
-  const [inputsCollection] = useState([
+  const inputsCollection = [
     {
       id: '1',
       type: 'text',
@@ -24,9 +29,9 @@ export const Reservas = () => {
       label: 'Telefone'
     }
 
-  ])
+  ]
 
-  const [inputsReserve] = useState([
+  const inputsReserve = [
     {
       id: '1',
       type: 'date',
@@ -53,7 +58,28 @@ export const Reservas = () => {
       min: '0'
     }
     
-  ])
+  ]
+
+  const quartos = [
+    {
+      title: 'Standard',
+      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto esse tempore hic nemo! Quam consequuntur ex rem, similique esse totam recusandae, ea voluptas neque vitae amet sapiente impedit sint cum!',
+      price: '120,00',
+      img: standard
+    },
+    {
+      title: 'Premium',
+      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto esse tempore hic nemo! Quam consequuntur ex rem, similique esse totam recusandae, ea voluptas neque vitae amet sapiente impedit sint cum!',
+      price: '160,00',
+      img: premium
+    },
+    {
+      title: 'VIP',
+      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto esse tempore hic nemo! Quam consequuntur ex rem, similique esse totam recusandae, ea voluptas neque vitae amet sapiente impedit sint cum!',
+      price: '200,00',
+      img: vip
+    }
+  ]
 
   return (
     <S.PrincipalContainer>
@@ -75,6 +101,27 @@ export const Reservas = () => {
           </S.ReserveItem>
         ))}   
       </S.ContainerReserve>
+      <S.containerQuartos>
+        <MiniTitle span='Passo 2: ' text='Escolha o Quarto' />
+
+        <div className='-wraper'>
+          {
+            quartos.map((element, index) => (
+              <S.quartoSingleInput key={index} >
+                <div className='-img'><ImageDefault src={element.img} alt={element.title} /></div>
+                <div className='-informacoes'>
+                  <MiniTitle span={element.title} />
+                  <p>{element.description}</p>
+                  <div className='-informacoes-inputContainer'>
+                    <input name='quarto' id={`input_${index}`} type='radio' />
+                    <GenericLabel for={`input_${index}`}><MiniTitle span='R$ ' text={element.price} /></GenericLabel>
+                  </div>
+                </div>
+              </S.quartoSingleInput>
+            ))
+          }
+        </div>
+      </S.containerQuartos>
     </S.PrincipalContainer>
   )
 
