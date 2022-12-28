@@ -14,7 +14,6 @@ import Template from './template/template'
 // import Navbar from './components/atoms/NavBar'
 
 const App = () => {
-
   return (
     <Router>
       <Header />
