@@ -24,7 +24,7 @@ export const Footer = () => {
 
         <S.SingleContent>
           <S.Title>Continue Navegando</S.Title>
-          <S.Navbar><Navbar /></S.Navbar>
+          <Navbar />
         </S.SingleContent>
       </S.Container>
 

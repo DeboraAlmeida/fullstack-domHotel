@@ -26,13 +26,12 @@ export const MobileNav = ({
 
   return (
     <S.Wrapper>
-      <FaBars onClick={() => handleOpen()} />
+      <FaBars onClick={handleOpen} />
       {
         isOpen && 
         <S.coverOptions onClick={handleOpen}>
           <S.containerOptions>
             <NavBar />
-
             {
               isLogged 
                 ? <span onClick={loggout}>Sair</span>
