@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { pallete } from '../../../pallete.js'
 
 export const Backdrop = styled.div`
     width: 100vw;
@@ -24,17 +25,17 @@ export const ModalComp = styled.div`
 
 export const BtnClose = styled.div`
     position: absolute;
-    top: 15px ;
+    top: 24px ;
     right: 2rem;
 
    button {
-    font-size: 1.2rem;
+    font-size: 26px;
     width: 1.5rem;
     height: 1.25rem;
     cursor: pointer;
     background-color: transparent;
     border: none;
-    color: rgba(0,0,0,0.45);
+    color: ${pallete.greenDefault};
     
     &:hover {
     color: black;
