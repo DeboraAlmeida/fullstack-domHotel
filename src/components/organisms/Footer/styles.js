@@ -33,14 +33,6 @@ export const Title = styled.h2`
   }
 `
 
-export const Navbar = styled.div`
-  *{
-    color: white !important;
-    font-weight: normal;
-  }
-
-`
-
 export const Container = styled.div`
   background-color: ${pallete.greenDefault};
   display: flex;

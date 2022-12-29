@@ -2,7 +2,7 @@
 
 import PropTypes from 'prop-types'
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { pallete } from '../../../pallete.js'
 import * as S from './styles.js'
 
@@ -43,11 +43,13 @@ export default function Anchor({
   action,
   hoverColor = pallete.greenDefault,
   title,
-  className
+  className,
+  activeLink
 }) {
 
   const Component = useDefaultStyle ? S.a : 'a'
   const navigate = useNavigate()
+  const location = useLocation()
 
 
   const fun = (a) => {
@@ -60,18 +62,25 @@ export default function Anchor({
     }
   }
 
+  const linkActived = {
+    color: activeLink,
+    cursor: 'default',
+    textDecoration: 'none'
+  }
+
   return (
     <Component
 
       // Atributos do styled-components
       hoverColor={hoverColor}
-
+      
       // Atributos padrões do HTML
       href={href}
       target={target}
       onClick={fun}
       title={title}
       className={className}
+      style={location.pathname === href && activeLink ? linkActived : {}}
     >
       {msg}
     </Component>
@@ -86,5 +95,6 @@ Anchor.propTypes = {
   action: PropTypes.func,
   hoverColor: PropTypes.string,
   title: PropTypes.string,
-  className: PropTypes.string
+  className: PropTypes.string,
+  activeLink: PropTypes.string
 }
