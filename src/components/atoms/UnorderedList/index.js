@@ -1,5 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import * as S from './styles.js'
 
 const UnorderedList = ({ arr }) => {
@@ -17,7 +17,9 @@ const UnorderedList = ({ arr }) => {
   )
 }
 UnorderedList.propTypes = {
-  arr: PropTypes.array
+  arr: PropTypes.array,
+  text: PropTypes.node,
+  index: Number
 }
 
 export default UnorderedList
