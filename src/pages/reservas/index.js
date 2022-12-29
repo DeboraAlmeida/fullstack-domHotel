@@ -188,35 +188,42 @@ export const Reservas = () => {
           ))}   
         </S.ContainerReserve>
       </S.FormContainer>
-      <S.ContainerReserve>
-        {inputsReserve.map((element, index) => (
-          <S.ReserveItem key={index}>
-            <GenericLabel for={element.id}>{element.label}</GenericLabel>
-            <GenericInput type={element.type} id={element.id} placeholder={element.placeholder} min={element.min} max={element.max} />
-          </S.ReserveItem>
-        ))}
-      </S.ContainerReserve>
-      <S.containerQuartos>
-        <MiniTitle span='Passo 2: ' text='Escolha o Quarto' />
+      <S.RoomsContainer>
+        <S.ModalContainer>
+          <S.containerQuartos>
+            <MiniTitle span='Passo 2: ' text='Escolha o Quarto' />
 
-        <div className='-wraper'>
-          {
-            quartos.map((element, index) => (
-              <S.quartoSingleInput key={index} >
-                <div className='-img'><ImageDefault src={element.img} alt={element.title} /></div>
-                <div className='-informacoes'>
-                  <MiniTitle span={element.title} />
-                  <p>{element.description}</p>
-                  <div className='-informacoes-inputContainer'>
-                    <input name='quarto' id={`input_${index}`} type='radio' />
-                    <GenericLabel for={`input_${index}`}><MiniTitle span='R$ ' text={element.price} /></GenericLabel>
-                  </div>
-                </div>
-              </S.quartoSingleInput>
-            ))
-          }
-        </div>
-      </S.containerQuartos>
+            <div className='-wraper'>
+              {
+                quartos.map((element, index) => (
+                  <S.quartoSingleInput key={index} >
+                    <div className='-img'><ImageDefault src={element.img} alt={element.title} /></div>
+                    <div className='-informacoes'>
+                      <MiniTitle span={element.title} />
+                      <p>{element.description}</p>
+                      <div className='-informacoes-inputContainer'>
+                        <input name='quarto' id={`input_${index}`} type='radio' />
+                        <GenericLabel for={`input_${index}`}><MiniTitle span='R$ ' text={element.price} /></GenericLabel>
+                      </div>
+                    </div>
+                  </S.quartoSingleInput>
+                ))
+              }
+            </div>
+          </S.containerQuartos>
+          <S.Btn01>
+            <S.BtnModal1>
+            <Button useDefaultStyle={false} action={(HandleClick) => { setModalOpen(true) }}>Mais Serviços</Button>
+            </S.BtnModal1>
+          </S.Btn01>
+        </S.ModalContainer>
+        <S.ContainerResume>
+            <UnorderedList arr={resumeItens.map((element) => (
+              `${element.name} ${element.content}`
+            ))} />
+            <Button width='100%'>Confirmar</Button>
+        </S.ContainerResume>
+      </S.RoomsContainer>
        
       {/* Aqui iniciam os modais */}
 
@@ -243,17 +250,6 @@ export const Reservas = () => {
           </S.Btn01>
         </Modal>
     </S.ContainerModal>
-      <S.Btn01>
-        <S.BtnModal1>
-        <Button useDefaultStyle={false} action={(HandleClick) => { setModalOpen(true) }}>Mais Serviços</Button>
-        </S.BtnModal1>
-      </S.Btn01>
-        <S.ContainerResume>
-            <UnorderedList arr={resumeItens.map((element) => (
-              `${element.name} ${element.content}`
-            ))} />
-            <Button width='100%'>Confirmar</Button>
-        </S.ContainerResume>
     </S.PrincipalContainer>
   )
 

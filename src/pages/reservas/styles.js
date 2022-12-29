@@ -199,7 +199,28 @@ export const quartoSingleInput = styled.div`
     }
   }
 `
-
+export const RoomsContainer = styled.div`
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  @media screen and (max-width: 870px){
+    flex-direction:column;
+  }
+`
+export const ModalContainer = styled.div`
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  @media screen and (max-width: 870px) {
+    button{
+      width: 50vw;
+      height: fit-content;
+      margin: 1rem 0 4rem 0;
+      padding: 10px;
+    }
+  }
+`
 export const ContainerResume = styled.div`
   width: 100%;
   max-width: 300px;
