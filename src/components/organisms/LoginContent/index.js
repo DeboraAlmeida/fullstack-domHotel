@@ -51,13 +51,13 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }) => {
   const actionSignUp = (data, logins) => {
     if (data.email === '' || data.name === '' || data.password === '') {
       if (data.email === '') {
-        setErrosFields({ email: true })
+        setErrosFields((prev) => ({ ...prev, email: true }))
       }
       if (data.password === '') {
-        setErrosFields({ password: true })
+        setErrosFields((prev) => ({ ...prev, password: true }))
       }
       if (data.name === '') {
-        setErrosFields({ name: true })
+        setErrosFields((prev) => ({ ...prev, name: true }))
       }
       return
     }         
@@ -70,10 +70,10 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }) => {
   const actionSignIn = (data, logins) => {
     if (data.email === '' || data.password === '') {
       if (data.email === '') {
-        setErrosFields({ email: true })
+        setErrosFields((prev) => ({ ...prev, email: true }))
       }
       if (data.password === '') {
-        setErrosFields({ password: true })
+        setErrosFields((prev) => ({ ...prev, password: true }))
       }
       return
     }
