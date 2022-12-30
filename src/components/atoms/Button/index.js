@@ -1,9 +1,9 @@
 // Arquivo criado: 10/12/2022 às 11:55
 
-import React from 'react'
 import PropTypes from 'prop-types'
-import * as S from './styles.js'
+import React from 'react'
 import { pallete } from '../../../pallete.js'
+import * as S from './styles.js'
 
 
 /**
