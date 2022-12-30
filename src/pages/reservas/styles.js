@@ -132,7 +132,9 @@ export const containerQuartos = styled.div`
   }
 
   @media (max-width: 425px) {
-    max-width: 100%;
+    .-wraper{
+      max-width: 95%;
+    }
   }
 `
 

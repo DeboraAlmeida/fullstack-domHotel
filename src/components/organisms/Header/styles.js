@@ -58,14 +58,7 @@ export const Header = styled.header`
           margin-bottom: 10px
         }
       }
-
-      &-right{
-        display: none;
-      }
     }
 
-    .-navbar div{
-      display: none;
-    }
   }
 `
