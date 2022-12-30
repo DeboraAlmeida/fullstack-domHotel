@@ -50,7 +50,15 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }) => {
 
   const actionSignUp = (data, logins) => {
     if (data.email === '' || data.name === '' || data.password === '') {
-      setErrosFields({ name: true, password: true, email: true })
+      if (data.email === '') {
+        setErrosFields({ email: true })
+      }
+      if (data.password === '') {
+        setErrosFields({ password: true })
+      }
+      if (data.name === '') {
+        setErrosFields({ name: true })
+      }
       return
     }         
     logins.push(data)
@@ -61,7 +69,12 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }) => {
 
   const actionSignIn = (data, logins) => {
     if (data.email === '' || data.password === '') {
-      setErrosFields({ email: true, password: true })
+      if (data.email === '') {
+        setErrosFields({ email: true })
+      }
+      if (data.password === '') {
+        setErrosFields({ password: true })
+      }
       return
     }
     let result = false
