@@ -105,7 +105,7 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }) => {
 
   const inputsSignIn = [
     { 
-      id: 1,
+      id: 'email-login',
       label: 'E-mail:',
       method: handleEmail,
       model: errorFields.email,
@@ -113,7 +113,7 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }) => {
       type: 'email'
     },
     { 
-      id: 2,
+      id: 'password-login',
       label: 'Senha:',
       method: handlePassword,
       model: errorFields.password,
@@ -124,7 +124,7 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }) => {
 
   const inputsSignUp = [
     { 
-      id: 3,
+      id: 'name-sign-up',
       label: 'Nome:',
       method: handleName,
       model: errorFields.name,
@@ -132,7 +132,7 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }) => {
       type: 'text'
     },
     { 
-      id: 4,
+      id: 'email-sign-up',
       label: 'E-mail:',
       method: handleEmail,
       model: errorFields.email,
@@ -140,7 +140,7 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }) => {
       type: 'email'
     },
     { 
-      id: 5,
+      id: 'password-sign-up',
       label: 'Senha:',
       method: handlePassword,
       model: errorFields.password,
