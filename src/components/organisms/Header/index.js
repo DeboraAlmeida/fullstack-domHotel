@@ -1,14 +1,37 @@
 // Arquivo criado: 20/12/2022 às 14:27
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from '../../../assets/dom_logo.png'
 import Anchor from '../../atoms/Anchor'
 import Button from '../../atoms/Button'
 import ImageDefault from '../../atoms/ImageDefault'
+import Modal from '../../atoms/Modal'
 import Navbar from '../../atoms/NavBar'
+import LoginContent from '../LoginContent'
+import MobileNav from '../mobileNav'
 import * as S from './styles'
 
 export const Header = () => {
+  const [showModal, setShowModal] = useState(false)
+  const [isLogged, setIsLogged] = useState(false)
+  const [loggedName, setLoggedName] = useState('')
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768)
 
+  useEffect(() => {
+    if (isLogged) {
+      setShowModal(false)
+    }
+  }, [isLogged])
+
+  useEffect(() => {
+    window.addEventListener('resize', updateMedia)
+    return () => window.removeEventListener('resize', updateMedia)
+  }, [])
+
+  const updateMedia = () => {
+    setIsDesktop(window.innerWidth > 768)
+  }
+
+  
   return (
    <S.Header>
     <div className='-body'>
@@ -18,21 +41,37 @@ export const Header = () => {
         </div> 
         <h3>Para viver momentos inesquecíves</h3>
       </div>
-      <div className='-body-right'>
-        <Anchor href='/' msg='Olá Usuário' />
-        <Anchor href='/' msg='Sair' />
-        <Button 
-          paddingHorizontal="6px"
-          paddingVertical="6px"
-          className="-body-right-button"
-        >CADASTRE-SE</Button>
+     {isDesktop
+       ? <div className='-body-right'>
+        {isLogged && (
+          <>
+            <Anchor href='#' msg={`Olá ${loggedName.toUpperCase()}`} />
+            <Anchor action={() => setIsLogged(false)} msg='Sair' />
+          </>
+        )}
+        {!isLogged && (
+          <Button action={() => setShowModal(true)} 
+            paddingHorizontal="10px"
+            paddingVertical="10px"
+            className="-body-right-button"
+          >ENTRAR</Button>
+        )}
       </div>
+       : <MobileNav
+          openLoginModal={setShowModal}
+          setIsLogged={setIsLogged}
+          isLogged={isLogged}
+          />
+     }
     </div>
       <div className='-navbar'>
         <div>
-          <Navbar />
+          {isDesktop && <Navbar />}
         </div>
       </div>
+      <Modal isOpen={showModal} setIsOpen={setShowModal}>
+        <LoginContent type={'sign-in'} setIsLogged={setIsLogged} setLoggedName={setLoggedName} />
+      </Modal>
    </S.Header>
   )
 

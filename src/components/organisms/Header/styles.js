@@ -25,12 +25,17 @@ export const Header = styled.header`
     &-right{
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
       min-width: 300px;
       
       &-button{
         font-size: 15px;
         box-shadow: 5px 5px 5px #a0a0a0ea;
+      }
+
+      a {
+        margin: 0px 25px;
+        cursor: pointer;
       }
     }
 
@@ -53,14 +58,7 @@ export const Header = styled.header`
           margin-bottom: 10px
         }
       }
-
-      &-right{
-        display: none;
-      }
     }
 
-    .-navbar div{
-      display: none;
-    }
   }
 `

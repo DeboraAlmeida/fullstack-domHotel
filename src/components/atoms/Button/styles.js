@@ -23,6 +23,10 @@ export const button = styled.button`
     background-color: ${props => props.hoverColor};
   }
 
+  &:disabled {
+    cursor: not-allowed;
+    background-color: gray;
+  }
 `
 
 export const empty = styled.button``
