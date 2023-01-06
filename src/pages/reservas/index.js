@@ -238,7 +238,7 @@ export const Reservas = () => {
                 <li key={element.id}>
                 <S.ModalCont>
                 <GenericLabel>
-                <GenericInput type={element.type} name={element.name} id={element.id}></GenericInput>
+                <GenericInput type={element.type} name={element.name} price={element.price} id={element.id}></GenericInput>
                 </GenericLabel>
                 <DescriptionParagraph msg={element.msg}></DescriptionParagraph></S.ModalCont><SpanText>{element.price}</SpanText>
               </li>
