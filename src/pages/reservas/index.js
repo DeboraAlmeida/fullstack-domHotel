@@ -1,5 +1,5 @@
 // Arquivo criado: 15/12/2022 às 20:49
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '../../components/atoms/Button'
 import DescriptionParagraph from '../../components/atoms/DescriptionParagraph'
 import GenericInput from '../../components/atoms/GenericInput'
@@ -18,6 +18,7 @@ import * as S from './styles'
 
 
 export const Reservas = () => {
+
   const inputsCollection = [
     {
       id: '1',
@@ -37,16 +38,20 @@ export const Reservas = () => {
 
   ]
 
-  const inputsReserve = [
+  const [inputsReserve, setInputReserve] = useState([
     {
       id: 'checkin',
       type: 'date',
-      label: 'Data de checkin'
+      label: 'Data de checkin',
+      value: ''
+      
     },
     {
       id: 'checkout',
       type: 'date',
-      label: 'Data de checkout'
+      label: 'Data de checkout',
+      value: ''
+      
     },
     {
       id: 'adultos',
@@ -54,17 +59,21 @@ export const Reservas = () => {
       label: 'Número de adultos',
       placeholder: '1',
       max: '4',
-      min: '1'
+      min: '1',
+      value: '1'
+      
     },
     {
       id: 'criancas',
       type: 'number',
       label: 'Número de crianças',
       max: '4',
-      min: '0'
+      min: '0',
+      value: '0'
+      
     }
-  ]
-
+  ])
+  
   const optionsCollection = [
     {
       type: 'checkbox',
@@ -112,60 +121,132 @@ export const Reservas = () => {
 
   const [modalOpen, setModalOpen] = useState(false)
 
-  const quartos = [
+  const [quartos, setQuartos] = useState([
     {
       title: 'Standard',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto esse tempore hic nemo! Quam consequuntur ex rem, similique esse totam recusandae, ea voluptas neque vitae amet sapiente impedit sint cum!',
       price: '120,00',
+      basePrice: '120,00',
       img: standard
     },
     {
       title: 'Premium',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto esse tempore hic nemo! Quam consequuntur ex rem, similique esse totam recusandae, ea voluptas neque vitae amet sapiente impedit sint cum!',
       price: '160,00',
+      basePrice: '160,00',
       img: premium
     },
     {
       title: 'VIP',
       description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto esse tempore hic nemo! Quam consequuntur ex rem, similique esse totam recusandae, ea voluptas neque vitae amet sapiente impedit sint cum!',
       price: '200,00',
+      basePrice: '200,00',
       img: vip
     }
-  ]
+  ])
   
-  const [resumeItens] = useState([
+  const [resumeItens, setResumeItens] = useState([
     { 
-      id: 'resume-room',
-      name: 'Quarto: ',
-      content: 'xxx',
-      class: 'marginBottom'
+      id: 'quarto',
+      name: 'Quarto:  ',
+      content: ''
     },
     { 
-      id: 'resume-checkin', 
-      name: 'Checkin: ', 
-      content: 'xxx', 
-      class: ''
+      id: 'checkin', 
+      name: 'Checkin:  ', 
+      content: ''
     },
     { 
-      id: 'resume-checkout',
-      name: 'Checkout: ',
-      content: 'xxx',
-      class: 'marginBottom'
+      id: 'checkout',
+      name: 'Checkout:  ',
+      content: ''
     },
     { 
       id: 'resume-people',
-      name: 'Pessoas: ',
-      content: 'xxx',
-      class: ''
+      name: 'Pessoas:  ',
+      content: ''
     },
     { 
       id: 'resume-services',
-      name: 'Serviços Adicionais: ',
-      content: 'xxx',
-      class: 'marginBottom'
+      name: 'Serviços Adicionais:  ',
+      content: ''
     }])
 
+  const [inputsValue, setInputsValue] = useState({
+    quarto: '',
+    checkin: '',
+    checkout: '',
+    adultos: '1',
+    criancas: '0'
+  })
 
+  const formatDate = d => {
+    const data = new Date()
+    const dt = new Date(data.setDate(data.getDate() + d))
+    let month = '' + (dt.getMonth() + 1)
+    let day = '' + dt.getDate()
+    const year = dt.getFullYear()
+
+    if (month.length < 2) { month = '0' + month }
+    if (day.length < 2) { day = '0' + day }
+
+    return [year, month, day].join('-')
+  }
+  
+  const convertDate = d => {
+    return d.split('-').reverse().join('/')
+  }
+
+  const handleInputChange = (id, e) => {
+    setInputReserve(inputsReserve.filter(input => {
+      if (input.id === id) {
+        input.value = e.target.value
+        if (input.id === 'checkin' || input.id === 'checkout') {
+          input.value = convertDate(input.value)
+        }
+      }
+      inputsValue[input.id] = input.value
+      setInputsValue(prev => ({ ...prev }))
+      return inputsValue
+    }))
+    setReserveResume()
+  } 
+
+  const selectRoom = (event) => {
+    if (event.target.checked) {
+      inputsValue.quarto = event.target.value
+      setInputsValue(prev => ({ ...prev, quarto: event.target.value }))
+    }
+    setReserveResume()
+  }
+  
+  useEffect(() => {
+    localStorage.setItem('reserva', JSON.stringify(inputsValue))
+  }, [inputsValue])
+
+
+  const setReserveResume = () => {
+    const math = (parseInt(inputsValue.adultos) + parseInt(inputsValue.criancas))
+    const selectedRoom = quartos
+    selectedRoom.filter((item, index) => {
+      item.price = parseInt(quartos[index].basePrice)
+      item.price = (item.price * math).toFixed(2)
+      return selectedRoom
+    })
+    const resumeItensValue = resumeItens
+    resumeItensValue.filter((item, index) => {
+      if (Object.hasOwn(inputsValue, resumeItensValue[index].id)) {
+        item.content = inputsValue[`${resumeItensValue[index].id}`]
+      }
+      if (item.id === 'resume-people') {
+        item.content = math
+      }
+      return resumeItensValue
+    })
+    setQuartos(selectedRoom)
+    setResumeItens(resumeItensValue)
+  }
+  
   return (
     <S.PrincipalContainer>
       <PrincipalTitle>Reserve sua Acomodação</PrincipalTitle>
@@ -180,14 +261,13 @@ export const Reservas = () => {
         ))} 
         </S.DataContainer> 
         <S.ContainerReserve>
-          {inputsReserve.map((element, index) => (
-            <S.ReserveItem key={index}>
+          {inputsReserve.map(element => (
+            <S.ReserveItem key={element.id}>
               <GenericLabel for={element.id}>{element.label}</GenericLabel>
-              <GenericInput type={element.type} id={element.id} placeholder={element.placeholder} min={element.min} max={element.max} name={element.id} />
+              <GenericInput type={element.type} id={element.id} placeholder={element.placeholder} min={element.min} max={element.max} name={element.id} onChange={(e) => handleInputChange(element.id, e)} />
             </S.ReserveItem>
           ))}   
         </S.ContainerReserve>
-      </S.FormContainer>
       <S.RoomsContainer>
         <S.ModalContainer>
           <S.containerQuartos>
@@ -202,7 +282,7 @@ export const Reservas = () => {
                       <MiniTitle span={element.title} />
                       <p>{element.description}</p>
                       <div className='-informacoes-inputContainer'>
-                        <input name='quarto' id={`input_${index}`} type='radio' />
+                        <input name='quarto' id={`input_${index}`} type='radio' value={element.title} onClick={selectRoom}/>
                         <GenericLabel for={`input_${index}`}><MiniTitle span='R$ ' text={element.price} /></GenericLabel>
                       </div>
                     </div>
@@ -221,9 +301,10 @@ export const Reservas = () => {
             <UnorderedList arr={resumeItens.map((element) => (
               `${element.name} ${element.content}`
             ))} />
-            <Button width='100%'>Confirmar</Button>
+            <Button type='submit' width='100%'>Confirmar</Button>
         </S.ContainerResume>
       </S.RoomsContainer>
+    </S.FormContainer>
        
       {/* Aqui iniciam os modais */}
 
