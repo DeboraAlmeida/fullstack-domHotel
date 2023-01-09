@@ -10,7 +10,9 @@ align-items: center;
   }
 `
 
-export const RoomsContainer = styled.div`  
+export const RoomsContainer = styled.div` 
+display: flex;
+
 &:nth-child(3) {
     margin-bottom: 15px;
     padding-top: 15px;
