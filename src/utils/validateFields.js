@@ -15,7 +15,7 @@ const validateName = (value) => {
 }
 
 const validateNumber = (value) => {
-  if (/^\([0-9]{2}\) [0-9]?[0-9]{4}-[0-9]{4}$/.test(value)) {
+  if ('^\\([0-9]{2}\\)((3[0-9]{3}-[0-9]{4})|(9[0-9]{3}-[0-9]{5}))$'.test(value)) {
     return false
   }
   return true

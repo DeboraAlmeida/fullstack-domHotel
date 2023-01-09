@@ -7,7 +7,7 @@ import GenericSelect from '../../components/atoms/GenericSelect'
 import PrincipalTitle from '../../components/atoms/PrincipalTitle'
 import SubTitle from '../../components/atoms/SubTitle'
 import TextArea from '../../components/atoms/TextArea'
-import { validateEmail, validateName } from '../../utils/validateFields.js'
+import { validateEmail, validateName, validateNumber } from '../../utils/validateFields.js'
 import * as S from './styles'
 
 export const Contato = () => {  
@@ -46,7 +46,7 @@ export const Contato = () => {
 
   const handleTelephone = (value) => {
     setValueFields((prev) => ({ ...prev, telephone: value }))
-    if (validateName(valueFields.name)) {
+    if (validateNumber(valueFields.telephone)) {
       setErrosFields((prev) => ({ ...prev, telephone: true }))
       return
     }
@@ -76,7 +76,7 @@ export const Contato = () => {
       method: handleTelephone,
       model: errorFields.telephone,
       valueId: 'telephone',
-      type: 'number'
+      type: 'tel'
     }
   ]
   
