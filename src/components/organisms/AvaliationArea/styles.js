@@ -11,9 +11,16 @@ export const Wrapper = styled.div`
     align-self: center;
   }
 
+  #title-container h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }  
+
   display: flex;
   flex-direction: column;
 `
+
+export const TitleContainer = styled.div``
 
 export const StarsContainer = styled.div`
   margin: 20px 0px 30px;

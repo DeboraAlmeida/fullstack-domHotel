@@ -5,13 +5,15 @@ export const Wrapper = styled.div`
   h2 {
     text-align: justify;
   }
+
+  #title-container h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }    
 `
 
 export const TitleContainer = styled.div`
-h2{
-  font-size: 32px;
-  margin-bottom: 30px;
-  }    
+
 `
 
 export const ImageContainer = styled.div`

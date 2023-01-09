@@ -21,23 +21,12 @@ const AvaliationArea = () => {
     })
     setStars(result)
   }
-
-  // const handleMarked = (index) => {
-  //   const position = index
-  //   const result = stars.map((star, index) => {
-  //     if (index < (position + 1)) {
-  //       return 'marked'
-  //     } else {
-  //       return 'void'
-  //     }
-  //   })
-  //   setStars(result)
-  // }
-
-
+  
   return (
     <S.Wrapper>
-      <SubTitle>{'Avalie'}</SubTitle>
+      <S.TitleContainer id={'title-container'}>
+        <SubTitle>{'Avalie'}</SubTitle>
+      </S.TitleContainer>      
       <GenericLabel id={'name'}>Nome:</GenericLabel>   
       <GenericInput type={'text'} id={'name'} aName={'name'} />
       <GenericLabel id={'comment'}>Comentário:</GenericLabel>   
@@ -51,7 +40,7 @@ const AvaliationArea = () => {
           }
         })}
       </S.StarsContainer>
-      <Button>{'Avalie'}</Button>
+      <Button>{'Avaliar'}</Button>
     </S.Wrapper>
   )
 }

@@ -13,7 +13,7 @@ const AvaliationRoom = ({ content, setStage }) => {
 
   return (
     <S.Wrapper>
-      <S.TitleContainer>
+      <S.TitleContainer id='title-container'>
         <SubTitle>{content.title}</SubTitle>
       </S.TitleContainer>
       <S.ImageContainer>
