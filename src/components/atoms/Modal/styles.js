@@ -21,6 +21,8 @@ export const ModalComp = styled.div`
     position: relative;
     max-width: 556px;
     width: 90vw;
+    max-height: 90vh;
+    overflow: auto;
 `
 
 export const BtnClose = styled.div`
