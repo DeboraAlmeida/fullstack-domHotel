@@ -77,43 +77,43 @@ export const Reservas = () => {
   const optionsCollection = [
     {
       type: 'checkbox',
-      name: 'Mordomo',
-      id: 'Mordomo',
+      name: 'mordomo',
+      id: 'mordomo',
       msg: 'Serviço de Mordomo',
       price: 'R$ 150,00'
     },
     {
       type: 'checkbox',
-      name: 'Cofre',
-      id: 'Cofre',
+      name: 'cofre',
+      id: 'cofre',
       msg: 'Cofre no quarto',
       price: 'R$ 150,00'
     },
     {
       type: 'checkbox',
-      name: 'Pet',
-      id: 'Pet',
+      name: 'pet',
+      id: 'pet',
       msg: 'Hospedagem para Pet',
       price: 'R$ 150,00'
     },
     {
       type: 'checkbox',
-      name: 'Café',
-      id: 'Café',
+      name: 'cafe',
+      id: 'cafe',
       msg: 'Incluso café da manhã',
       price: 'R$ 150,00'
     },
     {
       type: 'checkbox',
-      name: 'Massagem',
-      id: 'Massagem',
+      name: 'massagem',
+      id: 'massagem',
       msg: 'Cadeira de massagem no quarto',
-      price: 'R$ 150,00'
+      price: 'R$ 150,50'
     },
     {
       type: 'checkbox',
-      name: 'Ac',
-      id: 'Ac',
+      name: 'ac',
+      id: 'ac',
       msg: 'Ar condicionado no talo!!!',
       price: 'R$ 150,00'
     }
@@ -170,8 +170,49 @@ export const Reservas = () => {
       id: 'resume-services',
       name: 'Serviços Adicionais:  ',
       content: ''
+    },
+    { 
+      id: 'total',
+      name: 'Total:  ',
+      content: ''
     }])
 
+  const valueClickCheckbox = {
+    mordomo: 0,
+    cofre: 0,
+    pet: 0,
+    cafe: 0,
+    massagem: 0,
+    ac: 0
+  }
+
+  let totalValue = 0
+
+  const formatValueCheckbox = (value) => {
+    const result = value.replace('R$', '').replace(',', '.')
+    return parseFloat(result)
+  }
+
+  const handleCheckbox = (e) => {
+    if (e.target.checked) {
+      valueClickCheckbox[`${e.target.id}`] = formatValueCheckbox(e.target.value)
+      totalValue += formatValueCheckbox(e.target.value)
+    } else {
+      valueClickCheckbox[`${e.target.id}`] = 0
+      totalValue -= formatValueCheckbox(e.target.value)
+    }
+  } 
+  
+  const handleMoreService = () => {
+    localStorage.setItem('moreServices', JSON.stringify(valueClickCheckbox))
+    const resumeItensValue = resumeItens
+    resumeItensValue[resumeItens.length - 2].content = `R$ ${totalValue.toFixed(2).toString().replace('.', ',')}`
+    resumeItensValue[resumeItens.length - 1].content = `R$ ${(roomValue + totalValue).toFixed(2).toString().replace('.', ',')}`
+    setResumeItens(resumeItensValue)
+    setModalOpen(false)
+    roomValue += totalValue
+    setReserveResume()
+  }
   const [inputsValue, setInputsValue] = useState({
     quarto: '',
     checkin: '',
@@ -212,12 +253,24 @@ export const Reservas = () => {
     setReserveResume()
   } 
 
+  let choosenRoom = ''
+  let roomValue = 0
+
+
   const selectRoom = (event) => {
     if (event.target.checked) {
       inputsValue.quarto = event.target.value
+      choosenRoom = event.target.value
+      quartos.filter(item => {
+        if (item.title === choosenRoom) {
+          roomValue = parseInt(item.basePrice)
+        }
+        return quartos
+      })
       setInputsValue(prev => ({ ...prev, quarto: event.target.value }))
     }
     setReserveResume()
+    console.log(roomValue)
   }
   
   useEffect(() => {
@@ -228,10 +281,11 @@ export const Reservas = () => {
   const setReserveResume = () => {
     const math = (parseInt(inputsValue.adultos) + parseInt(inputsValue.criancas))
     const selectedRoom = quartos
+    
     selectedRoom.filter((item, index) => {
       item.price = parseInt(quartos[index].basePrice)
       item.price = (item.price * math).toFixed(2)
-      return selectedRoom
+      return item.price
     })
     const resumeItensValue = resumeItens
     resumeItensValue.filter((item, index) => {
@@ -240,6 +294,13 @@ export const Reservas = () => {
       }
       if (item.id === 'resume-people') {
         item.content = math
+      }
+      if (item.id === 'total') {
+        if (choosenRoom === inputsValue.quarto) {
+          roomValue = roomValue * math
+          item.content = roomValue + totalValue
+          
+        }
       }
       return resumeItensValue
     })
@@ -319,7 +380,7 @@ export const Reservas = () => {
                 <li key={element.id}>
                 <S.ModalCont>
                 <GenericLabel>
-                <GenericInput type={element.type} name={element.name} id={element.id}></GenericInput>
+                <GenericInput type={element.type} onClick={handleCheckbox} name={element.name} id={element.id} value={element.price}></GenericInput>
                 </GenericLabel>
                 <DescriptionParagraph msg={element.msg}></DescriptionParagraph></S.ModalCont><SpanText>{element.price}</SpanText>
               </li>
@@ -327,7 +388,7 @@ export const Reservas = () => {
             </ul>
           </S.ModalOptions>
           <S.Btn01>
-            <Button>Confirmar</Button>
+            <Button action={handleMoreService}>Confirmar</Button>
           </S.Btn01>
         </Modal>
     </S.ContainerModal>
