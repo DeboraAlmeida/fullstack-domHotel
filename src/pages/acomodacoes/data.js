@@ -16,64 +16,64 @@ export const contentRoomBox = [
   {
     title: 'Standard',
     imgCollection: [{
+      title: 'Bem-te-vi',
       src: quarto1,
       alt: 'primeiro quarto standard',
-      titleDescription: 'Descrição',
-      description: ['Informação', 'Informação', 'Informação']
+      titleDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     },
     {
+      title: 'Canário',
       src: quarto3,
       alt: 'primeiro quarto standard',
-      titleDescription: 'Descrição',
-      description: ['Informação', 'Informação', 'Informação']
+      titleDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     },
     {
       src: quarto2,
+      title: 'Tezil',
       alt: 'primeiro quarto standard',
-      titleDescription: 'Descrição',
-      description: ['Informação', 'Informação', 'Informação']
+      titleDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     }]
   },
   {
     title: 'Premium',
     imgCollection: [{
+      title: 'Azul',
       src: quarto4,
       alt: 'primeiro quarto standard',
-      titleDescription: 'Descrição',
-      description: ['Informação', 'Informação', 'Informação']
+      titleDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     },
     {
+      title: 'Trinca-ferro',
       src: quarto5,
       alt: 'primeiro quarto standard',
-      titleDescription: 'Descrição',
-      description: ['Informação', 'Informação', 'Informação']
+      titleDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     },
     {
+      title: 'Colerinho',
       src: quarto6,
       alt: 'primeiro quarto standard',
-      titleDescription: 'Descrição',
-      description: ['Informação', 'Informação', 'Informação']
+      titleDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     }]
   },
   {
     title: 'V.I.P',
     imgCollection: [{
+      title: 'Quero-quero',
       src: quarto7,
       alt: 'primeiro quarto standard',
-      titleDescription: 'Descrição',
-      description: ['Informação', 'Informação', 'Informação']
+      titleDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     },
     {
+      title: 'Gaivota',
       src: quarto8,
       alt: 'primeiro quarto standard',
-      titleDescription: 'Descrição',
-      description: ['Informação', 'Informação', 'Informação']
+      titleDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     },
     {
+      title: 'Gavião',
       src: quarto9,
       alt: 'primeiro quarto standard',
-      titleDescription: 'Descrição',
-      description: ['Informação', 'Informação', 'Informação']
+      titleDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     }]
   }
 ] 
