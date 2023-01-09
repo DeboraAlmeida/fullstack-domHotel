@@ -14,29 +14,7 @@ const RoomDropdown = ({ title, imgCollection }) => {
     title: '',
     src: '',
     alt: '',
-    description: '',
-    usersComment: [
-      {
-        name: 'Christian',
-        comment: 'is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy',
-        star: 5
-      },
-      {
-        name: 'Larissa',
-        comment: 'is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy',
-        star: 5
-      },
-      {
-        name: 'Débora',
-        comment: 'is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy',
-        star: 2
-      },
-      {
-        name: 'Flaviano',
-        comment: 'is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy',
-        star: 3
-      }
-    ]
+    description: ''
   })
 
   useEffect(() => {
@@ -46,7 +24,7 @@ const RoomDropdown = ({ title, imgCollection }) => {
   }, [showModal])
 
   const handleImage = (img) => {
-    setActualImage(prev => ({ ...prev, title: img.title, src: img.src, alt: img.alt, description: img.titleDescription }))
+    setActualImage(prev => ({ ...prev, title: img.title, src: img.src, alt: img.alt, description: img.titleDescription, id: img.id }))
     setShowModal(true)
   }
 
@@ -65,7 +43,7 @@ const RoomDropdown = ({ title, imgCollection }) => {
           <AvaliationRoom content={actualImage} setStage={setStage}/> 
         )}
         {stage === 'avaliation' && (
-          <AvaliationArea />
+          <AvaliationArea content={actualImage} />
         )}   
       </Modal>
     </S.Wrapper>
