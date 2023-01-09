@@ -14,5 +14,13 @@ const validateName = (value) => {
   return true
 }
 
-export { validateEmail, validateName }
+const validateNumber = (value) => {
+  if (/^\([0-9]{2}\) [0-9]?[0-9]{4}-[0-9]{4}$/.test(value)) {
+    return false
+  }
+  return true
+}
+
+
+export { validateEmail, validateName, validateNumber }
 

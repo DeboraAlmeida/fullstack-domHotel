@@ -271,7 +271,11 @@ export const Reservas = () => {
                 <li key={element.id}>
                 <S.ModalCont>
                 <GenericLabel>
+<<<<<<< HEAD
                 <GenericInput type={element.type} onClick={handleCheckbox} name={element.name} id={element.id} value={element.price}></GenericInput>
+=======
+                <GenericInput type={element.type} name={element.name} price={element.price} id={element.id}></GenericInput>
+>>>>>>> validateContact
                 </GenericLabel>
                 <DescriptionParagraph msg={element.msg}></DescriptionParagraph></S.ModalCont><SpanText>{element.price}</SpanText>
               </li>
