@@ -308,7 +308,7 @@ export const Reservas = () => {
             <UnorderedList arr={resumeItens.map((element) => (
               `${element.name} ${element.content}`
             ))} />
-            <Button width='100%'>Confirmar</Button>
+            <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone)} width='100%'>Confirmar</Button>
         </S.ContainerResume>
       </S.RoomsContainer>
        
