@@ -17,17 +17,20 @@ export const contentRoomBox = [
     title: 'Standard',
     imgCollection: [{
       title: 'Bem-te-vi',
+      id: '7895',
       src: quarto1,
       alt: 'primeiro quarto standard',
       titleDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     },
     {
       title: 'Canário',
+      id: '909',
       src: quarto3,
       alt: 'primeiro quarto standard',
       titleDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     },
     {
+      id: '26640',
       src: quarto2,
       title: 'Tezil',
       alt: 'primeiro quarto standard',
@@ -38,18 +41,21 @@ export const contentRoomBox = [
     title: 'Premium',
     imgCollection: [{
       title: 'Azul',
+      id: '21531',
       src: quarto4,
       alt: 'primeiro quarto standard',
       titleDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     },
     {
       title: 'Trinca-ferro',
+      id: '21531',
       src: quarto5,
       alt: 'primeiro quarto standard',
       titleDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     },
     {
       title: 'Colerinho',
+      id: '2454',
       src: quarto6,
       alt: 'primeiro quarto standard',
       titleDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
@@ -59,18 +65,21 @@ export const contentRoomBox = [
     title: 'V.I.P',
     imgCollection: [{
       title: 'Quero-quero',
+      id: '8315',
       src: quarto7,
       alt: 'primeiro quarto standard',
       titleDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     },
     {
       title: 'Gaivota',
+      id: '23373',
       src: quarto8,
       alt: 'primeiro quarto standard',
       titleDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     },
     {
       title: 'Gavião',
+      id: '37',
       src: quarto9,
       alt: 'primeiro quarto standard',
       titleDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'

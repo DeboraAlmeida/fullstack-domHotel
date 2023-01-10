@@ -25,6 +25,7 @@
         "comma-spacing": "warn",
         "react/prop-types": "off",
         "comma-dangle": "warn",
-        "spaced-comment": "warn"
+        "spaced-comment": "warn",
+        "no-empty": "warn"
     }
 }

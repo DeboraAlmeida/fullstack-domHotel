@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '../../atoms/Button/index.js'
 import ImageDefault from '../../atoms/ImageDefault/index.js'
 import MiniTitle from '../../atoms/MiniTitle/index.js'
@@ -7,6 +7,19 @@ import CommentArea from '../CommentArea/index.js'
 import * as S from './style.js'
 
 const AvaliationRoom = ({ content, setStage }) => {
+  const [comments, setComments] = useState([])
+
+  useEffect(() => {
+    const localComments = localStorage.getItem('comments') !== null ? JSON.parse(localStorage.getItem('comments')) : []
+    const arr = []
+    localComments.forEach(comment => {
+      if (comment.quartoId === content.id) {
+        arr.push(comment)
+      }
+    })
+    setComments(arr)
+  }, [])
+
   const handleButton = () => {
     setStage('avaliation')
   }
@@ -20,14 +33,14 @@ const AvaliationRoom = ({ content, setStage }) => {
         <ImageDefault src={content.src} altText={content.alt} />
       </S.ImageContainer>
       <MiniTitle span={'Descrição: '} text={content.description} />
-      {content.usersComment.length > 0 && (
+      {comments.length > 0 && (
         <>
           <S.TitleCommentContainer>
           <MiniTitle span={'Comentários'}/>
         </S.TitleCommentContainer> 
           <S.CommentContainer>
-          {content.usersComment.map((user, index) => (
-            <CommentArea key={index} name={user.name} comment={user.comment} star={user.star} />
+          {comments.map((user, index) => (
+            <CommentArea key={index} name={user.name} comment={user.comment} star={user.stars} />
           ))}        
         </S.CommentContainer>
       </>
