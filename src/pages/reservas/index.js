@@ -174,7 +174,8 @@ export const Reservas = () => {
     { 
       id: 'total',
       name: 'Total:  ',
-      content: ''
+      content: 'R$ 0,00',
+      value: ''
     }])
 
   const valueClickCheckbox = {
@@ -184,7 +185,7 @@ export const Reservas = () => {
     cafe: 0,
     massagem: 0,
     ac: 0
-  }
+  } 
 
   let totalValue = 0
 
@@ -207,12 +208,11 @@ export const Reservas = () => {
     localStorage.setItem('moreServices', JSON.stringify(valueClickCheckbox))
     const resumeItensValue = resumeItens
     resumeItensValue[resumeItens.length - 2].content = `R$ ${totalValue.toFixed(2).toString().replace('.', ',')}`
-    resumeItensValue[resumeItens.length - 1].content = `R$ ${(roomValue + totalValue).toFixed(2).toString().replace('.', ',')}`
+    resumeItensValue[resumeItens.length - 1].content = `R$ ${(parseInt(resumeItensValue[resumeItens.length - 1].value) + totalValue).toFixed(2).toString().replace('.', ',')}`
     setResumeItens(resumeItensValue)
     setModalOpen(false)
-    roomValue += totalValue
-    setReserveResume()
   }
+
   const [inputsValue, setInputsValue] = useState({
     quarto: '',
     checkin: '',
@@ -237,19 +237,23 @@ export const Reservas = () => {
   const convertDate = d => {
     return d.split('-').reverse().join('/')
   }
-
+ 
+  const countDays = (initialDate, finalDate) => {
+    const diff = new Date(finalDate) - new Date(initialDate)
+    const numberOfDays = diff / (1000 * 60 * 60 * 24)
+    return numberOfDays
+  }
+  
   const handleInputChange = (id, e) => {
     setInputReserve(inputsReserve.filter(input => {
       if (input.id === id) {
         input.value = e.target.value
-        if (input.id === 'checkin' || input.id === 'checkout') {
-          input.value = convertDate(input.value)
-        }
       }
       inputsValue[input.id] = input.value
       setInputsValue(prev => ({ ...prev }))
       return inputsValue
     }))
+    
     setReserveResume()
   } 
 
@@ -261,18 +265,11 @@ export const Reservas = () => {
     if (event.target.checked) {
       inputsValue.quarto = event.target.value
       choosenRoom = event.target.value
-      quartos.filter(item => {
-        if (item.title === choosenRoom) {
-          roomValue = parseInt(item.basePrice)
-        }
-        return quartos
-      })
       setInputsValue(prev => ({ ...prev, quarto: event.target.value }))
     }
     setReserveResume()
-    console.log(roomValue)
   }
-  
+
   useEffect(() => {
     localStorage.setItem('reserva', JSON.stringify(inputsValue))
   }, [inputsValue])
@@ -280,11 +277,16 @@ export const Reservas = () => {
 
   const setReserveResume = () => {
     const math = (parseInt(inputsValue.adultos) + parseInt(inputsValue.criancas))
+    const checkinValue = inputsValue.checkin
+    const checkoutValue = inputsValue.checkout
     const selectedRoom = quartos
     
     selectedRoom.filter((item, index) => {
       item.price = parseInt(quartos[index].basePrice)
       item.price = (item.price * math).toFixed(2)
+      if (item.title === choosenRoom || item.title === inputsValue.quarto) {
+        roomValue = item.price
+      }
       return item.price
     })
     const resumeItensValue = resumeItens
@@ -292,18 +294,37 @@ export const Reservas = () => {
       if (Object.hasOwn(inputsValue, resumeItensValue[index].id)) {
         item.content = inputsValue[`${resumeItensValue[index].id}`]
       }
+      if (item.id === 'checkin' || item.id === 'checkout') {
+        item.content = convertDate(inputsValue[`${resumeItensValue[index].id}`])
+      }
       if (item.id === 'resume-people') {
         item.content = math
       }
       if (item.id === 'total') {
-        if (choosenRoom === inputsValue.quarto) {
-          roomValue = roomValue * math
-          item.content = roomValue + totalValue
-          
+        const getMoreServices = JSON.parse(localStorage.getItem('moreServices'))
+        let moreServices = 0
+        const getDays = countDays(checkinValue, checkoutValue)        
+        item.value = parseInt(roomValue * getDays)
+        if (!isNaN(item.value) || item.value === 0) { 
+          if (resumeItensValue[resumeItens.length - 2].content !== '') {
+            for (const item in getMoreServices) {
+              if (getMoreServices[item] !== 0) {
+                console.log(`${item} - ${getMoreServices[item]}`)
+                moreServices += getMoreServices[item]
+              }
+            }
+            console.log(`este é o moreServices - ${moreServices}`)
+            item.value += moreServices 
+            console.log(`este é o item.value depois de somar com moreServices - ${item.value}`)
+          }
+          item.content = `R$ ${parseInt(item.value).toFixed(2).toString().replace('.', ',')}` 
+        } else {
+          item.content = 'R$ 0,00'
         }
       }
       return resumeItensValue
     })
+   
     setQuartos(selectedRoom)
     setResumeItens(resumeItensValue)
   }
