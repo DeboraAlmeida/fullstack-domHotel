@@ -43,14 +43,16 @@ export const Reservas = () => {
       id: 'checkin',
       type: 'date',
       label: 'Data de checkin',
-      value: ''
+      value: '',
+      error: false
       
     },
     {
       id: 'checkout',
       type: 'date',
       label: 'Data de checkout',
-      value: ''
+      value: '',
+      error: false
       
     },
     {
@@ -60,7 +62,8 @@ export const Reservas = () => {
       placeholder: '1',
       max: '4',
       min: '1',
-      value: '1'
+      value: '1',
+      error: false
       
     },
     {
@@ -69,7 +72,8 @@ export const Reservas = () => {
       label: 'Número de crianças',
       max: '4',
       min: '0',
-      value: '0'
+      value: '0',
+      error: false
       
     }
   ])
@@ -108,7 +112,7 @@ export const Reservas = () => {
       name: 'massagem',
       id: 'massagem',
       msg: 'Cadeira de massagem no quarto',
-      price: 'R$ 150,50'
+      price: 'R$ 150,00'
     },
     {
       type: 'checkbox',
@@ -237,20 +241,67 @@ export const Reservas = () => {
   const convertDate = d => {
     return d.split('-').reverse().join('/')
   }
- 
+
+  let initialValues = {
+    today: formatDate(0),
+    checkin: '',
+    checkout: ''
+  }
+  
+  const [values, setValues] = useState(initialValues)
+  
+  const handleDateChange = (e) => {
+    const fieldName = e.target.id
+    const value = e.target.value
+    initialValues = { ...values, [fieldName]: value }
+    setValues(initialValues)
+    console.log(initialValues)
+  }
+
+  
   const countDays = (initialDate, finalDate) => {
     const diff = new Date(finalDate) - new Date(initialDate)
     const numberOfDays = diff / (1000 * 60 * 60 * 24)
     return numberOfDays
   }
   
+  const valiDate = (d1, d2) => {
+    if (countDays(d1, d2) < 0) {
+      return true
+    }
+  }
+
+  const [controlButton, setControlButton] = useState(false)
+
   const handleInputChange = (id, e) => {
     setInputReserve(inputsReserve.filter(input => {
       if (input.id === id) {
         input.value = e.target.value
+        if (input.id === 'checkin' || input.id === 'checkout') {
+          handleDateChange(e)
+          if (input.id === 'checkin') {
+            if ((valiDate(initialValues.today, initialValues.checkin)) || (countDays(initialValues.today, initialValues.checkin) > 364)) {
+              input.error = true  
+              setControlButton(true)           
+            } else {
+              input.error = false
+              setControlButton(false)
+            }
+          } else if (input.id === 'checkout') {
+            if ((valiDate(initialValues.checkin, initialValues.checkout)) || (countDays(initialValues.checkin, initialValues.checkout) > 364)) {
+              input.error = true  
+              setControlButton(true)           
+            } else {
+              input.error = false
+              setControlButton(false)
+            }
+            
+          }
+        }
       }
       inputsValue[input.id] = input.value
       setInputsValue(prev => ({ ...prev }))
+      console.log(controlButton)
       return inputsValue
     }))
     
@@ -346,7 +397,7 @@ export const Reservas = () => {
           {inputsReserve.map(element => (
             <S.ReserveItem key={element.id}>
               <GenericLabel for={element.id}>{element.label}</GenericLabel>
-              <GenericInput type={element.type} id={element.id} placeholder={element.placeholder} min={element.min} max={element.max} name={element.id} onChange={(e) => handleInputChange(element.id, e)} />
+              <GenericInput type={element.type} id={element.id} error={element.error} placeholder={element.placeholder} min={element.min} max={element.max} name={element.id} onChange={(e) => handleInputChange(element.id, e)} />
             </S.ReserveItem>
           ))}   
         </S.ContainerReserve>
@@ -383,7 +434,7 @@ export const Reservas = () => {
             <UnorderedList arr={resumeItens.map((element) => (
               `${element.name} ${element.content}`
             ))} />
-            <Button type='submit' width='100%'>Confirmar</Button>
+            <Button disabled={controlButton} type='submit' width='100%'>Confirmar</Button>
         </S.ContainerResume>
       </S.RoomsContainer>
     </S.FormContainer>
@@ -397,15 +448,15 @@ export const Reservas = () => {
           </S.HeaderModal>
           <S.ModalOptions>
             <ul>
-              {optionsCollection.map((element) => (
-                <li key={element.id}>
-                <S.ModalCont>
-                <GenericLabel>
-                <GenericInput type={element.type} onClick={handleCheckbox} name={element.name} id={element.id} value={element.price}></GenericInput>
-                </GenericLabel>
-                <DescriptionParagraph msg={element.msg}></DescriptionParagraph></S.ModalCont><SpanText>{element.price}</SpanText>
-              </li>
-              ))}
+              {optionsCollection.map((element) => (  
+              <li key={element.id}>
+                  <S.ModalCont>
+                  <GenericLabel>
+                  <GenericInput type={element.type} onClick={handleCheckbox} name={element.name} id={element.id} value={element.price} ></GenericInput>
+                  </GenericLabel>
+                  <DescriptionParagraph msg={element.msg}></DescriptionParagraph></S.ModalCont><SpanText>{element.price}</SpanText>
+                </li>)
+              )}
             </ul>
           </S.ModalOptions>
           <S.Btn01>
