@@ -11,6 +11,7 @@ import Modal from '../../components/atoms/Modal'
 import PrincipalTitle from '../../components/atoms/PrincipalTitle'
 import SubTitle from '../../components/atoms/SubTitle'
 import UnorderedList from '../../components/atoms/UnorderedList'
+import { validateEmail, validateName, validateNumber } from '../../utils/validateFields'
 import premium from './images/acomodacao_premium.jpg'
 import standard from './images/acomodacao_standard.jpg'
 import vip from './images/acomodacao_vip.jpg'
@@ -18,21 +19,72 @@ import * as S from './styles'
 
 
 export const Reservas = () => {
+  const [valueFields, setValueFields] = useState(
+    {
+      email: '',
+      name: '',
+      telephone: ''
+    }
+  )
+  const [errorFields, setErrosFields] = useState(
+    {
+      email: false,
+      name: false,
+      telephone: false
+    }
+  )
+
+  const handleEmail = (value) => {
+    setValueFields((prev) => ({ ...prev, email: value }))
+    if (validateEmail(valueFields.email)) {
+      setErrosFields((prev) => ({ ...prev, email: true }))
+      return
+    }
+    setErrosFields((prev) => ({ ...prev, email: false }))
+  }
+
+  const handleName = (value) => {
+    setValueFields((prev) => ({ ...prev, name: value }))
+    if (validateName(valueFields.name)) {
+      setErrosFields((prev) => ({ ...prev, name: true }))
+      return
+    }
+    setErrosFields((prev) => ({ ...prev, name: false }))
+  }
+
+  const handleTelephone = (value) => {
+    setValueFields((prev) => ({ ...prev, telephone: value }))
+    if (validateNumber(valueFields.name)) {
+      setErrosFields((prev) => ({ ...prev, telephone: true }))
+      return
+    }
+    setErrosFields((prev) => ({ ...prev, telephone: false }))
+  }
+  
   const inputsCollection = [
     {
       id: '1',
-      type: 'text',
-      label: 'Nome'
+      label: 'Nome:',
+      method: handleName,
+      model: errorFields.name,
+      valueId: 'name',
+      type: 'text'
     },
     {
       id: '2',
-      type: 'email',
-      label: 'E-mail'
+      label: 'E-mail:',
+      method: handleEmail,
+      model: errorFields.email,
+      valueId: 'email',
+      type: 'email'
     },
     {
       id: '3',
-      type: 'tel',
-      label: 'Telefone'
+      label: 'Telefone:',
+      method: handleTelephone,
+      model: errorFields.telephone,
+      valueId: 'telephone',
+      type: 'tel'
     }
 
   ]
@@ -208,7 +260,9 @@ export const Reservas = () => {
         {inputsCollection.map((element, index) => (
           <S.Container key={index}>
             <GenericLabel for={element.id}>{element.label}</GenericLabel>
-            <GenericInput type={element.type} id={element.id}/>
+            <GenericInput type={element.type} id={element.id} value={valueFields[`${element.valueId}`]}
+            onChange={(e) => element.method(e.target.value)}
+            error={element.model}/>
           </S.Container>
         ))} 
         </S.DataContainer> 
@@ -254,7 +308,7 @@ export const Reservas = () => {
             <UnorderedList arr={resumeItens.map((element) => (
               `${element.name} ${element.content}`
             ))} />
-            <Button width='100%'>Confirmar</Button>
+            <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone)} width='100%'>Confirmar</Button>
         </S.ContainerResume>
       </S.RoomsContainer>
        
@@ -272,6 +326,7 @@ export const Reservas = () => {
                 <S.ModalCont>
                 <GenericLabel>
                 <GenericInput type={element.type} onClick={handleCheckbox} name={element.name} id={element.id} value={element.price}></GenericInput>
+                <GenericInput type={element.type} name={element.name} price={element.price} id={element.id}></GenericInput>
                 </GenericLabel>
                 <DescriptionParagraph msg={element.msg}></DescriptionParagraph></S.ModalCont><SpanText>{element.price}</SpanText>
               </li>
