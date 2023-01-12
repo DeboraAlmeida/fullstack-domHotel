@@ -437,6 +437,22 @@ export const Reservas = () => {
     setQuartos(selectedRoom)
     setResumeItens(resumeItensValue)
   }
+
+  const saveUserStorage = (id) => {
+    let obj = {}
+    if (valueFields[`${id}`] === '') {
+      setErrosFields(prev => ({ ...prev, [id]: true }))
+      return
+    }
+    if (localStorage.getItem('userData')) {
+      obj = JSON.parse(localStorage.getItem('userData')) 
+      obj[`${id}`] = valueFields[`${id}`]
+      localStorage.setItem('userData', JSON.stringify(obj))
+      return
+    }
+    obj[`${id}`] = valueFields[`${id}`]
+    localStorage.setItem('userData', JSON.stringify(obj))
+  }
   
   return (
     <S.PrincipalContainer>
@@ -449,6 +465,7 @@ export const Reservas = () => {
             <GenericLabel for={element.id}>{element.label}</GenericLabel>
             <GenericInput type={element.type} id={element.id} value={valueFields[`${element.valueId}`]}
             onChange={(e) => element.method(e.target.value)}
+            onBlur={() => saveUserStorage(element.valueId)}
             error={element.model}/>
           </S.Container>
         ))} 
