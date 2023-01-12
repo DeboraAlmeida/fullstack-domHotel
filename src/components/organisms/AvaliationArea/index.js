@@ -101,10 +101,14 @@ const AvaliationArea = ({ content }) => {
     if (handleLogged()) {
       if (stars.find(star => star !== 'void')) {
         if (name !== '') {
-          if (msg.length < 250) {
-            savingComment()
+          if (name.length < 30) {
+            if (msg.length < 250) {
+              savingComment()
+            } else {
+              feedBack('Mensagem muito grande')
+            }
           } else {
-            feedBack('Mensagem muito grande')
+            feedBack('Nome muito grande')
           }
         } else {
           feedBack('Informe seu Nome')
