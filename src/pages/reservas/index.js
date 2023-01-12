@@ -35,7 +35,6 @@ export const Reservas = () => {
   )
 
   const handleEmail = (value) => {
-    console.log('email', value)
     valueFields.email = value
     if (validateEmail(valueFields.email)) {
       setErrosFields((prev) => ({ ...prev, email: true }))
@@ -45,7 +44,6 @@ export const Reservas = () => {
   }
 
   const handleName = (value) => {
-    console.log('name', value)
     valueFields.name = value
     if (validateName(valueFields.name)) {
       setErrosFields((prev) => ({ ...prev, name: true }))
@@ -55,7 +53,6 @@ export const Reservas = () => {
   }
 
   const handleTelephone = (value) => {
-    console.log('tel', value)
     valueFields.telephone = value
     if (validateNumber(valueFields.telephone)) {
       setErrosFields((prev) => ({ ...prev, telephone: true }))
