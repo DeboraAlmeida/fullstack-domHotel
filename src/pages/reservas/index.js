@@ -64,36 +64,33 @@ export const Reservas = () => {
     setErrosFields((prev) => ({ ...prev, telephone: false }))
   }
   
-  const [inputsCollection, setInputsCollection] = useState([
+  const inputsCollection = [
     {
-      id: 'nome',
+      id: '1',
       label: 'Nome:',
       method: handleName,
       model: errorFields.name,
       valueId: 'name',
-      type: 'text',
-      value: ''
+      type: 'text'
     },
     {
-      id: 'email',
+      id: '2',
       label: 'E-mail:',
       method: handleEmail,
       model: errorFields.email,
       valueId: 'email',
-      type: 'email',
-      value: ''
+      type: 'email'
     },
     {
-      id: 'tel',
+      id: '3',
       label: 'Telefone:',
       method: handleTelephone,
       model: errorFields.telephone,
       valueId: 'telephone',
-      type: 'text',
-      value: ''
+      type: 'text'
     }
 
-  ])
+  ]
 
   const [inputsReserve, setInputReserve] = useState([
     {
@@ -289,27 +286,6 @@ export const Reservas = () => {
     criancas: '0'
   })
 
-  const [userValue, setUserValue] = useState({
-    nome: '',
-    email: '',
-    tel: ''
-  })
-
-  const handleUserChange = (id, e) => {
-    setInputsCollection(inputsCollection.filter(input => {
-      if (input.id === id) {
-        input.value = e.target.value
-      }
-      userValue[input.id] = input.value
-      setUserValue(prev => ({ ...prev }))
-      return userValue
-    }))
-  }
-  
-  useEffect(() => {
-    localStorage.setItem('userData', JSON.stringify(userValue))
-  }, [userValue])
-
   const formatDate = d => {
     const data = new Date()
     const dt = new Date(data.setDate(data.getDate() + d))
@@ -425,7 +401,6 @@ export const Reservas = () => {
       if (item.title === choosenRoom || item.title === inputsValue.quarto) {
         roomValue = item.price
       }
-      /* item.price = `${item.price},00` */
       item.price = (item.price).toFixed(2).replace('.', ',')
       return item.price
     })
@@ -465,8 +440,6 @@ export const Reservas = () => {
     setQuartos(selectedRoom)
     setResumeItens(resumeItensValue)
   }
-
-  useEffect(() => [errorFields])
   
   return (
     <S.PrincipalContainer>
@@ -478,7 +451,7 @@ export const Reservas = () => {
           <S.Container key={index}>
             <GenericLabel for={element.id}>{element.label}</GenericLabel>
             <GenericInput type={element.type} id={element.id} value={valueFields[`${element.valueId}`]}
-            onChange={(e) => { element.method(e.target.value); handleUserChange(element.id, e) }}
+            onChange={(e) => element.method(e.target.value)}
             error={element.model}/>
           </S.Container>
         ))} 
