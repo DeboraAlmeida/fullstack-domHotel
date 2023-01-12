@@ -152,7 +152,7 @@ export const Contato = () => {
         <GenericLabel for='comentario'>Deixe um comentário:</GenericLabel>
         <TextArea id='comentario' rows={10} onChange={handleTextArea} error={errorFields.textArea}/>
       </S.Container>
-        <Button action={handleButton} disabled={(errorFields.email || errorFields.name || errorFields.telephone)}>Enviar</Button>
+        <Button action={handleButton} disabled={(errorFields.email || errorFields.name || errorFields.telephone || errorFields.select || errorFields.textArea)}>Enviar</Button>
       </S.FormContainer>
     </S.Wrapper>
   )
