@@ -19,24 +19,27 @@ import * as S from './styles'
 
 export const Reservas = () => {
 
-  const inputsCollection = [
+  const [inputsCollection, setInputsCollection] = useState([
     {
-      id: '1',
+      id: 'nome',
       type: 'text',
-      label: 'Nome'
+      label: 'Nome',
+      value: ''
     },
     {
-      id: '2',
+      id: 'email',
       type: 'email',
-      label: 'E-mail'
+      label: 'E-mail',
+      value: ''
     },
     {
-      id: '3',
+      id: 'tel',
       type: 'tel',
-      label: 'Telefone'
+      label: 'Telefone',
+      value: ''
     }
 
-  ]
+  ])
 
   const [inputsReserve, setInputReserve] = useState([
     {
@@ -84,42 +87,48 @@ export const Reservas = () => {
       name: 'mordomo',
       id: 'mordomo',
       msg: 'Serviço de Mordomo',
-      price: 'R$ 150,00'
+      price: 'R$ 150,00',
+      checked: false
     },
     {
       type: 'checkbox',
       name: 'cofre',
       id: 'cofre',
       msg: 'Cofre no quarto',
-      price: 'R$ 150,00'
+      price: 'R$ 150,00',
+      checked: false
     },
     {
       type: 'checkbox',
       name: 'pet',
       id: 'pet',
       msg: 'Hospedagem para Pet',
-      price: 'R$ 150,00'
+      price: 'R$ 150,00',
+      checked: false
     },
     {
       type: 'checkbox',
       name: 'cafe',
       id: 'cafe',
       msg: 'Incluso café da manhã',
-      price: 'R$ 150,00'
+      price: 'R$ 150,00',
+      checked: false
     },
     {
       type: 'checkbox',
       name: 'massagem',
       id: 'massagem',
       msg: 'Cadeira de massagem no quarto',
-      price: 'R$ 150,00'
+      price: 'R$ 150,00',
+      checked: false
     },
     {
       type: 'checkbox',
       name: 'ac',
       id: 'ac',
       msg: 'Ar condicionado no talo!!!',
-      price: 'R$ 150,00'
+      price: 'R$ 150,00',
+      checked: false
     }
   ]
 
@@ -215,8 +224,9 @@ export const Reservas = () => {
     resumeItensValue[resumeItens.length - 1].content = `R$ ${(parseInt(resumeItensValue[resumeItens.length - 1].value) + totalValue).toFixed(2).toString().replace('.', ',')}`
     setResumeItens(resumeItensValue)
     setModalOpen(false)
+    
   }
-
+  
   const [inputsValue, setInputsValue] = useState({
     quarto: '',
     checkin: '',
@@ -224,6 +234,27 @@ export const Reservas = () => {
     adultos: '1',
     criancas: '0'
   })
+
+  const [userValue, setUserValue] = useState({
+    nome: '',
+    email: '',
+    tel: ''
+  })
+
+  const handleUserChange = (id, e) => {
+    setInputsCollection(inputsCollection.filter(input => {
+      if (input.id === id) {
+        input.value = e.target.value
+      }
+      userValue[input.id] = input.value
+      setUserValue(prev => ({ ...prev }))
+      return userValue
+    }))
+  }
+  
+  useEffect(() => {
+    localStorage.setItem('userData', JSON.stringify(userValue))
+  }, [userValue])
 
   const formatDate = d => {
     const data = new Date()
@@ -255,7 +286,6 @@ export const Reservas = () => {
     const value = e.target.value
     initialValues = { ...values, [fieldName]: value }
     setValues(initialValues)
-    console.log(initialValues)
   }
 
   
@@ -271,7 +301,12 @@ export const Reservas = () => {
     }
   }
 
-  const [controlButton, setControlButton] = useState(false)
+  const [controlButton, setControlButton] = useState(
+    {
+      checkin: false,
+      checkout: false
+    }
+  )
 
   const handleInputChange = (id, e) => {
     setInputReserve(inputsReserve.filter(input => {
@@ -280,28 +315,26 @@ export const Reservas = () => {
         if (input.id === 'checkin' || input.id === 'checkout') {
           handleDateChange(e)
           if (input.id === 'checkin') {
-            if ((valiDate(initialValues.today, initialValues.checkin)) || (countDays(initialValues.today, initialValues.checkin) > 364)) {
-              input.error = true  
-              setControlButton(true)           
+            if ((valiDate(initialValues.today, initialValues.checkin)) || (countDays(initialValues.today, initialValues.checkin) > 364)) { 
+              input.error = true 
+              setControlButton(prev => ({ ...prev, checkin: true }))           
             } else {
               input.error = false
-              setControlButton(false)
+              setControlButton(prev => ({ ...prev, checkin: false }))
             }
-          } else if (input.id === 'checkout') {
+          } if (input.id === 'checkout') {
             if ((valiDate(initialValues.checkin, initialValues.checkout)) || (countDays(initialValues.checkin, initialValues.checkout) > 364)) {
               input.error = true  
-              setControlButton(true)           
+              setControlButton(prev => ({ ...prev, checkout: true }))           
             } else {
               input.error = false
-              setControlButton(false)
-            }
-            
+              setControlButton(prev => ({ ...prev, checkout: false })) 
+            }            
           }
-        }
+        } 
       }
       inputsValue[input.id] = input.value
       setInputsValue(prev => ({ ...prev }))
-      console.log(controlButton)
       return inputsValue
     }))
     
@@ -334,10 +367,12 @@ export const Reservas = () => {
     
     selectedRoom.filter((item, index) => {
       item.price = parseInt(quartos[index].basePrice)
-      item.price = (item.price * math).toFixed(2)
+      item.price = (item.price * math)
       if (item.title === choosenRoom || item.title === inputsValue.quarto) {
         roomValue = item.price
       }
+      /* item.price = `${item.price},00` */
+      item.price = (item.price).toFixed(2).replace('.', ',')
       return item.price
     })
     const resumeItensValue = resumeItens
@@ -360,13 +395,10 @@ export const Reservas = () => {
           if (resumeItensValue[resumeItens.length - 2].content !== '') {
             for (const item in getMoreServices) {
               if (getMoreServices[item] !== 0) {
-                console.log(`${item} - ${getMoreServices[item]}`)
                 moreServices += getMoreServices[item]
               }
             }
-            console.log(`este é o moreServices - ${moreServices}`)
             item.value += moreServices 
-            console.log(`este é o item.value depois de somar com moreServices - ${item.value}`)
           }
           item.content = `R$ ${parseInt(item.value).toFixed(2).toString().replace('.', ',')}` 
         } else {
@@ -389,7 +421,7 @@ export const Reservas = () => {
         {inputsCollection.map((element, index) => (
           <S.Container key={index}>
             <GenericLabel for={element.id}>{element.label}</GenericLabel>
-            <GenericInput type={element.type} id={element.id}/>
+            <GenericInput type={element.type} id={element.id} onChange={(e) => handleUserChange(element.id, e)} />
           </S.Container>
         ))} 
         </S.DataContainer> 
@@ -434,7 +466,7 @@ export const Reservas = () => {
             <UnorderedList arr={resumeItens.map((element) => (
               `${element.name} ${element.content}`
             ))} />
-            <Button disabled={controlButton} type='submit' width='100%'>Confirmar</Button>
+            <Button disabled={controlButton.checkin || controlButton.checkout} type='submit' width='100%'>Confirmar</Button>
         </S.ContainerResume>
       </S.RoomsContainer>
     </S.FormContainer>
