@@ -11,6 +11,7 @@ import Modal from '../../components/atoms/Modal'
 import PrincipalTitle from '../../components/atoms/PrincipalTitle'
 import SubTitle from '../../components/atoms/SubTitle'
 import UnorderedList from '../../components/atoms/UnorderedList'
+import { validateEmail, validateName, validateNumber } from '../../utils/validateFields'
 import premium from './images/acomodacao_premium.jpg'
 import standard from './images/acomodacao_standard.jpg'
 import vip from './images/acomodacao_vip.jpg'
@@ -18,24 +19,77 @@ import * as S from './styles'
 
 
 export const Reservas = () => {
+  const [valueFields] = useState(
+    {
+      email: '',
+      name: '',
+      telephone: ''
+    }
+  )
+  const [errorFields, setErrosFields] = useState(
+    {
+      email: false,
+      name: false,
+      telephone: false
+    }
+  )
 
+  const handleEmail = (value) => {
+    console.log('email', value)
+    valueFields.email = value
+    if (validateEmail(valueFields.email)) {
+      setErrosFields((prev) => ({ ...prev, email: true }))
+      return
+    }
+    setErrosFields((prev) => ({ ...prev, email: false }))
+  }
+
+  const handleName = (value) => {
+    console.log('name', value)
+    valueFields.name = value
+    if (validateName(valueFields.name)) {
+      setErrosFields((prev) => ({ ...prev, name: true }))
+      return
+    }
+    setErrosFields((prev) => ({ ...prev, name: false }))
+  }
+
+  const handleTelephone = (value) => {
+    console.log('tel', value)
+    valueFields.telephone = value
+    if (validateNumber(valueFields.telephone)) {
+      setErrosFields((prev) => ({ ...prev, telephone: true }))
+      return
+    }
+    setErrosFields((prev) => ({ ...prev, telephone: false }))
+  }
+  
   const [inputsCollection, setInputsCollection] = useState([
     {
       id: 'nome',
+      label: 'Nome:',
+      method: handleName,
+      model: errorFields.name,
+      valueId: 'name',
       type: 'text',
-      label: 'Nome',
       value: ''
     },
     {
       id: 'email',
+      label: 'E-mail:',
+      method: handleEmail,
+      model: errorFields.email,
+      valueId: 'email',
       type: 'email',
-      label: 'E-mail',
       value: ''
     },
     {
       id: 'tel',
-      type: 'tel',
-      label: 'Telefone',
+      label: 'Telefone:',
+      method: handleTelephone,
+      model: errorFields.telephone,
+      valueId: 'telephone',
+      type: 'text',
       value: ''
     }
 
@@ -198,7 +252,7 @@ export const Reservas = () => {
     cafe: 0,
     massagem: 0,
     ac: 0
-  } 
+  }
 
   let totalValue = 0
 
@@ -411,6 +465,8 @@ export const Reservas = () => {
     setQuartos(selectedRoom)
     setResumeItens(resumeItensValue)
   }
+
+  useEffect(() => [errorFields])
   
   return (
     <S.PrincipalContainer>
@@ -421,7 +477,9 @@ export const Reservas = () => {
         {inputsCollection.map((element, index) => (
           <S.Container key={index}>
             <GenericLabel for={element.id}>{element.label}</GenericLabel>
-            <GenericInput type={element.type} id={element.id} onChange={(e) => handleUserChange(element.id, e)} />
+            <GenericInput type={element.type} id={element.id} value={valueFields[`${element.valueId}`]}
+            onChange={(e) => { element.method(e.target.value); handleUserChange(element.id, e) }}
+            error={element.model}/>
           </S.Container>
         ))} 
         </S.DataContainer> 
@@ -466,7 +524,7 @@ export const Reservas = () => {
             <UnorderedList arr={resumeItens.map((element) => (
               `${element.name} ${element.content}`
             ))} />
-            <Button disabled={controlButton.checkin || controlButton.checkout} type='submit' width='100%'>Confirmar</Button>
+            <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%'>Confirmar</Button>
         </S.ContainerResume>
       </S.RoomsContainer>
     </S.FormContainer>

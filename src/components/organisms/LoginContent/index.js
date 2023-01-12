@@ -65,6 +65,7 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }) => {
     localStorage.setItem('logins', JSON.stringify(logins))
     setLoggedName(data.name.split(' ')[0])
     setIsLogged(true)
+    sessionStorage.setItem('isLogged', JSON.stringify({ ...data, isLogged: true }))
   }
 
   const actionSignIn = (data, logins) => {
@@ -88,6 +89,7 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }) => {
     if (result) {
       setIsLogged(true)
       setLoggedName(name.split(' ')[0])
+      sessionStorage.setItem('isLogged', JSON.stringify({ ...data, isLogged: true }))
     } else {
       alert('Usuário não cadastrado!')
       setIsLogged(false)

@@ -32,10 +32,6 @@ export const DescriptionContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
-  h2 {
-    margin-bottom: 10px;
-  }
-
   ul {
     font-weight: bold
   }

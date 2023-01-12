@@ -14,5 +14,20 @@ const validateName = (value) => {
   return true
 }
 
-export { validateEmail, validateName }
+const formatTelephone = (value) => {
+  const result = value.replace('(', '').replace(')', '')
+  return result
+}
+
+
+const validateNumber = (value) => {
+  const result = formatTelephone(value)
+  if (/^\d+$/.test(result.trim())) {
+    return false
+  }
+  return true
+}
+
+
+export { validateEmail, validateName, validateNumber }
 
