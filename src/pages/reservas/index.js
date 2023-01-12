@@ -19,7 +19,7 @@ import * as S from './styles'
 
 
 export const Reservas = () => {
-  const [valueFields, setValueFields] = useState(
+  const [valueFields] = useState(
     {
       email: '',
       name: '',
@@ -35,7 +35,7 @@ export const Reservas = () => {
   )
 
   const handleEmail = (value) => {
-    setValueFields((prev) => ({ ...prev, email: value }))
+    valueFields.email = value
     if (validateEmail(valueFields.email)) {
       setErrosFields((prev) => ({ ...prev, email: true }))
       return
@@ -44,7 +44,7 @@ export const Reservas = () => {
   }
 
   const handleName = (value) => {
-    setValueFields((prev) => ({ ...prev, name: value }))
+    valueFields.name = value
     if (validateName(valueFields.name)) {
       setErrosFields((prev) => ({ ...prev, name: true }))
       return
@@ -53,8 +53,8 @@ export const Reservas = () => {
   }
 
   const handleTelephone = (value) => {
-    setValueFields((prev) => ({ ...prev, telephone: value }))
-    if (validateNumber(valueFields.name)) {
+    valueFields.telephone = value
+    if (validateNumber(valueFields.telephone)) {
       setErrosFields((prev) => ({ ...prev, telephone: true }))
       return
     }
@@ -84,7 +84,7 @@ export const Reservas = () => {
       method: handleTelephone,
       model: errorFields.telephone,
       valueId: 'telephone',
-      type: 'tel'
+      type: 'text'
     }
 
   ]
