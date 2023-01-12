@@ -1,9 +1,9 @@
 // Arquivo criado: 10/12/2022 às 11:55
 
-import React, { useRef, useState } from 'react'
 import PropTypes from 'prop-types'
-import * as S from './styles.js'
+import React, { useRef, useState } from 'react'
 import { pallete } from '../../../pallete.js'
+import * as S from './styles.js'
 
 /**
  * 
@@ -62,6 +62,8 @@ export default function TextArea({
   focusColor = pallete.greenDefault,
   name,
   id,
+  onChange,
+  error,
   width = '100%',
   height = '150px'
 }) {
@@ -71,8 +73,9 @@ export default function TextArea({
   const [border, setBorder] = useState('transparent')
 
 
-  const handleVal = () => {
+  const handleVal = (e) => {
     ref.current.value.length > 0 && !disabled ? setBorder(focusColor) : setBorder('transparent')
+    onChange(e)
   }
 
 
@@ -101,6 +104,9 @@ export default function TextArea({
 
       // Atributos do React
       ref={ref}
+
+      // Error Atribute
+      errorField={error}
     >
     </Component>
   )

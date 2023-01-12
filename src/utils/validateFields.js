@@ -14,9 +14,15 @@ const validateName = (value) => {
   return true
 }
 
+const formatTelephone = (value) => {
+  const result = value.replace('(', '').replace(')', '')
+  return result
+}
+
 
 const validateNumber = (value) => {
-  if (/^[0-9]{2}[\s]?[0-9]{4}[-]?[0-9]{4}$/.test(value)) {
+  const result = formatTelephone(value)
+  if (/^\d+$/.test(result.trim())) {
     return false
   }
   return true

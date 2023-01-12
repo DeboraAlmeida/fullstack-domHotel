@@ -15,14 +15,18 @@ export const Contato = () => {
     {
       email: '',
       name: '',
-      telephone: ''
+      telephone: '',
+      select: 'checked',
+      textArea: ''
     }
   )
   const [errorFields, setErrosFields] = useState(
     {
       email: false,
       name: false,
-      telephone: false
+      telephone: false,
+      select: false,
+      textArea: false
     }
   )
 
@@ -53,6 +57,24 @@ export const Contato = () => {
     setErrosFields((prev) => ({ ...prev, telephone: false }))
   }
 
+  const handleSelect = (event) => {
+    valueFields.select = event.target.value
+    if (valueFields.select !== 'checked') {
+      setErrosFields((prev) => ({ ...prev, select: false }))
+      return
+    }
+    setErrosFields((prev) => ({ ...prev, select: true }))
+  }
+
+  const handleTextArea = (event) => {
+    valueFields.textArea = event.target.value
+    if (valueFields.textArea !== '') {
+      setErrosFields((prev) => ({ ...prev, textArea: false }))
+      return
+    }
+    setErrosFields((prev) => ({ ...prev, textArea: true }))
+  }
+
   const inputsContact = [
     { 
       id: 'name-contact',
@@ -79,6 +101,26 @@ export const Contato = () => {
       type: 'tel'
     }
   ]
+
+  const handleButton = () => {
+    if (valueFields.email === '' || valueFields.name === '' || valueFields.telephone === '' || valueFields.select === 'checked' || valueFields.textArea === '') {
+      if (valueFields.email === '') {
+        setErrosFields((prev) => ({ ...prev, email: true }))
+      }
+      if (valueFields.telephone === '') {
+        setErrosFields((prev) => ({ ...prev, telephone: true }))
+      }
+      if (valueFields.name === '') {
+        setErrosFields((prev) => ({ ...prev, name: true }))
+      }
+      if (valueFields.select === 'checked') {
+        setErrosFields((prev) => ({ ...prev, select: true }))
+      }
+      if (valueFields.textArea === '') {
+        setErrosFields((prev) => ({ ...prev, textArea: true }))
+      } 
+    }
+  }
   
   return (
     <S.Wrapper>      
@@ -98,7 +140,7 @@ export const Contato = () => {
       ))}
       <S.Container className='inputsContainer'> 
         <GenericLabel for='subject'>Assunto de Interesse:</GenericLabel>
-        <GenericSelect id='subject' name='subject'>
+        <GenericSelect id='subject' name='subject' onBlur={handleSelect} error={errorFields.select}>
           <option value="checked" disabled>Selecione</option>
           <option value="cancelamento">Cancelamento de Reserva</option>
           <option value="ouvidoria">Ouvidoria</option>
@@ -108,9 +150,9 @@ export const Contato = () => {
       </S.Container>
       <S.Container className='inputsContainer'>
         <GenericLabel for='comentario'>Deixe um comentário:</GenericLabel>
-        <TextArea id='comentario' rows={10}/>
+        <TextArea id='comentario' rows={10} onChange={handleTextArea} error={errorFields.textArea}/>
       </S.Container>
-        <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone)}>Enviar</Button>
+        <Button action={handleButton} disabled={(errorFields.email || errorFields.name || errorFields.telephone)}>Enviar</Button>
       </S.FormContainer>
     </S.Wrapper>
   )
