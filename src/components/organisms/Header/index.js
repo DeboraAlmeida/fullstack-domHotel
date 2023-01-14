@@ -31,6 +31,11 @@ export const Header = () => {
     setIsDesktop(window.innerWidth > 768)
   }
 
+  const handleLogout = () => {
+    setIsLogged(false)
+    sessionStorage.removeItem('isLogged')
+  }
+
   
   return (
    <S.Header>
@@ -46,7 +51,7 @@ export const Header = () => {
         {isLogged && (
           <>
             <Anchor href='#' msg={`Olá ${loggedName.toUpperCase()}`} />
-            <Anchor action={() => setIsLogged(false)} msg='Sair' />
+            <Anchor action={handleLogout} msg='Sair' />
           </>
         )}
         {!isLogged && (

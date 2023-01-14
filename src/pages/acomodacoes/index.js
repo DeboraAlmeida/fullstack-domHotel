@@ -15,7 +15,7 @@ export const Acomodacoes = () => {
       <PrincipalTitle>Nossas Acomodações</PrincipalTitle>
       {contentRoomBox.map((block, index) => (
         <S.RoomsContainer key={index}>
-          <RoomDropdown title={block.title} imgCollection={block.imgCollection} />
+            <RoomDropdown title={block.title} imgCollection={block.imgCollection} />
         </S.RoomsContainer>
       ))}
       <S.FeaturedContainer>

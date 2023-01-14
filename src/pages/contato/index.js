@@ -7,43 +7,140 @@ import GenericSelect from '../../components/atoms/GenericSelect'
 import PrincipalTitle from '../../components/atoms/PrincipalTitle'
 import SubTitle from '../../components/atoms/SubTitle'
 import TextArea from '../../components/atoms/TextArea'
+import { validateEmail, validateName, validateNumber } from '../../utils/validateFields.js'
 import * as S from './styles'
 
-export const Contato = () => {
-  const [inputsCollection] = useState([
+export const Contato = () => {  
+  const [valueFields, setValueFields] = useState(
     {
-      id: 'nome',
-      type: 'text',
-      label: 'Nome:'
-    },
+      email: '',
+      name: '',
+      telephone: '',
+      select: 'checked',
+      textArea: ''
+    }
+  )
+  const [errorFields, setErrosFields] = useState(
     {
-      id: 'e-mail',
-      type: 'e-mail',
-      label: 'E-mail:'
-    },
-    {
-      id: 'telefone',
-      type: 'text',
-      label: 'Telefone:'
-    }   
+      email: false,
+      name: false,
+      telephone: false,
+      select: false,
+      textArea: false
+    }
+  )
 
-  ])
+  const handleEmail = (value) => {
+    setValueFields((prev) => ({ ...prev, email: value }))
+    if (validateEmail(valueFields.email)) {
+      setErrosFields((prev) => ({ ...prev, email: true }))
+      return
+    }
+    setErrosFields((prev) => ({ ...prev, email: false }))
+  }
 
+  const handleName = (value) => {
+    setValueFields((prev) => ({ ...prev, name: value }))
+    if (validateName(valueFields.name)) {
+      setErrosFields((prev) => ({ ...prev, name: true }))
+      return
+    }
+    setErrosFields((prev) => ({ ...prev, name: false }))
+  }
+
+  const handleTelephone = (value) => {
+    setValueFields((prev) => ({ ...prev, telephone: value }))
+    if (validateNumber(valueFields.telephone)) {
+      setErrosFields((prev) => ({ ...prev, telephone: true }))
+      return
+    }
+    setErrosFields((prev) => ({ ...prev, telephone: false }))
+  }
+
+  const handleSelect = (event) => {
+    valueFields.select = event.target.value
+    if (valueFields.select !== 'checked') {
+      setErrosFields((prev) => ({ ...prev, select: false }))
+      return
+    }
+    setErrosFields((prev) => ({ ...prev, select: true }))
+  }
+
+  const handleTextArea = (event) => {
+    valueFields.textArea = event.target.value
+    if (valueFields.textArea !== '') {
+      setErrosFields((prev) => ({ ...prev, textArea: false }))
+      return
+    }
+    setErrosFields((prev) => ({ ...prev, textArea: true }))
+  }
+
+  const inputsContact = [
+    { 
+      id: 'name-contact',
+      label: 'Nome:',
+      method: handleName,
+      model: errorFields.name,
+      valueId: 'name',
+      type: 'text'
+    },
+    { 
+      id: 'email-contact',
+      label: 'E-mail:',
+      method: handleEmail,
+      model: errorFields.email,
+      valueId: 'email',
+      type: 'email'
+    },
+    { 
+      id: 'telephone-contact',
+      label: 'Telefone:',
+      method: handleTelephone,
+      model: errorFields.telephone,
+      valueId: 'telephone',
+      type: 'tel'
+    }
+  ]
+
+  const handleButton = () => {
+    if (valueFields.email === '' || valueFields.name === '' || valueFields.telephone === '' || valueFields.select === 'checked' || valueFields.textArea === '') {
+      if (valueFields.email === '') {
+        setErrosFields((prev) => ({ ...prev, email: true }))
+      }
+      if (valueFields.telephone === '') {
+        setErrosFields((prev) => ({ ...prev, telephone: true }))
+      }
+      if (valueFields.name === '') {
+        setErrosFields((prev) => ({ ...prev, name: true }))
+      }
+      if (valueFields.select === 'checked') {
+        setErrosFields((prev) => ({ ...prev, select: true }))
+      }
+      if (valueFields.textArea === '') {
+        setErrosFields((prev) => ({ ...prev, textArea: true }))
+      } 
+    }
+  }
+  
   return (
-
     <S.Wrapper>      
       <PrincipalTitle>Entre em contato conosco</PrincipalTitle>     
       <SubTitle>Como podemos ajudar?</SubTitle>
       <S.FormContainer>
-      {inputsCollection.map((element, index) => (
+      {inputsContact.map((element, index) => (
         <S.Container key={index} className='inputsContainer'>
           <GenericLabel for={element.id}>{element.label}</GenericLabel>
-          <GenericInput type={element.type} id={element.id} />
+          <GenericInput 
+            type={element.type} 
+            id={element.id}
+            value={valueFields[`${element.valueId}`]}
+            onChange={(e) => element.method(e.target.value)}
+            error={element.model}/>
         </S.Container>
       ))}
       <S.Container className='inputsContainer'> 
         <GenericLabel for='subject'>Assunto de Interesse:</GenericLabel>
-        <GenericSelect id='subject' name='subject'>
+        <GenericSelect id='subject' name='subject' onBlur={handleSelect} error={errorFields.select}>
           <option value="checked" disabled>Selecione</option>
           <option value="cancelamento">Cancelamento de Reserva</option>
           <option value="ouvidoria">Ouvidoria</option>
@@ -53,13 +150,12 @@ export const Contato = () => {
       </S.Container>
       <S.Container className='inputsContainer'>
         <GenericLabel for='comentario'>Deixe um comentário:</GenericLabel>
-        <TextArea id='comentario' rows={10}/>
+        <TextArea id='comentario' rows={10} onChange={handleTextArea} error={errorFields.textArea}/>
       </S.Container>
-        <Button>Enviar</Button>
+        <Button action={handleButton} disabled={(errorFields.email || errorFields.name || errorFields.telephone || errorFields.select || errorFields.textArea)}>Enviar</Button>
       </S.FormContainer>
     </S.Wrapper>
   )
-
 }
 
 export default Contato
