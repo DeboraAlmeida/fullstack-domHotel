@@ -4,15 +4,14 @@ import './App.css'
 import Footer from './components/organisms/Footer'
 import Header from './components/organisms/Header'
 import Acomodacoes from './pages/acomodacoes/index'
+import Admin from './pages/admin'
 import Contato from './pages/contato/index'
 import Home from './pages/home/index'
 import Reservas from './pages/reservas/index'
 import Sobre from './pages/sobre/index'
 import Template from './template/template'
-
 // import Carrousel from './components/organisms/Carrousel'
 // import Navbar from './components/atoms/NavBar'
-
 const App = () => {
   return (
     <Router>
@@ -24,11 +23,13 @@ const App = () => {
           <Route path='/reservas' element={<Reservas />} />
           <Route path='/contato' element={<Contato />} />
           <Route path='/sobre' element={<Sobre />} />
+          <Route path='/admin' element={<Admin />} />
         </Routes>
       </Template>
       <Footer />
     </Router>
   )
 }
+
 
 export default App
