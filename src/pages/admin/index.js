@@ -1,6 +1,6 @@
 // Arquivo criado: 16/02/2023
 import React, { useState } from 'react'
-import HomeAdmin from '../../components/organisms/homeAdmin'
+import ControllerAdmin from '../../components/organisms/ControllerAdmin'
 import LoginAdmin from '../../components/organisms/LoginAdmin'
 import * as S from './styles'
 
@@ -13,7 +13,7 @@ const Admin = () => {
     <S.Wrapper>
       {
         isLogged 
-          ? <HomeAdmin />
+          ? <ControllerAdmin />
           : <LoginAdmin setIsLogged={setIsLogged} />
       }
     </S.Wrapper>
