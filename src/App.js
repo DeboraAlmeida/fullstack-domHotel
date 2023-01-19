@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Footer from './components/organisms/Footer'
@@ -13,9 +13,24 @@ import Template from './template/template'
 // import Carrousel from './components/organisms/Carrousel'
 // import Navbar from './components/atoms/NavBar'
 const App = () => {
+
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  const verifyRoute = () => {
+    const route = window.location.pathname
+    if (route === '/admin') {
+      return true
+    }
+    return false
+  }
+
+  useEffect(() => {
+    setIsAdmin(verifyRoute())
+  }, [window.location.pathname])
+
   return (
     <Router>
-      <Header />
+      {!isAdmin && <Header />}
       <Template>
         <Routes>
           <Route path='/' element={<Home />} />

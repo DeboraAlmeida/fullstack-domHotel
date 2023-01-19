@@ -7,8 +7,9 @@ import MiniTitle from '../../atoms/MiniTitle/index.js'
 import { adminLogins } from './adminLogins.js'
 import * as S from './styles.js'
 
-const LoginAdmin = () => {
-  const [isLogged, setIsLogged] = useState(false)
+const LoginAdmin = ({
+  setIsLogged
+}) => {
 
 
   const [valueField, setValueFields] = useState(
@@ -101,21 +102,16 @@ const LoginAdmin = () => {
 
   return (
     <S.Wrapper>
-      {!isLogged && (
-        <S.WrapperLogin>
-          <MiniTitle text={'Login Admin'}/>
-          {inputsSignIn.map((element, index) => (
-            <S.ContainerInputSignIn key={index}>
-              <GenericLabel for={element.id}>{element.label}</GenericLabel>
-              <GenericInput type={element.type} id={element.id} onChange={(e) => element.method(e.target.value)} error={element.model} value={valueField[`${element.valueId}`]}/>
-            </ S.ContainerInputSignIn>
-          ))}
-          <Button disabled={(errorFields.email || errorFields.password)} action={handleButton}>Entrar</Button>
-          </S.WrapperLogin>
-      )}
-      {isLogged && (
-        <>Administrador logado!</>
-      )}      
+      <S.WrapperLogin>
+        <MiniTitle text={'Login Admin'} />
+        {inputsSignIn.map((element, index) => (
+          <S.ContainerInputSignIn key={index}>
+            <GenericLabel for={element.id}>{element.label}</GenericLabel>
+            <GenericInput type={element.type} id={element.id} onChange={(e) => element.method(e.target.value)} error={element.model} value={valueField[`${element.valueId}`]} />
+          </ S.ContainerInputSignIn>
+        ))}
+        <Button disabled={(errorFields.email || errorFields.password)} action={handleButton}>Entrar</Button>
+      </S.WrapperLogin>
     </S.Wrapper>
   )
 }
