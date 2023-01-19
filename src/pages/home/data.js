@@ -1,7 +1,7 @@
-import coz4 from './images/coz4.jpg'
-import quarto1 from './images/quarto1.jpg'
-import quarto2 from './images/quarto2.jpg'
-import quarto3 from './images/quarto3.jpg'
+import coz4 from './images/coz4.webp'
+import quarto1 from './images/quarto1.webp'
+import quarto2 from './images/quarto2.webp'
+import quarto3 from './images/quarto3.webp'
 
 export const content = {
   section1: {
