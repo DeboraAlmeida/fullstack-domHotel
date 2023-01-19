@@ -83,6 +83,8 @@ const HospedesAdmin = () => {
     }
 
     localStorage.setItem('consumo', JSON.stringify(consumoData()))
+    e.target.reset()
+    return alert('Produto adicionado com sucesso')
 
   }
 
