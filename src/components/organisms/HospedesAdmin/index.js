@@ -1,4 +1,5 @@
 // Arquivo criado: 19/01/2023 às 15:52
+import Client from '@/components/atoms/ClassClient/ClassClient'
 import React from 'react'
 import Button from '../../atoms/Button'
 import GenericLabel from '../../atoms/GenericLabel'
@@ -141,26 +142,26 @@ const HospedesAdmin = () => {
   )
 
 }
-
+const clientes = new Client([
+  {
+    id: 1,
+    nome: 'Flaviano'
+  },
+  {
+    id: 2,
+    nome: 'Christian'
+  },
+  {
+    id: 3,
+    nome: 'Debora'
+  },
+  {
+    id: 4,
+    nome: 'Larissa'
+  }
+])
 const data = {
-  clientes: [
-    {
-      id: 1,
-      nome: 'Flaviano'
-    },
-    {
-      id: 2,
-      nome: 'Cristian'
-    },
-    {
-      id: 3,
-      nome: 'Debora'
-    },
-    {
-      id: 4,
-      nome: 'Larissa'
-    }
-  ],
+  clientes,
   frigobar: [
     'Água',
     'Cerveja',
@@ -181,5 +182,8 @@ const data = {
     'Refrigerante'
   ]
 }
+// class cliente
+// class consumo 
+// class hospedeAdmin -> chama a class dentro do component e o handleForm é o method
 
 export default HospedesAdmin
