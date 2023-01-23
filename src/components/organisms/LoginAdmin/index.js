@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { validateEmail } from '../../../utils/validateFields.js'
-import Button from '../../atoms/Button/index.js'
+import Button from '../../atoms/Button/'
 import GenericInput from '../../atoms/GenericInput/index.js'
 import GenericLabel from '../../atoms/GenericLabel/index.js'
 import MiniTitle from '../../atoms/MiniTitle/index.js'

@@ -14,7 +14,7 @@ export const textarea = styled.textarea`
   text-transform: ${props => props.textTransform};
   width: ${props => props.width};
   height: ${props => props.height};
-  border: 2px solid ${props => props.errorField ? 'rgba(253, 112, 112, 1)' : 'transparent'};
+  border: 2px solid ${props => props.errorField ? 'rgba(253, 112, 112, 1)' : props.border};
   
   &:focus {
     border: 2px solid ${props => props.focusColor};
