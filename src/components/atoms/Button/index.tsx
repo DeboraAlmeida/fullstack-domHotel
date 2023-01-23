@@ -61,7 +61,7 @@ interface Props {
   color?: string
   paddingHorizontal?: string
   paddingVertical?: string
-  action: () => void
+  action?: () => void
   href?: string
   target?: string
 }
