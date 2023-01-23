@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import ImageDefault from '../../atoms/ImageDefault/index.js'
 import MiniTitle from '../../atoms/MiniTitle/index.js'
 import Modal from '../../atoms/Modal/index.js'
-import AvaliationArea from '../AvaliationArea/index.js'
-import AvaliationRoom from '../AvaliationRoom/index.js'
+import AvaliationArea from '../AvaliationArea/'
+import ClassAvaliationRoom from '../ClassAvaliationRoom/'
 import * as S from './styles.js'
 
 const RoomDropdown = ({ title, imgCollection }) => {
@@ -40,7 +40,7 @@ const RoomDropdown = ({ title, imgCollection }) => {
       </S.ImagesContainer>
       <Modal isOpen={showModal} setIsOpen={setShowModal}>
         {stage === 'comment' && (
-          <AvaliationRoom content={actualImage} setStage={setStage}/> 
+          <ClassAvaliationRoom content={actualImage} setStage={setStage} />
         )}
         {stage === 'avaliation' && (
           <AvaliationArea content={actualImage} />

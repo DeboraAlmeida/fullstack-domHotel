@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { validateEmail, validateName } from '../../../utils/validateFields.js'
 import Anchor from '../../atoms/Anchor/index.js'
-import Button from '../../atoms/Button/index.js'
+import Button from '../../atoms/Button/'
 import DescriptionParagraph from '../../atoms/DescriptionParagraph/index.js'
 import GenericInput from '../../atoms/GenericInput/index.js'
 import GenericLabel from '../../atoms/GenericLabel/index.js'

@@ -15,6 +15,10 @@
     "plugins": [
         "react"
     ],
+    "ignorePatterns": [
+        "*.ts",
+        "*.tsx"
+    ],
     "rules": {
         "space-before-function-paren": "off",
         "eol-last": "off",

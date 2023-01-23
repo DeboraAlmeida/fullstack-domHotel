@@ -1,6 +1,5 @@
 // Arquivo criado: 10/12/2022 às 11:55
 
-import PropTypes from 'prop-types'
 import React, { useRef, useState } from 'react'
 import { pallete } from '../../../pallete.js'
 import * as S from './styles.js'
@@ -48,6 +47,26 @@ import * as S from './styles.js'
  */
 
 
+interface Props {
+  useDefaultStyle?: boolean
+  placeholder?: string
+  defaultValue?: string
+  limit?: number
+  rows?: number
+  cols?: number
+  textTransform?: string
+  className?: string
+  autoFocus?: boolean
+  disabled?: boolean
+  focusColor?: string
+  name?: string
+  id?: string
+  onChange?: (e: any) => void
+  error?: string
+  width?: string
+  height?: string
+}
+
 export default function TextArea({
   useDefaultStyle = true,
   placeholder,
@@ -62,20 +81,22 @@ export default function TextArea({
   focusColor = pallete.greenDefault,
   name,
   id,
-  onChange,
+  onChange = () => { },
   error,
   width = '100%',
   height = '150px'
-}) {
+}: Props) {
 
   const Component = useDefaultStyle ? S.textarea : S.empty
-  const ref = useRef()
+  const ref = useRef<HTMLTextAreaElement>()
   const [border, setBorder] = useState('transparent')
 
 
-  const handleVal = (e) => {
-    ref.current.value.length > 0 && !disabled ? setBorder(focusColor) : setBorder('transparent')
-    onChange(e)
+  const handleVal = (e: Event) => {
+    if(ref.current){
+      ref.current.value.length > 0 && !disabled ? setBorder(focusColor) : setBorder('transparent')
+      onChange(e)
+    }
   }
 
 
@@ -110,22 +131,4 @@ export default function TextArea({
     >
     </Component>
   )
-}
-
-TextArea.propTypes = {
-  useDefaultStyle: PropTypes.bool,
-  placeholder: PropTypes.string,
-  defaultValue: PropTypes.string,
-  limit: PropTypes.number,
-  rows: PropTypes.number,
-  cols: PropTypes.number,
-  textTransform: PropTypes.string,
-  className: PropTypes.string,
-  autoFocus: PropTypes.bool,
-  disabled: PropTypes.bool,
-  focusColor: PropTypes.string,
-  name: PropTypes.string,
-  id: PropTypes.string,
-  width: PropTypes.string,
-  height: PropTypes.string
 }

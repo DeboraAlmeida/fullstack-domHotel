@@ -1,6 +1,5 @@
 // Arquivo criado: 10/12/2022 às 11:55
 
-import PropTypes from 'prop-types'
 import React from 'react'
 import { pallete } from '../../../pallete.js'
 import * as S from './styles.js'
@@ -49,6 +48,23 @@ import * as S from './styles.js'
  * 
  */
 
+interface Props {
+  useDefaultStyle?: boolean
+  className?: string
+  disabled?: boolean
+  name?: string
+  id?: string
+  width?: string
+  children: React.ReactNode
+  backgroundColor?: string
+  hoverColor?: string
+  color?: string
+  paddingHorizontal?: string
+  paddingVertical?: string
+  action?: () => void
+  href?: string
+  target?: string
+}
 
 export default function Button({
   useDefaultStyle = true,
@@ -66,11 +82,11 @@ export default function Button({
   action,
   href,
   target = '_self'
-}) {
+}: Props) {
 
   const Component = useDefaultStyle ? S.button : S.empty
 
-  const handleClick = (a) => {
+  const handleClick = (a: Event) => {
     if (action) {
       a.preventDefault()
       action()
@@ -104,22 +120,4 @@ export default function Button({
       {children}
     </Component>
   )
-}
-
-Button.propTypes = {
-  useDefaultStyle: PropTypes.bool,
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
-  name: PropTypes.string,
-  id: PropTypes.string,
-  width: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  backgroundColor: PropTypes.string,
-  hoverColor: PropTypes.string,
-  color: PropTypes.string,
-  paddingHorizontal: PropTypes.string,
-  paddingVertical: PropTypes.string,
-  action: PropTypes.func,
-  href: PropTypes.string,
-  target: PropTypes.string
 }
