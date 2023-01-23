@@ -4,9 +4,8 @@ import DescriptionParagraph from '../../components/atoms/DescriptionParagraph'
 import MiniTitle from '../../components/atoms/MiniTitle'
 import PrincipalTitle from '../../components/atoms/PrincipalTitle'
 import UnorderedList from '../../components/atoms/UnorderedList'
-import Carrousel from '../../components/organisms/Carrousel'
 import RoomDropdown from '../../components/organisms/RoomDropdown'
-import { carrouselImages, contentListOffer, contentRoomBox } from './data'
+import { contentListOffer, contentRoomBox } from './data'
 import * as S from './styles'
 
 export const Acomodacoes = () => {
@@ -23,7 +22,7 @@ export const Acomodacoes = () => {
         <MiniTitle span='Feriado de Páscoa!' />
         <S.OfferContainer>
           <S.CarrouselContainer>
-            <Carrousel imgCollection={carrouselImages} altText={'Images Carrousel'} />
+            {/* <Carrousel imgCollection={carrouselImages} altText={'Images Carrousel'} /> */}
           </S.CarrouselContainer>
           <S.OfferDescription>
             <DescriptionParagraph msg='Venha se divertir e se emocionar durante o feriado de Páscoa de 2023! Serão 5 dias inesquecíveis de alegria para toda a família!' />
