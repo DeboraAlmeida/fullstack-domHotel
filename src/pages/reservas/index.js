@@ -182,6 +182,8 @@ export const Reservas = () => {
 
   const [modalOpen, setModalOpen] = useState(false)
 
+  const [resumeOpen, setResumeOpen] = useState(false)
+
   const [quartos, setQuartos] = useState([
     {
       title: 'Standard',
@@ -511,7 +513,7 @@ export const Reservas = () => {
             <UnorderedList arr={resumeItens.map((element) => (
               `${element.name} ${element.content}`
             ))} />
-            <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%'>Confirmar</Button>
+            <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={(handleClick) => { setResumeOpen(true) }}>Confirmar</Button>
         </S.ContainerResume>
       </S.RoomsContainer>
     </S.FormContainer>
@@ -538,6 +540,24 @@ export const Reservas = () => {
           </S.ModalOptions>
           <S.Btn01>
             <Button action={handleMoreService}>Confirmar</Button>
+          </S.Btn01>
+        </Modal>
+        <Modal isOpen={resumeOpen} setIsOpen={setResumeOpen}>
+          <S.HeaderModal>
+            <SubTitle>Confirme sua reserva</SubTitle>
+          </S.HeaderModal>
+          <S.ModalResume>
+            <UnorderedList arr={inputsCollection.map((element) => (
+              `${element.valueId}: ${valueFields[`${element.valueId}`]}`
+            ))} />
+            </S.ModalResume>
+            <S.ModalResume2>
+            <UnorderedList arr={resumeItens.map((element) => (
+              `${element.name} ${element.content}`
+            ))} />
+          </S.ModalResume2>
+          <S.Btn01>
+            <Button action={(HandleClick) => { setResumeOpen(false) }}>Finalizar</Button>
           </S.Btn01>
         </Modal>
     </S.ContainerModal>
