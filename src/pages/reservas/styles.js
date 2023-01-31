@@ -41,6 +41,43 @@ export const ContainerReserve = styled.div`
     align-items: center;
   }
 `
+export const ModalResume = styled.div`
+ display: block;
+ justify-content: center;
+ ul {
+    padding: 10px 0px;
+    margin: 0;
+    text-align: start;
+    width: 100%;
+  }
+  ul li {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+`
+export const ModalResume2 = styled.div`
+ display: flex;
+ justify-content: center;
+ ul {
+    padding: 20px 0px;
+    margin: 0;
+    text-align: left;
+    width: 100%;
+  }
+  ul li {
+    display: block;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 0px;
+  }
+  ul li:last-child {  
+   font-weight: bold;
+   text-align: right;
+  }
+`
+
 export const ReserveItem = styled.div`
   width: 20%;
   @media screen and (max-width: 870px) {
