@@ -94,7 +94,11 @@ export const ContainerModal = styled.div`
   margin: auto;
   `
 export const HeaderModal = styled.div`
-  text-align: left;
+
+  h2{
+    text-align: left;
+    padding-right: 25px;
+  }
 `
 export const ModalCont = styled.div`
     display: flex;
@@ -304,5 +308,22 @@ export const ContentImgInsideModal = styled.div`
     color: white;
     padding: 10px;
     background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  @media screen and (max-width: 500px) {
+    p{
+      font-size: 12px;
+    }
+  }
+
+  @media screen and (max-width: 375px) {
+
+    img{
+      height: inherit;
+    }
+
+    p{
+      display: none;
+    }
   }
 `
