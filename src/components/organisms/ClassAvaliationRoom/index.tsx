@@ -13,7 +13,7 @@ import * as S from './styles';
 
 interface Props {
   content: Content
-  setStage: any
+  setStage: React.Dispatch<React.SetStateAction<string>>
   comments: Comment[]
 }
 
@@ -21,7 +21,7 @@ interface Props {
 export default class ClassAvaliationRoom extends React.Component<Props> {
 
   content: Content
-  setStage: any
+  setStage: React.Dispatch<React.SetStateAction<string>>
 
   state = {
     comments: []

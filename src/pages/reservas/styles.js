@@ -94,7 +94,11 @@ export const ContainerModal = styled.div`
   margin: auto;
   `
 export const HeaderModal = styled.div`
-  text-align: left;
+
+  h2{
+    text-align: left;
+    padding-right: 25px;
+  }
 `
 export const ModalCont = styled.div`
     display: flex;
@@ -243,7 +247,7 @@ export const RoomsContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   
-  @media screen and (max-width: 870px){
+  @media screen and (max-width: 1100px){
     flex-direction:column;
   }
 `
@@ -251,7 +255,7 @@ export const ModalContainer = styled.div`
   display:flex;
   flex-direction:column;
   align-items:center;
-  @media screen and (max-width: 870px) {
+  @media screen and (max-width: 1100px) {
     button{
       width: 50vw;
       height: fit-content;
@@ -283,5 +287,43 @@ export const ContainerResume = styled.div`
   }
   li:nth-child(odd) {
     margin-bottom: 30px;
+  }
+`
+
+export const ContentImgInsideModal = styled.div`
+  position: relative;
+  margin-bottom: 20px;
+
+  img{
+    height: 250px;
+    object-fit: cover;
+  }
+
+  p{
+    position: absolute;
+    bottom: 3px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    text-indent: 10px;
+    color: white;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  @media screen and (max-width: 500px) {
+    p{
+      font-size: 12px;
+    }
+  }
+
+  @media screen and (max-width: 375px) {
+
+    img{
+      height: inherit;
+    }
+
+    p{
+      display: none;
+    }
   }
 `
