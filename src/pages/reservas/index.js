@@ -11,6 +11,7 @@ import Modal from '../../components/atoms/Modal'
 import PrincipalTitle from '../../components/atoms/PrincipalTitle'
 import SubTitle from '../../components/atoms/SubTitle'
 import UnorderedList from '../../components/atoms/UnorderedList'
+import phoneFormatter from '../../utils/phoneFormatter'
 import { validateEmail, validateName, validateNumber } from '../../utils/validateFields'
 import premium from './images/acomodacao_premium.webp'
 import standard from './images/acomodacao_standard.webp'
@@ -212,7 +213,13 @@ export const Reservas = () => {
     { 
       id: 'quarto',
       name: 'Quarto:  ',
-      content: ''
+      content: {
+        title: '',
+        description: '',
+        price: '',
+        basePrice: '',
+        img: ''
+      }
     },
     { 
       id: 'checkin', 
@@ -278,7 +285,13 @@ export const Reservas = () => {
   }
   
   const [inputsValue, setInputsValue] = useState({
-    quarto: '',
+    quarto: {
+      title: '',
+      description: '',
+      price: '',
+      basePrice: '',
+      img: ''
+    },
     checkin: '',
     checkout: '',
     adultos: '1',
@@ -374,9 +387,9 @@ export const Reservas = () => {
   let roomValue = 0
 
 
-  const selectRoom = (event) => {
+  const selectRoom = event => {
     if (event.target.checked) {
-      inputsValue.quarto = event.target.value
+      inputsValue.quarto = quartos.find(item => item.title === event.target.value)
       choosenRoom = event.target.value
       setInputsValue(prev => ({ ...prev, quarto: event.target.value }))
     }
@@ -455,6 +468,16 @@ export const Reservas = () => {
     obj[`${id}`] = valueFields[`${id}`]
     localStorage.setItem('userData', JSON.stringify(obj))
   }
+
+  const handleOpenConfirmationModal = () => {
+    resumeItens.forEach(item => {
+      if (item.id === 'quarto') {
+        if (item.content.img !== '') {
+          setResumeOpen(true)
+        }
+      }
+    })
+  }
   
   return (
     <S.PrincipalContainer>
@@ -505,15 +528,16 @@ export const Reservas = () => {
           </S.containerQuartos>
           <S.Btn01>
             <S.BtnModal1>
-            <Button useDefaultStyle={false} action={(HandleClick) => { setModalOpen(true) }}>Mais Serviços</Button>
+            <Button useDefaultStyle={false} action={() => setModalOpen(true)}>Mais Serviços</Button>
             </S.BtnModal1>
           </S.Btn01>
         </S.ModalContainer>
         <S.ContainerResume>
-            <UnorderedList arr={resumeItens.map((element) => (
-              `${element.name} ${element.content}`
-            ))} />
-            <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={(handleClick) => { setResumeOpen(true) }}>Confirmar</Button>
+            <UnorderedList arr={resumeItens.map(element => {
+              const value = typeof element.content === 'object' ? element.content.title : element.content
+              return (`${element.name} ${value}`)
+            })} />
+            <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Confirmar</Button>
         </S.ContainerResume>
       </S.RoomsContainer>
     </S.FormContainer>
@@ -542,22 +566,46 @@ export const Reservas = () => {
             <Button action={handleMoreService}>Confirmar</Button>
           </S.Btn01>
         </Modal>
+        
         <Modal isOpen={resumeOpen} setIsOpen={setResumeOpen}>
           <S.HeaderModal>
             <SubTitle>Confirme sua reserva</SubTitle>
           </S.HeaderModal>
           <S.ModalResume>
-            <UnorderedList arr={inputsCollection.map((element) => (
-              `${element.valueId}: ${valueFields[`${element.valueId}`]}`
-            ))} />
+            <UnorderedList arr={inputsCollection.map(element => {
+              const value = element.valueId === 'telephone' ? phoneFormatter(valueFields[element.valueId]) : valueFields[element.valueId]
+              return (
+                <p 
+                  style={{ textTransform: element.valueId === 'name' ? 'capitalize' : 'none' }} 
+                  key={element.id}
+                >
+                  {element.label} {value}
+                </p>
+              )
+            })} />
             </S.ModalResume>
             <S.ModalResume2>
-            <UnorderedList arr={resumeItens.map((element) => (
-              `${element.name} ${element.content}`
-            ))} />
+            <UnorderedList arr={resumeItens.map(element => {
+              const isQuarto = typeof element.content === 'object'
+              const value = isQuarto ? element.content.title : element.content
+              return (
+                <>
+                  {
+                    isQuarto && (
+                      <S.ContentImgInsideModal>
+                        <ImageDefault altText="Imagem do Quarto selecionado" src={element.content.img} />
+                        <p>{element.content.description}</p>
+                      </S.ContentImgInsideModal>
+                    )
+                  }
+
+                  <p key={element.id}>{element.name} {value}</p>
+                </>
+              )
+            })} />
           </S.ModalResume2>
           <S.Btn01>
-            <Button action={(HandleClick) => { setResumeOpen(false) }}>Finalizar</Button>
+            <Button action={() => setResumeOpen(false)}>Finalizar</Button>
           </S.Btn01>
         </Modal>
     </S.ContainerModal>
