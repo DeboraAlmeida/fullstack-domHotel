@@ -3,7 +3,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { pallete } from '../../../pallete.js'
+import pallete from '../../../pallete'
 import * as S from './styles.js'
 
 /**

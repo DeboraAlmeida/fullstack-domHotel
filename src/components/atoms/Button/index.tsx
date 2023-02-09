@@ -1,7 +1,7 @@
 // Arquivo criado: 10/12/2022 às 11:55
 
 import React from 'react'
-import { pallete } from '../../../pallete.js'
+import pallete from '../../../pallete'
 import * as S from './styles.js'
 
 
