@@ -6,7 +6,7 @@ const HospedesAdmin = () => {
 
   return (
     <ContainerLayoutAdmin>
-      <p>HospedesAdmin</p>
+      <p>Hóspedes</p>
     </ContainerLayoutAdmin>
   )
 

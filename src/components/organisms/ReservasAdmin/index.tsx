@@ -18,7 +18,7 @@ const ReservasAdmin = (): JSX.Element => {
     <>
       <ContainerLayoutAdmin>
         <S.header>
-          <p>ReservarAdmin</p>
+          <p>Reservas</p>
           <FaPlus onClick={handleOpenModal} title='Adicionar Funcionário' color={pallete.greenDark} />
         </S.header>
       </ContainerLayoutAdmin>

@@ -20,7 +20,7 @@ const FuncionariosAdmin = (): JSX.Element => {
     <>
       <ContainerLayoutAdmin>
         <S.header>
-          <p>FuncionariosAdmin</p>
+          <p>Funcionários</p>
           <FaPlus onClick={handleOpenModal} title='Adicionar Funcionário' color={pallete.greenDark} />
         </S.header>
       </ContainerLayoutAdmin>
