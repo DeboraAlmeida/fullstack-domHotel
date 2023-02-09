@@ -16,7 +16,7 @@ interface Consumo {
   quantidade: number
 }
 
-export default class HospedesAdmin extends React.Component {
+export default class HomeAdmin extends React.Component {
 
   handleForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
