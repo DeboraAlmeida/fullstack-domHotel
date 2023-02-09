@@ -1,5 +1,5 @@
 import React from 'react'
-import { pallete } from '../../../pallete.js'
+import pallete from '../../../pallete'
 import Anchor from '../../atoms/Anchor/index.js'
 import * as S from './styles'
 
