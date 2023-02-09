@@ -181,7 +181,7 @@ export default class AvaliationArea extends React.Component<Props> {
                   <SubTitle>{'Avalie'}</SubTitle>
                 </S.TitleContainer>
                 <GenericLabel id={'name'}>Nome:</GenericLabel>
-                <GenericInput type={'text'} id={'name'} aName={'name'} value={undefined} onClick={undefined} onChange={undefined} onBlur={undefined} error={undefined} />
+                <GenericInput type={'text'} id={'name'} aName={'name'} />
                 <GenericLabel id={'comment'}>Comentário:</GenericLabel>
                 <TextArea id={'comment'} />
                 <S.StarsContainer>

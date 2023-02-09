@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { validateEmail } from '../../../utils/validateFields.js'
+import { validateEmail } from '../../../utils/validateFields'
 import Button from '../../atoms/Button/'
-import GenericInput from '../../atoms/GenericInput/index.js'
-import GenericLabel from '../../atoms/GenericLabel/index.js'
-import MiniTitle from '../../atoms/MiniTitle/index.js'
-import { adminLogins } from './adminLogins.js'
-import * as S from './styles.js'
+import GenericInput from '../../atoms/GenericInput/index'
+import GenericLabel from '../../atoms/GenericLabel/index'
+import MiniTitle from '../../atoms/MiniTitle/index'
+import { adminLogins } from './adminLogins'
+import * as S from './styles'
 
 const LoginAdmin = ({
   setIsLogged
