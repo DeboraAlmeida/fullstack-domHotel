@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { validateEmail, validateName } from '../../../utils/validateFields.js'
-import Anchor from '../../atoms/Anchor/index.js'
-import Button from '../../atoms/Button/index.js'
-import DescriptionParagraph from '../../atoms/DescriptionParagraph/index.js'
-import GenericInput from '../../atoms/GenericInput/index.js'
-import GenericLabel from '../../atoms/GenericLabel/index.js'
-import MiniTitle from '../../atoms/MiniTitle/index.js'
-import * as S from './styles.js'
+import { validateEmail, validateName } from '../../../utils/validateFields'
+import Anchor from '../../atoms/Anchor/index'
+import Button from '../../atoms/Button/'
+import DescriptionParagraph from '../../atoms/DescriptionParagraph/index'
+import GenericInput from '../../atoms/GenericInput/index'
+import GenericLabel from '../../atoms/GenericLabel/index'
+import MiniTitle from '../../atoms/MiniTitle/index'
+import * as S from './styles'
 
 const LoginContent = ({ type, setIsLogged, setLoggedName }) => {
   const [typeLogin, setTypeLogin] = useState(type)

@@ -5,11 +5,20 @@ import * as S from './styles'
 
 const Modal = ({ children, isOpen, setIsOpen }) => {
   if (!isOpen) return null
+
+  const handleClose = () => {
+    setIsOpen(false)
+  }
+
+  const handleClickInside = e => {
+    e.stopPropagation()
+  }
+
   return (
-  <S.Backdrop>
-    <S.ModalComp>
+    <S.Backdrop onClick={handleClose} >
+      <S.ModalComp onClick={handleClickInside}>
       <S.BtnClose>
-        <Button useDefaultStyle={false} action={() => setIsOpen(false)}>
+        <Button useDefaultStyle={false} action={handleClose}>
           <RiCloseFill />
         </Button>
       </S.BtnClose>

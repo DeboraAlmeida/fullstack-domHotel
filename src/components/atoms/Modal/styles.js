@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { pallete } from '../../../pallete.js'
+import pallete from '../../../pallete'
 
 export const Backdrop = styled.div`
     width: 100vw;

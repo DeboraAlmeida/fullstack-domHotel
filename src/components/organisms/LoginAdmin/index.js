@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { validateEmail } from '../../../utils/validateFields.js'
-import Button from '../../atoms/Button/index.js'
-import GenericInput from '../../atoms/GenericInput/index.js'
-import GenericLabel from '../../atoms/GenericLabel/index.js'
-import MiniTitle from '../../atoms/MiniTitle/index.js'
-import { adminLogins } from './adminLogins.js'
-import * as S from './styles.js'
+import { validateEmail } from '../../../utils/validateFields'
+import Button from '../../atoms/Button/'
+import GenericInput from '../../atoms/GenericInput/index'
+import GenericLabel from '../../atoms/GenericLabel/index'
+import MiniTitle from '../../atoms/MiniTitle/index'
+import { adminLogins } from './adminLogins'
+import * as S from './styles'
 
-const LoginAdmin = () => {
-  const [isLogged, setIsLogged] = useState(false)
+const LoginAdmin = ({
+  setIsLogged
+}) => {
 
 
   const [valueField, setValueFields] = useState(
@@ -101,21 +102,16 @@ const LoginAdmin = () => {
 
   return (
     <S.Wrapper>
-      {!isLogged && (
-        <S.WrapperLogin>
-          <MiniTitle text={'Login Admin'}/>
-          {inputsSignIn.map((element, index) => (
-            <S.ContainerInputSignIn key={index}>
-              <GenericLabel for={element.id}>{element.label}</GenericLabel>
-              <GenericInput type={element.type} id={element.id} onChange={(e) => element.method(e.target.value)} error={element.model} value={valueField[`${element.valueId}`]}/>
-            </ S.ContainerInputSignIn>
-          ))}
-          <Button disabled={(errorFields.email || errorFields.password)} action={handleButton}>Entrar</Button>
-          </S.WrapperLogin>
-      )}
-      {isLogged && (
-        <>Administrador logado!</>
-      )}      
+      <S.WrapperLogin>
+        <MiniTitle text={'Login Admin'} />
+        {inputsSignIn.map((element, index) => (
+          <S.ContainerInputSignIn key={index}>
+            <GenericLabel for={element.id}>{element.label}</GenericLabel>
+            <GenericInput type={element.type} id={element.id} onChange={(e) => element.method(e.target.value)} error={element.model} value={valueField[`${element.valueId}`]} />
+          </ S.ContainerInputSignIn>
+        ))}
+        <Button disabled={(errorFields.email || errorFields.password)} action={handleButton}>Entrar</Button>
+      </S.WrapperLogin>
     </S.Wrapper>
   )
 }

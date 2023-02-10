@@ -11,10 +11,11 @@ import Modal from '../../components/atoms/Modal'
 import PrincipalTitle from '../../components/atoms/PrincipalTitle'
 import SubTitle from '../../components/atoms/SubTitle'
 import UnorderedList from '../../components/atoms/UnorderedList'
+import phoneFormatter from '../../utils/phoneFormatter'
 import { validateEmail, validateName, validateNumber } from '../../utils/validateFields'
-import premium from './images/acomodacao_premium.jpg'
-import standard from './images/acomodacao_standard.jpg'
-import vip from './images/acomodacao_vip.jpg'
+import premium from './images/acomodacao_premium.webp'
+import standard from './images/acomodacao_standard.webp'
+import vip from './images/acomodacao_vip.webp'
 import * as S from './styles'
 
 
@@ -182,24 +183,26 @@ export const Reservas = () => {
 
   const [modalOpen, setModalOpen] = useState(false)
 
+  const [resumeOpen, setResumeOpen] = useState(false)
+
   const [quartos, setQuartos] = useState([
     {
       title: 'Standard',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto esse tempore hic nemo! Quam consequuntur ex rem, similique esse totam recusandae, ea voluptas neque vitae amet sapiente impedit sint cum!',
+      description: 'O quarto standard é a melhor opção para quem está procurando toda a diversão do nosso hotel, com economia e sem abrir mão do conforto, com uma cama de casal confortável, frigobar, wi-fi, TV com acesso aos melhores streammings, mesa para computador e sacada!',
       price: '120,00',
       basePrice: '120,00',
       img: standard
     },
     {
       title: 'Premium',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto esse tempore hic nemo! Quam consequuntur ex rem, similique esse totam recusandae, ea voluptas neque vitae amet sapiente impedit sint cum!',
+      description: 'Conforto e praticidade em uma suíte moderna e agradável, com cama queen size, frigobar, TV com acesso aos melhores streammings, sacada espaçosa, wi-fi, sala de estar e mesa para computador!',
       price: '160,00',
       basePrice: '160,00',
       img: premium
     },
     {
       title: 'VIP',
-      description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto esse tempore hic nemo! Quam consequuntur ex rem, similique esse totam recusandae, ea voluptas neque vitae amet sapiente impedit sint cum!',
+      description: 'A suíte vip é espaçosa e incrivelmente aconchegante e conta com cama king Size, banheira de hidromassagem, frigobar, TV com acesso aos melhores streammings, sacada gourmet, wi-fi, sala de estar, mesa para computador e vista panorâmica!',
       price: '200,00',
       basePrice: '200,00',
       img: vip
@@ -210,7 +213,13 @@ export const Reservas = () => {
     { 
       id: 'quarto',
       name: 'Quarto:  ',
-      content: ''
+      content: {
+        title: '',
+        description: '',
+        price: '',
+        basePrice: '',
+        img: ''
+      }
     },
     { 
       id: 'checkin', 
@@ -276,7 +285,13 @@ export const Reservas = () => {
   }
   
   const [inputsValue, setInputsValue] = useState({
-    quarto: '',
+    quarto: {
+      title: '',
+      description: '',
+      price: '',
+      basePrice: '',
+      img: ''
+    },
     checkin: '',
     checkout: '',
     adultos: '1',
@@ -372,9 +387,9 @@ export const Reservas = () => {
   let roomValue = 0
 
 
-  const selectRoom = (event) => {
+  const selectRoom = event => {
     if (event.target.checked) {
-      inputsValue.quarto = event.target.value
+      inputsValue.quarto = quartos.find(item => item.title === event.target.value)
       choosenRoom = event.target.value
       setInputsValue(prev => ({ ...prev, quarto: event.target.value }))
     }
@@ -453,6 +468,16 @@ export const Reservas = () => {
     obj[`${id}`] = valueFields[`${id}`]
     localStorage.setItem('userData', JSON.stringify(obj))
   }
+
+  const handleOpenConfirmationModal = () => {
+    resumeItens.forEach(item => {
+      if (item.id === 'quarto') {
+        if (item.content.img !== '') {
+          setResumeOpen(true)
+        }
+      }
+    })
+  }
   
   return (
     <S.PrincipalContainer>
@@ -503,15 +528,16 @@ export const Reservas = () => {
           </S.containerQuartos>
           <S.Btn01>
             <S.BtnModal1>
-            <Button useDefaultStyle={false} action={(HandleClick) => { setModalOpen(true) }}>Mais Serviços</Button>
+            <Button useDefaultStyle={false} action={() => setModalOpen(true)}>Mais Serviços</Button>
             </S.BtnModal1>
           </S.Btn01>
         </S.ModalContainer>
         <S.ContainerResume>
-            <UnorderedList arr={resumeItens.map((element) => (
-              `${element.name} ${element.content}`
-            ))} />
-            <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%'>Confirmar</Button>
+            <UnorderedList arr={resumeItens.map(element => {
+              const value = typeof element.content === 'object' ? element.content.title : element.content
+              return (`${element.name} ${value}`)
+            })} />
+            <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Confirmar</Button>
         </S.ContainerResume>
       </S.RoomsContainer>
     </S.FormContainer>
@@ -538,6 +564,48 @@ export const Reservas = () => {
           </S.ModalOptions>
           <S.Btn01>
             <Button action={handleMoreService}>Confirmar</Button>
+          </S.Btn01>
+        </Modal>
+        
+        <Modal isOpen={resumeOpen} setIsOpen={setResumeOpen}>
+          <S.HeaderModal>
+            <SubTitle>Confirme sua reserva</SubTitle>
+          </S.HeaderModal>
+          <S.ModalResume>
+            <UnorderedList arr={inputsCollection.map(element => {
+              const value = element.valueId === 'telephone' ? phoneFormatter(valueFields[element.valueId]) : valueFields[element.valueId]
+              return (
+                <p 
+                  style={{ textTransform: element.valueId === 'name' ? 'capitalize' : 'none' }} 
+                  key={element.id}
+                >
+                  {element.label} {value}
+                </p>
+              )
+            })} />
+            </S.ModalResume>
+            <S.ModalResume2>
+            <UnorderedList arr={resumeItens.map(element => {
+              const isQuarto = typeof element.content === 'object'
+              const value = isQuarto ? element.content.title : element.content
+              return (
+                <>
+                  {
+                    isQuarto && (
+                      <S.ContentImgInsideModal>
+                        <ImageDefault altText="Imagem do Quarto selecionado" src={element.content.img} />
+                        <p>{element.content.description}</p>
+                      </S.ContentImgInsideModal>
+                    )
+                  }
+
+                  <p key={element.id}>{element.name} {value}</p>
+                </>
+              )
+            })} />
+          </S.ModalResume2>
+          <S.Btn01>
+            <Button action={() => setResumeOpen(false)}>Finalizar</Button>
           </S.Btn01>
         </Modal>
     </S.ContainerModal>

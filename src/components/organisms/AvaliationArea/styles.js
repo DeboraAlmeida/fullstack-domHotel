@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { pallete } from '../../../pallete'
+import pallete from '../../../pallete'
 
 export const Wrapper = styled.div`
   h2{

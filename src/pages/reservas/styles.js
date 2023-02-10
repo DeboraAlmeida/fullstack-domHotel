@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { pallete } from '../../pallete'
+import pallete from '../../pallete'
 
 export const PrincipalContainer = styled.div`
   @media screen and (max-width: 667px) {
@@ -41,6 +41,43 @@ export const ContainerReserve = styled.div`
     align-items: center;
   }
 `
+export const ModalResume = styled.div`
+ display: block;
+ justify-content: center;
+ ul {
+    padding: 10px 0px;
+    margin: 0;
+    text-align: start;
+    width: 100%;
+  }
+  ul li {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+`
+export const ModalResume2 = styled.div`
+ display: flex;
+ justify-content: center;
+ ul {
+    padding: 20px 0px;
+    margin: 0;
+    text-align: left;
+    width: 100%;
+  }
+  ul li {
+    display: block;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 0px;
+  }
+  ul li:last-child {  
+   font-weight: bold;
+   text-align: right;
+  }
+`
+
 export const ReserveItem = styled.div`
   width: 20%;
   @media screen and (max-width: 870px) {
@@ -57,7 +94,11 @@ export const ContainerModal = styled.div`
   margin: auto;
   `
 export const HeaderModal = styled.div`
-  text-align: left;
+
+  h2{
+    text-align: left;
+    padding-right: 25px;
+  }
 `
 export const ModalCont = styled.div`
     display: flex;
@@ -206,7 +247,7 @@ export const RoomsContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   
-  @media screen and (max-width: 870px){
+  @media screen and (max-width: 1100px){
     flex-direction:column;
   }
 `
@@ -214,7 +255,7 @@ export const ModalContainer = styled.div`
   display:flex;
   flex-direction:column;
   align-items:center;
-  @media screen and (max-width: 870px) {
+  @media screen and (max-width: 1100px) {
     button{
       width: 50vw;
       height: fit-content;
@@ -246,5 +287,43 @@ export const ContainerResume = styled.div`
   }
   li:nth-child(odd) {
     margin-bottom: 30px;
+  }
+`
+
+export const ContentImgInsideModal = styled.div`
+  position: relative;
+  margin-bottom: 20px;
+
+  img{
+    height: 250px;
+    object-fit: cover;
+  }
+
+  p{
+    position: absolute;
+    bottom: 3px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    text-indent: 10px;
+    color: white;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  @media screen and (max-width: 500px) {
+    p{
+      font-size: 12px;
+    }
+  }
+
+  @media screen and (max-width: 375px) {
+
+    img{
+      height: inherit;
+    }
+
+    p{
+      display: none;
+    }
   }
 `

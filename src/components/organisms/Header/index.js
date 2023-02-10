@@ -1,6 +1,6 @@
 // Arquivo criado: 20/12/2022 às 14:27
 import React, { useEffect, useState } from 'react'
-import logo from '../../../assets/dom_logo.png'
+import logo from '../../../assets/dom_logo.webp'
 import Anchor from '../../atoms/Anchor'
 import Button from '../../atoms/Button'
 import ImageDefault from '../../atoms/ImageDefault'
