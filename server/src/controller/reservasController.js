@@ -1,7 +1,11 @@
-const reservasController = (req,res) => {
-  res.status(200).send({
-    msg: 'reservas ok!'
-  })
+class ReservasController {
+
+  static default = (req,res) => {
+    res.status(200).send({
+      msg: 'reservas ok!'
+    })
+  }
+
 }
 
-export default reservasController
+export default ReservasController

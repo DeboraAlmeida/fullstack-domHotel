@@ -1,9 +1,9 @@
 import express from 'express'
-import reservasController from '../controller/reservasController.js'
+import ReservasController from '../controller/reservasController.js'
 
 const router = express.Router()
 
 router
-  .get('/reservas',reservasController)
+  .get('/reservas',ReservasController.default)
 
 export default router
