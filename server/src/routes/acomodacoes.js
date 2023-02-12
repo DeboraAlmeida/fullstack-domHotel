@@ -1,9 +1,9 @@
 import express from 'express'
-import acomodacoesController from '../controller/acomodacoesController.js'
+import AcomodacoesController from '../controller/acomodacoesController.js'
 
 const router = express.Router()
 
 router
-  .get('/acomodacoes', acomodacoesController)
+  .get('/acomodacoes', AcomodacoesController.default)
 
 export default router
