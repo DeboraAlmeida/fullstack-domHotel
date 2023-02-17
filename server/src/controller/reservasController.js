@@ -2,7 +2,7 @@ import sqlDB from "../app/mysql.js"
 
 class ReservasController {
 
-  static default = (req,res) => {
+  static default = (_req,res) => {
 
     sqlDB.query('SELECT * FROM reserve', (err,rows) => {
       if (err) {
