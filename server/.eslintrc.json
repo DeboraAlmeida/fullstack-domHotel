@@ -1,0 +1,28 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": "standard",
+    "overrides": [
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "rules": {
+        "space-before-function-paren": "off",
+        "eol-last": "off",
+        "no-multiple-empty-lines": "off",
+        "no-trailing-spaces": "off",
+        "padded-blocks": "off",
+        "no-unused-vars": "warn",
+        "comma-spacing": "warn",
+        "react/prop-types": "off",
+        "comma-dangle": "warn",
+        "spaced-comment": "warn",
+        "no-empty": "warn",
+        "indent":["warn", 2]
+    }
+}

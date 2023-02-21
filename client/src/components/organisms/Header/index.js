@@ -17,6 +17,15 @@ export const Header = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768)
 
   useEffect(() => {
+
+    const hasLogin = sessionStorage.getItem('isLogged')
+
+    if (hasLogin) {
+      const infos = JSON.parse(hasLogin)
+      setIsLogged(true)
+      setLoggedName(infos.name)
+    }
+
     if (isLogged) {
       setShowModal(false)
     }
