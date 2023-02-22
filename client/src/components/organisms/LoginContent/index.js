@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import backEnd from '../../../utils/backEnd'
 import { validateEmail, validateName } from '../../../utils/validateFields'
 import Anchor from '../../atoms/Anchor/index'
 import Button from '../../atoms/Button/'
@@ -8,8 +9,13 @@ import GenericLabel from '../../atoms/GenericLabel/index'
 import MiniTitle from '../../atoms/MiniTitle/index'
 import * as S from './styles'
 
+
 const LoginContent = ({ type, setIsLogged, setLoggedName }) => {
   const [typeLogin, setTypeLogin] = useState(type)
+  const [showMessage, setShowMessage] = useState({
+    show: false,
+    message: ''
+  })
   const [valueField, setValueFields] = useState(
     {
       email: '',
@@ -48,7 +54,7 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }) => {
     setErrosFields((prev) => ({ ...prev, password: false }))
   }
 
-  const actionSignUp = (data, logins) => {
+  const actionSignUp = async (data) => {
     if (data.email === '' || data.name === '' || data.password === '') {
       if (data.email === '') {
         setErrosFields((prev) => ({ ...prev, email: true }))
@@ -60,15 +66,36 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }) => {
         setErrosFields((prev) => ({ ...prev, name: true }))
       }
       return
-    }         
-    logins.push(data)
-    localStorage.setItem('logins', JSON.stringify(logins))
-    setLoggedName(data.name.split(' ')[0])
-    setIsLogged(true)
-    sessionStorage.setItem('isLogged', JSON.stringify({ ...data, isLogged: true }))
+    }
+
+    if (data.password.length < 6) {
+      setErrosFields((prev) => ({ ...prev, password: true }))
+      return
+    }
+
+    await backEnd('/signup', 'POST', false, {
+      email: data.email,
+      name: data.name,
+      password: data.password
+    }).then(res => {
+      if (res.status === 200) {
+        setIsLogged(true)
+        setLoggedName(res.data.name.split(' ')[0])
+        sessionStorage.setItem('isLogged', JSON.stringify({
+          ...res.data,
+          email: data.email,
+          isLogged: true,
+          token: res.token
+        }))
+      } else {
+        handleShowMessage(res.message)
+      }
+    }).catch(err => {
+      console.log(err)
+    })
   }
 
-  const actionSignIn = (data, logins) => {
+  const actionSignIn = async (data) => {
     if (data.email === '' || data.password === '') {
       if (data.email === '') {
         setErrosFields((prev) => ({ ...prev, email: true }))
@@ -78,45 +105,58 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }) => {
       }
       return
     }
-    let result = false
-    let name = ''
-    logins.forEach(user => {
-      if (user.email === data.email && user.password === data.password) {
-        name = user.name
-        result = true
+
+    await backEnd('/login', 'POST', false, { email: data.email, password: data.password }).then(res => {
+      
+      if (res.status === 200) {
+        setIsLogged(true)
+        setLoggedName(res.data.name.split(' ')[0])
+        sessionStorage.setItem('isLogged', JSON.stringify({
+          ...res.data,
+          email: data.email,
+          isLogged: true,
+          token: res.token
+        }))
+
+      } else {
+        handleShowMessage(res.message)
+        setIsLogged(false)
       }
+      
+
+    }).catch((err) => {
+      handleShowMessage(err.message)
     })
-    if (result) {
-      setIsLogged(true)
-      setLoggedName(name.split(' ')[0])
-      sessionStorage.setItem('isLogged', JSON.stringify({ ...data, isLogged: true }))
-    } else {
-      alert('Usuário não cadastrado!')
-      setIsLogged(false)
-    }    
+
   }
 
   const handleButton = () => {
-    const logins = JSON.parse(localStorage.getItem('logins'))
     const data = {
       name: valueField.name,
       email: valueField.email,
       password: valueField.password
     }
     if (typeLogin === 'sign-up') {
-      actionSignUp(data, logins)      
+      actionSignUp(data)      
     }
     if (typeLogin === 'sign-in') {
-      actionSignIn(data, logins)
+      actionSignIn(data)
     }
   }
 
-  useEffect(() => {
-    const logins = localStorage.getItem('logins')
-    if (!logins) {
-      localStorage.setItem('logins', '[]')
-    }
-  }, [])
+  const handleShowMessage = (msg) => {
+    setShowMessage({
+      show: true,
+      message: msg
+    })
+
+    setTimeout(() => {
+      setShowMessage({
+        show: false,
+        message: ''
+      })
+    }, 3000)
+  }
 
   const inputsSignIn = [
     { 
@@ -166,37 +206,46 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }) => {
 
   return (
     <S.Wrapper>
-      {typeLogin === 'sign-in' && (
-        <>
-          <MiniTitle text={'Login'}/>
-          {inputsSignIn.map((element, index) => (
-            <S.ContainerInputSignIn key={index}>
-              <GenericLabel for={element.id}>{element.label}</GenericLabel>
-              <GenericInput type={element.type} id={element.id} onChange={(e) => element.method(e.target.value)} error={element.model} value={valueField[`${element.valueId}`]}/>
-            </ S.ContainerInputSignIn>
-          ))}
-          <Anchor href={'#'} msg={'Esqueceu a senha?'}/>
-          <Button disabled={(errorFields.email || errorFields.password)} action={handleButton}>Entrar</Button>
-          <S.ContainerSignUp>
-            <DescriptionParagraph msg={'Não tem uma conta?'} /><Anchor action={() => setTypeLogin('sign-up')} onClick msg={'Criar conta'}/>
-          </S.ContainerSignUp>
-        </>
-      )}
-      {typeLogin === 'sign-up' && (
-        <>
-          <MiniTitle text={'Cadastrar'}/>
-          {inputsSignUp.map((element, index) => (
-            <S.ContainerInputSignUp key={index}>
-              <GenericLabel for={element.id}>{element.label}</GenericLabel>
-              <GenericInput type={element.type} id={element.id} onChange={(e) => element.method(e.target.value)} error={element.model} value={valueField[`${element.valueId}`]}/>
-            </ S.ContainerInputSignUp>
-          ))}
-          <Button disabled={(errorFields.email || errorFields.name || errorFields.password)} action={handleButton}>Cadastrar</Button>
-          <S.ContainerSignIn>
-            <DescriptionParagraph msg={'Já possui uma conta?'} /><Anchor action={() => setTypeLogin('sign-in')} onClick msg={'Entrar'}/>
-          </S.ContainerSignIn>
-        </>
-      )}      
+     {
+      showMessage.show
+        ? <S.tittleAviso>{showMessage.message}</S.tittleAviso>
+        : (
+            <>
+              {typeLogin === 'sign-in' && (
+                <>
+                  <MiniTitle text={'Login'} />
+                  {inputsSignIn.map((element, index) => (
+                    <S.ContainerInputSignIn key={index}>
+                      <GenericLabel for={element.id}>{element.label}</GenericLabel>
+                      <GenericInput type={element.type} id={element.id} onChange={(e) => element.method(e.target.value)} error={element.model} value={valueField[`${element.valueId}`]} />
+                    </ S.ContainerInputSignIn>
+                  ))}
+                  {/* opção de esqueceu a senha: */}
+                  <Anchor href={'#'} msg={''} />
+                  <Button disabled={(errorFields.email || errorFields.password)} action={handleButton}>Entrar</Button>
+                  <S.ContainerSignUp>
+                    <DescriptionParagraph msg={'Não tem uma conta?'} /><Anchor action={() => setTypeLogin('sign-up')} onClick msg={'Criar conta'} />
+                  </S.ContainerSignUp>
+                </>
+              )}
+              {typeLogin === 'sign-up' && (
+                <>
+                  <MiniTitle text={'Cadastrar'} />
+                  {inputsSignUp.map((element, index) => (
+                    <S.ContainerInputSignUp key={index}>
+                      <GenericLabel for={element.id}>{element.label}</GenericLabel>
+                      <GenericInput type={element.type} id={element.id} onChange={(e) => element.method(e.target.value)} error={element.model} value={valueField[`${element.valueId}`]} />
+                    </ S.ContainerInputSignUp>
+                  ))}
+                  <Button disabled={(errorFields.email || errorFields.name || errorFields.password)} action={handleButton}>Cadastrar</Button>
+                  <S.ContainerSignIn>
+                    <DescriptionParagraph msg={'Já possui uma conta?'} /><Anchor action={() => setTypeLogin('sign-in')} onClick msg={'Entrar'} />
+                  </S.ContainerSignIn>
+                </>
+              )}
+            </>   
+          )
+     }
     </S.Wrapper>
   )
 }

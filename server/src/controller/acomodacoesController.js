@@ -1,12 +1,10 @@
 
 class AcomodacoesController {
-
-  static default = (req, res) => {
+  static default = (_req, res) => {
     res.status(200).send({
-     msg: 'acomodações ok!'
+      msg: 'acomodações ok!'
     })
   }
-
-} 
+}
 
 export default AcomodacoesController
