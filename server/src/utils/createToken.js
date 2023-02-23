@@ -2,10 +2,11 @@ import jwt from 'jsonwebtoken'
 
 const secret = process.env.JWT_TOKEN
 
-const createToken = ({ name, email }) => {
+const createToken = ({ name, email, id }) => {
   const payload = {
     name,
-    email
+    email,
+    id
   }
 
   const options = {
