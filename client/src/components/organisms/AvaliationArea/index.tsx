@@ -43,25 +43,37 @@ export default class AvaliationArea extends React.Component<Props> {
   componentDidMount(): void {
 
     const handleCanComment = () => {
-      backEnd(`/verify-can-comment/${this.content.id}`,'GET',true).then(res => {
-        if(res.canComment){
+      if(sessionStorage.getItem('isLogged')){
+        backEnd(`/verify-can-comment/${this.content.id}`, 'GET', true).then(res => {
+          if (res.canComment) {
+            this.setState({
+              form: {
+                show: true,
+                title: '',
+                msg: ''
+              },
+            })
+            return
+          }
+
           this.setState({
             form: {
-              show: true,
-              title: '',
-              msg: ''
+              show: false,
+              title: 'Avaliação bloqueada',
+              msg: 'É preciso ja ter feito check-in neste quarto para o avaliar'
             },
           })
-          return
-        }
-
-        this.setState({
-          form: {
-            show: false,
-            title: 'Avaliação bloqueada',
-            msg: 'É preciso ja ter feito check-in neste quarto para o avaliar'
-          },
         })
+
+        return
+      }
+
+      this.setState({
+        form: {
+          show: false,
+          title: 'Faça Login',
+          msg: 'É preciso estar logado para avaliar'
+        },
       })
       
     }
