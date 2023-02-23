@@ -1,12 +1,13 @@
 import { Content } from '@/interfaces/Content'
 import React from 'react'
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
+import backEnd from '../../../utils/backEnd'
 import Button from '../../atoms/Button'
 import GenericInput from '../../atoms/GenericInput'
 import GenericLabel from '../../atoms/GenericLabel'
 import SubTitle from '../../atoms/SubTitle'
 import TextArea from '../../atoms/TextArea'
-import * as S from './styles.js'
+import * as S from './styles'
 
 interface Props {
   content: Content
@@ -23,7 +24,11 @@ export default class AvaliationArea extends React.Component<Props> {
 
   state = {
     stars: ['void', 'void', 'void', 'void', 'void'],
-    form: true,
+    form: {
+      show: false,
+      title: 'Carregando...',
+      msg: ''
+    },
     buttonInfo: {
       name: 'Avaliar',
       disabled: false
@@ -36,6 +41,43 @@ export default class AvaliationArea extends React.Component<Props> {
   }
 
   componentDidMount(): void {
+
+    const handleCanComment = () => {
+      if(sessionStorage.getItem('isLogged')){
+        backEnd(`/verify-can-comment/${this.content.id}`, 'GET', true).then(res => {
+          if (res.canComment) {
+            this.setState({
+              form: {
+                show: true,
+                title: '',
+                msg: ''
+              },
+            })
+            return
+          }
+
+          this.setState({
+            form: {
+              show: false,
+              title: 'Avaliação bloqueada',
+              msg: 'É preciso ja ter feito check-in neste quarto para o avaliar'
+            },
+          })
+        })
+
+        return
+      }
+
+      this.setState({
+        form: {
+          show: false,
+          title: 'Faça Login',
+          msg: 'É preciso estar logado para avaliar'
+        },
+      })
+      
+    }
+
     const handleNameUser = () => {
       if (this.handleLogged()) {
         const isLogged: string | null = sessionStorage.getItem('isLogged')
@@ -48,42 +90,25 @@ export default class AvaliationArea extends React.Component<Props> {
         }
       }
     }
+
     handleNameUser()
+    handleCanComment()
   }
   
 
   handleLogged = (): boolean => {
     
-    if (sessionStorage.getItem('isLogged') !== null) {
-      const hasLocal: string | null = localStorage.getItem('logins')
-      const isLogged: string | null = sessionStorage.getItem('isLogged')
-      
-      const local = hasLocal ? JSON.parse(hasLocal) : null
-      const logged = isLogged ? JSON.parse(isLogged) : null
-
-      if (local.find((logins: Login) => logins.email === logged.email && logins.password === logged.password)) {
-        return true
-      } else {
-      
-        this.setState({
-          buttonInfo: {
-            name: 'Faça login para avaliar',
-            disabled: true
-          }
-        })
-       
-        return false
+    if (sessionStorage.getItem('isLogged')) {
+      return true
+    } 
+    
+    this.setState({
+      buttonInfo: {
+        name: 'Faça login para avaliar',
+        disabled: true
       }
-
-    } else {
-      this.setState({
-        buttonInfo: {
-          name: 'Faça login para avaliar',
-          disabled: true
-        }
-      })
-      return false
-    }
+    })
+    return false
   }
 
 
@@ -138,7 +163,11 @@ export default class AvaliationArea extends React.Component<Props> {
       comments.push(comment)
       localStorage.setItem('comments', JSON.stringify(comments))
       this.setState({
-        form: false
+        form: {
+          show: false,
+          title: 'Avaliação enviada!',
+          msg: 'DOM Hotel agradece sua avaliação.'
+        }
       })
     }
 
@@ -174,15 +203,15 @@ export default class AvaliationArea extends React.Component<Props> {
     return (
       <S.Wrapper>
         {
-          this.state.form
+          this.state.form.show
             ? (
               <>
                 <S.TitleContainer id={'title-container'}>
                   <SubTitle>{'Avalie'}</SubTitle>
                 </S.TitleContainer>
-                <GenericLabel id={'name'}>Nome:</GenericLabel>
+                <GenericLabel for={'name'}>Nome:</GenericLabel>
                 <GenericInput type={'text'} id={'name'} aName={'name'} />
-                <GenericLabel id={'comment'}>Comentário:</GenericLabel>
+                <GenericLabel for={'comment'}>Comentário:</GenericLabel>
                 <TextArea id={'comment'} />
                 <S.StarsContainer>
                   {this.state.stars.map((star, index) => {
@@ -199,9 +228,9 @@ export default class AvaliationArea extends React.Component<Props> {
             : (
               <>
                 <S.TitleContainer id={'title-container'}>
-                  <SubTitle>{'Avaliação enviada!'}</SubTitle>
+                  <SubTitle>{this.state.form.title}</SubTitle>
                 </S.TitleContainer>
-                <S.subMsgSuccess>DOM Hotel agradece sua avaliação.</S.subMsgSuccess>
+                <S.subMsgSuccess>{this.state.form.msg}</S.subMsgSuccess>
               </>
             )
         }
