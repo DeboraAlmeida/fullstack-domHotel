@@ -11,7 +11,7 @@ class LoginController {
       return
     }
 
-    sqlDB.query('SELECT name,password,ativo FROM `user` WHERE `email` = ? LIMIT 1', email, async (err, data) => {
+    sqlDB.query('SELECT name,password,ativo,id FROM `user` WHERE `email` = ? LIMIT 1', email, async (err, data) => {
       if (err) {
         res.status(500).send({ message: err.message })
         return
@@ -43,7 +43,7 @@ class LoginController {
         return
       }
 
-      const token = createToken({ name: data[0].name, email })
+      const token = createToken({ name: data[0].name, email, id: data[0].id })
 
       sqlDB.query('UPDATE `user` SET `lastLogin` = ? WHERE `email` = ?', [new Date(), email], err => {
         if (err) {

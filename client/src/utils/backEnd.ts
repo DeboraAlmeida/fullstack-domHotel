@@ -10,11 +10,9 @@ const backEnd = async (route: string, method: 'GET' | 'POST' | 'PUT' | 'DELETE',
 
   const token = needAuthentication ? getIdToken() : null
 
-  const body = await bodyInfo ? encrypt(bodyInfo) : {}
-
   return await fetch(`${url}${route}`, {
     method,
-    body: JSON.stringify({ body }),
+    body: bodyInfo ? JSON.stringify({ body: encrypt(bodyInfo) }) : undefined,
     headers: {
       'Content-Type': 'application/json',
       ...token ? { 'Authorization': `Bearer ${token}` } : {}
@@ -27,7 +25,6 @@ const backEnd = async (route: string, method: 'GET' | 'POST' | 'PUT' | 'DELETE',
       return error
     })
 
-  return null
 }
 
 export default backEnd
