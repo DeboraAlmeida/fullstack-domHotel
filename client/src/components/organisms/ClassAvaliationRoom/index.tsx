@@ -4,17 +4,17 @@ import { Comment } from '@/interfaces/Comment';
 import { Content } from '@/interfaces/Content';
 import React from 'react';
 import Button from '../../atoms/Button/';
-import ImageDefault from '../../atoms/ImageDefault/index.js';
-import MiniTitle from '../../atoms/MiniTitle/index.js';
-import SubTitle from '../../atoms/SubTitle/index.js';
-import CommentArea from '../CommentArea/index.js';
+import ImageDefault from '../../atoms/ImageDefault';
+import MiniTitle from '../../atoms/MiniTitle';
+import SubTitle from '../../atoms/SubTitle';
+import CommentArea from '../CommentArea';
 import * as S from './styles';
 
 
 interface Props {
   content: Content
   setStage: React.Dispatch<React.SetStateAction<string>>
-  comments: Comment[]
+  comments?: Comment[]
 }
 
 

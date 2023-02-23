@@ -7,7 +7,7 @@ import GenericInput from '../../atoms/GenericInput'
 import GenericLabel from '../../atoms/GenericLabel'
 import SubTitle from '../../atoms/SubTitle'
 import TextArea from '../../atoms/TextArea'
-import * as S from './styles.js'
+import * as S from './styles'
 
 interface Props {
   content: Content
@@ -209,9 +209,9 @@ export default class AvaliationArea extends React.Component<Props> {
                 <S.TitleContainer id={'title-container'}>
                   <SubTitle>{'Avalie'}</SubTitle>
                 </S.TitleContainer>
-                <GenericLabel id={'name'}>Nome:</GenericLabel>
+                <GenericLabel for={'name'}>Nome:</GenericLabel>
                 <GenericInput type={'text'} id={'name'} aName={'name'} />
-                <GenericLabel id={'comment'}>Comentário:</GenericLabel>
+                <GenericLabel for={'comment'}>Comentário:</GenericLabel>
                 <TextArea id={'comment'} />
                 <S.StarsContainer>
                   {this.state.stars.map((star, index) => {
