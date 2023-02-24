@@ -127,7 +127,8 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }: Props) => {
           ...res.data,
           email: data.email,
           isLogged: true,
-          token: res.token
+          token: res.token,
+          id_user: res.data.id_user
         }))
 
       } else {
