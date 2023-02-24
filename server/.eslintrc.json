@@ -23,6 +23,7 @@
         "comma-dangle": "warn",
         "spaced-comment": "warn",
         "no-empty": "warn",
+        "camelcase": "off",
         "indent":["warn", 2]
     }
 }
