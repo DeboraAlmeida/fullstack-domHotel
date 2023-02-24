@@ -55,7 +55,8 @@ class LoginController {
           status: 200,
           message: 'Login realizado com sucesso',
           data: {
-            name: data[0].name
+            name: data[0].name,
+            id_user: data[0].id
           },
           token
         })
