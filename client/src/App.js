@@ -15,6 +15,7 @@ import Template from './template/template'
 const App = () => {
 
   const [isAdmin, setIsAdmin] = useState(false)
+  const [forcedLogin, setForcedLogin] = useState(false)
 
   const verifyRoute = () => {
     const route = window.location.pathname
@@ -30,12 +31,12 @@ const App = () => {
 
   return (
     <Router>
-      {!isAdmin && <Header />}
+      {!isAdmin && <Header forcedLogin={forcedLogin}/>}
       <Template>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/acomodacoes' element={<Acomodacoes />} />
-          <Route path='/reservas' element={<Reservas />} />
+          <Route path='/reservas' element={<Reservas setForcedLogin={setForcedLogin}/>} />
           <Route path='/contato' element={<Contato />} />
           <Route path='/sobre' element={<Sobre />} />
           <Route path='/admin' element={<Admin />} />
