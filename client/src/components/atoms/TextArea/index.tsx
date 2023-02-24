@@ -1,8 +1,8 @@
 // Arquivo criado: 10/12/2022 às 11:55
 
-import React, { useRef, useState } from 'react'
+import React, { ChangeEvent, useRef, useState } from 'react'
 import pallete from '../../../pallete'
-import * as S from './styles.js'
+import * as S from './styles'
 
 /**
  * 
@@ -62,7 +62,7 @@ interface Props {
   name?: string
   id?: string
   onChange?: (e: any) => void
-  error?: string
+  error?: boolean
   width?: string
   height?: string
 }
@@ -74,7 +74,7 @@ export default function TextArea({
   limit,
   rows = 3,
   cols = 1,
-  textTransform,
+  textTransform = 'none',
   className,
   autoFocus,
   disabled = false,
@@ -82,17 +82,17 @@ export default function TextArea({
   name,
   id,
   onChange = () => { },
-  error,
+  error = false,
   width = '100%',
   height = '150px'
 }: Props) {
 
   const Component = useDefaultStyle ? S.textarea : S.empty
-  const ref = useRef<HTMLTextAreaElement>()
+  const ref = useRef<HTMLTextAreaElement>(null)
   const [border, setBorder] = useState('transparent')
 
 
-  const handleVal = (e: Event) => {
+  const handleVal = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if(ref.current){
       ref.current.value.length > 0 && !disabled ? setBorder(focusColor) : setBorder('transparent')
       onChange(e)

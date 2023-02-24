@@ -7,7 +7,7 @@ import GenericInput from '../../atoms/GenericInput'
 import GenericLabel from '../../atoms/GenericLabel'
 import SubTitle from '../../atoms/SubTitle'
 import TextArea from '../../atoms/TextArea'
-import * as S from './styles.js'
+import * as S from './styles'
 
 interface Props {
   content: Content
@@ -43,25 +43,37 @@ export default class AvaliationArea extends React.Component<Props> {
   componentDidMount(): void {
 
     const handleCanComment = () => {
-      backEnd(`/verify-can-comment/${this.content.id}`,'GET',true).then(res => {
-        if(res.canComment){
+      if(sessionStorage.getItem('isLogged')){
+        backEnd(`/verify-can-comment/${this.content.id}`, 'GET', true).then(res => {
+          if (res.canComment) {
+            this.setState({
+              form: {
+                show: true,
+                title: '',
+                msg: ''
+              },
+            })
+            return
+          }
+
           this.setState({
             form: {
-              show: true,
-              title: '',
-              msg: ''
+              show: false,
+              title: 'Avaliação bloqueada',
+              msg: 'É preciso ja ter feito check-in neste quarto para o avaliar'
             },
           })
-          return
-        }
-
-        this.setState({
-          form: {
-            show: false,
-            title: 'Avaliação bloqueada',
-            msg: 'É preciso ja ter feito check-in neste quarto para o avaliar'
-          },
         })
+
+        return
+      }
+
+      this.setState({
+        form: {
+          show: false,
+          title: 'Faça Login',
+          msg: 'É preciso estar logado para avaliar'
+        },
       })
       
     }
@@ -197,9 +209,9 @@ export default class AvaliationArea extends React.Component<Props> {
                 <S.TitleContainer id={'title-container'}>
                   <SubTitle>{'Avalie'}</SubTitle>
                 </S.TitleContainer>
-                <GenericLabel id={'name'}>Nome:</GenericLabel>
+                <GenericLabel for={'name'}>Nome:</GenericLabel>
                 <GenericInput type={'text'} id={'name'} aName={'name'} />
-                <GenericLabel id={'comment'}>Comentário:</GenericLabel>
+                <GenericLabel for={'comment'}>Comentário:</GenericLabel>
                 <TextArea id={'comment'} />
                 <S.StarsContainer>
                   {this.state.stars.map((star, index) => {

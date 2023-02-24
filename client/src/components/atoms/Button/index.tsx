@@ -2,7 +2,7 @@
 
 import React from 'react'
 import pallete from '../../../pallete'
-import * as S from './styles.js'
+import * as S from './styles'
 
 
 /**
@@ -66,7 +66,7 @@ interface Props {
   target?: string
 }
 
-export default function Button({
+const Button = ({
   useDefaultStyle = true,
   children,
   color = pallete.fontColorAlternative,
@@ -82,7 +82,7 @@ export default function Button({
   action,
   href,
   target = '_self'
-}: Props) {
+}: Props) => {
 
   const Component = useDefaultStyle ? S.button : S.empty
 
@@ -109,6 +109,7 @@ export default function Button({
       className={className}
       name={name}
       id={id}
+      // @ts-expect-error
       onClick={handleClick}
       href={href}
       target={target}
@@ -121,3 +122,5 @@ export default function Button({
     </Component>
   )
 }
+
+export default Button

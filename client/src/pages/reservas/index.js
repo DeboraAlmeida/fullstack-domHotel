@@ -11,6 +11,7 @@ import Modal from '../../components/atoms/Modal'
 import PrincipalTitle from '../../components/atoms/PrincipalTitle'
 import SubTitle from '../../components/atoms/SubTitle'
 import UnorderedList from '../../components/atoms/UnorderedList'
+import postReserve from '../../services/postReserve'
 import phoneFormatter from '../../utils/phoneFormatter'
 import { validateEmail, validateName, validateNumber } from '../../utils/validateFields'
 import premium from './images/acomodacao_premium.webp'
@@ -19,7 +20,7 @@ import vip from './images/acomodacao_vip.webp'
 import * as S from './styles'
 
 
-export const Reservas = () => {
+export const Reservas = ({ setForcedLogin }) => {
   const [valueFields] = useState(
     {
       email: '',
@@ -61,7 +62,7 @@ export const Reservas = () => {
     }
     setErrosFields((prev) => ({ ...prev, telephone: false }))
   }
-  
+
   const inputsCollection = [
     {
       id: '1',
@@ -97,7 +98,7 @@ export const Reservas = () => {
       label: 'Data de checkin',
       value: '',
       error: false
-      
+
     },
     {
       id: 'checkout',
@@ -105,7 +106,7 @@ export const Reservas = () => {
       label: 'Data de checkout',
       value: '',
       error: false
-      
+
     },
     {
       id: 'adultos',
@@ -116,7 +117,7 @@ export const Reservas = () => {
       min: '1',
       value: '1',
       error: false
-      
+
     },
     {
       id: 'criancas',
@@ -126,10 +127,10 @@ export const Reservas = () => {
       min: '0',
       value: '0',
       error: false
-      
+
     }
   ])
-  
+
   const optionsCollection = [
     {
       type: 'checkbox',
@@ -208,9 +209,9 @@ export const Reservas = () => {
       img: vip
     }
   ])
-  
+
   const [resumeItens, setResumeItens] = useState([
-    { 
+    {
       id: 'quarto',
       name: 'Quarto:  ',
       content: {
@@ -221,27 +222,27 @@ export const Reservas = () => {
         img: ''
       }
     },
-    { 
-      id: 'checkin', 
-      name: 'Checkin:  ', 
+    {
+      id: 'checkin',
+      name: 'Checkin:  ',
       content: ''
     },
-    { 
+    {
       id: 'checkout',
       name: 'Checkout:  ',
       content: ''
     },
-    { 
+    {
       id: 'resume-people',
       name: 'Pessoas:  ',
       content: ''
     },
-    { 
+    {
       id: 'resume-services',
       name: 'Serviços Adicionais:  ',
       content: ''
     },
-    { 
+    {
       id: 'total',
       name: 'Total:  ',
       content: 'R$ 0,00',
@@ -272,8 +273,8 @@ export const Reservas = () => {
       valueClickCheckbox[`${e.target.id}`] = 0
       totalValue -= formatValueCheckbox(e.target.value)
     }
-  } 
-  
+  }
+
   const handleMoreService = () => {
     localStorage.setItem('moreServices', JSON.stringify(valueClickCheckbox))
     const resumeItensValue = resumeItens
@@ -281,9 +282,9 @@ export const Reservas = () => {
     resumeItensValue[resumeItens.length - 1].content = `R$ ${(parseInt(resumeItensValue[resumeItens.length - 1].value) + totalValue).toFixed(2).toString().replace('.', ',')}`
     setResumeItens(resumeItensValue)
     setModalOpen(false)
-    
+
   }
-  
+
   const [inputsValue, setInputsValue] = useState({
     quarto: {
       title: '',
@@ -310,7 +311,7 @@ export const Reservas = () => {
 
     return [year, month, day].join('-')
   }
-  
+
   const convertDate = d => {
     return d.split('-').reverse().join('/')
   }
@@ -320,9 +321,9 @@ export const Reservas = () => {
     checkin: '',
     checkout: ''
   }
-  
+
   const [values, setValues] = useState(initialValues)
-  
+
   const handleDateChange = (e) => {
     const fieldName = e.target.id
     const value = e.target.value
@@ -330,13 +331,13 @@ export const Reservas = () => {
     setValues(initialValues)
   }
 
-  
+
   const countDays = (initialDate, finalDate) => {
     const diff = new Date(finalDate) - new Date(initialDate)
     const numberOfDays = diff / (1000 * 60 * 60 * 24)
     return numberOfDays
   }
-  
+
   const valiDate = (d1, d2) => {
     if (countDays(d1, d2) < 0) {
       return true
@@ -357,31 +358,31 @@ export const Reservas = () => {
         if (input.id === 'checkin' || input.id === 'checkout') {
           handleDateChange(e)
           if (input.id === 'checkin') {
-            if ((valiDate(initialValues.today, initialValues.checkin)) || (countDays(initialValues.today, initialValues.checkin) > 364)) { 
-              input.error = true 
-              setControlButton(prev => ({ ...prev, checkin: true }))           
+            if ((valiDate(initialValues.today, initialValues.checkin)) || (countDays(initialValues.today, initialValues.checkin) > 364)) {
+              input.error = true
+              setControlButton(prev => ({ ...prev, checkin: true }))
             } else {
               input.error = false
               setControlButton(prev => ({ ...prev, checkin: false }))
             }
           } if (input.id === 'checkout') {
             if ((valiDate(initialValues.checkin, initialValues.checkout)) || (countDays(initialValues.checkin, initialValues.checkout) > 364)) {
-              input.error = true  
-              setControlButton(prev => ({ ...prev, checkout: true }))           
+              input.error = true
+              setControlButton(prev => ({ ...prev, checkout: true }))
             } else {
               input.error = false
-              setControlButton(prev => ({ ...prev, checkout: false })) 
-            }            
+              setControlButton(prev => ({ ...prev, checkout: false }))
+            }
           }
-        } 
+        }
       }
       inputsValue[input.id] = input.value
       setInputsValue(prev => ({ ...prev }))
       return inputsValue
     }))
-    
+
     setReserveResume()
-  } 
+  }
 
   let choosenRoom = ''
   let roomValue = 0
@@ -400,13 +401,12 @@ export const Reservas = () => {
     localStorage.setItem('reserva', JSON.stringify(inputsValue))
   }, [inputsValue])
 
-
   const setReserveResume = () => {
     const math = (parseInt(inputsValue.adultos) + parseInt(inputsValue.criancas))
     const checkinValue = inputsValue.checkin
     const checkoutValue = inputsValue.checkout
     const selectedRoom = quartos
-    
+
     selectedRoom.filter((item, index) => {
       item.price = parseInt(quartos[index].basePrice)
       item.price = (item.price * math)
@@ -430,25 +430,25 @@ export const Reservas = () => {
       if (item.id === 'total') {
         const getMoreServices = JSON.parse(localStorage.getItem('moreServices'))
         let moreServices = 0
-        const getDays = countDays(checkinValue, checkoutValue)        
+        const getDays = countDays(checkinValue, checkoutValue)
         item.value = parseInt(roomValue * getDays)
-        if (!isNaN(item.value) || item.value === 0) { 
+        if (!isNaN(item.value) || item.value === 0) {
           if (resumeItensValue[resumeItens.length - 2].content !== '') {
             for (const item in getMoreServices) {
               if (getMoreServices[item] !== 0) {
                 moreServices += getMoreServices[item]
               }
             }
-            item.value += moreServices 
+            item.value += moreServices
           }
-          item.content = `R$ ${parseInt(item.value).toFixed(2).toString().replace('.', ',')}` 
+          item.content = `R$ ${parseInt(item.value).toFixed(2).toString().replace('.', ',')}`
         } else {
           item.content = 'R$ 0,00'
         }
       }
       return resumeItensValue
     })
-   
+
     setQuartos(selectedRoom)
     setResumeItens(resumeItensValue)
   }
@@ -460,7 +460,7 @@ export const Reservas = () => {
       return
     }
     if (localStorage.getItem('userData')) {
-      obj = JSON.parse(localStorage.getItem('userData')) 
+      obj = JSON.parse(localStorage.getItem('userData'))
       obj[`${id}`] = valueFields[`${id}`]
       localStorage.setItem('userData', JSON.stringify(obj))
       return
@@ -478,70 +478,92 @@ export const Reservas = () => {
       }
     })
   }
-  
+
+  const sendReserve = async () => {
+    setResumeOpen(false)
+    if (sessionStorage.getItem('isLogged')) {
+
+      const userData = JSON.parse(localStorage.getItem('userData'))
+      const moreService = JSON.parse(localStorage.getItem('moreServices'))
+      const reserva = JSON.parse(localStorage.getItem('reserva'))
+
+      userData.id_user = JSON.parse(sessionStorage.getItem('isLogged')).id_user
+
+      const payload = {
+        userData,
+        moreService,
+        reserva,
+      }
+
+
+      const result = await postReserve(payload)
+    } 
+    setForcedLogin(true)
+  }
+
   return (
     <S.PrincipalContainer>
       <PrincipalTitle>Reserve sua Acomodação</PrincipalTitle>
       <MiniTitle span='Passo 1: ' text='Insira seus dados' />
       <S.FormContainer>
         <S.DataContainer>
-        {inputsCollection.map((element, index) => (
-          <S.Container key={index}>
-            <GenericLabel for={element.id}>{element.label}</GenericLabel>
-            <GenericInput type={element.type} id={element.id} value={valueFields[`${element.valueId}`]}
-            onChange={(e) => element.method(e.target.value)}
-            onBlur={() => saveUserStorage(element.valueId)}
-            error={element.model}/>
-          </S.Container>
-        ))} 
-        </S.DataContainer> 
+          {inputsCollection.map((element, index) => (
+            <S.Container key={index}>
+              <GenericLabel for={element.id}>{element.label}</GenericLabel>
+              <GenericInput type={element.type} id={element.id} value={valueFields[`${element.valueId}`]}
+                onChange={(e) => element.method(e.target.value)}
+                onBlur={() => saveUserStorage(element.valueId)}
+                error={element.model} />
+            </S.Container>
+          ))}
+        </S.DataContainer>
         <S.ContainerReserve>
           {inputsReserve.map(element => (
             <S.ReserveItem key={element.id}>
               <GenericLabel for={element.id}>{element.label}</GenericLabel>
               <GenericInput type={element.type} id={element.id} error={element.error} placeholder={element.placeholder} min={element.min} max={element.max} name={element.id} onChange={(e) => handleInputChange(element.id, e)} />
             </S.ReserveItem>
-          ))}   
+          ))}
         </S.ContainerReserve>
-      <S.RoomsContainer>
-        <S.ModalContainer>
-          <S.containerQuartos>
-            <MiniTitle span='Passo 2: ' text='Escolha o Quarto' />
+        <S.RoomsContainer>
+          <S.ModalContainer>
+            <S.containerQuartos>
+              <MiniTitle span='Passo 2: ' text='Escolha o Quarto' />
 
-            <div className='-wraper'>
-              {
-                quartos.map((element, index) => (
-                  <S.quartoSingleInput key={index} >
-                    <div className='-img'><ImageDefault src={element.img} alt={element.title} /></div>
-                    <div className='-informacoes'>
-                      <MiniTitle span={element.title} />
-                      <p>{element.description}</p>
-                      <div className='-informacoes-inputContainer'>
-                        <input name='quarto' id={`input_${index}`} type='radio' value={element.title} onClick={selectRoom}/>
-                        <GenericLabel for={`input_${index}`}><MiniTitle span='R$ ' text={element.price} /></GenericLabel>
+              <div className='-wraper'>
+                {
+                  quartos.map((element, index) => (
+                    <S.quartoSingleInput key={index} >
+                      <div className='-img'><ImageDefault src={element.img} alt={element.title} /></div>
+                      <div className='-informacoes'>
+                        <MiniTitle span={element.title} />
+                        <p>{element.description}</p>
+                        <div className='-informacoes-inputContainer'>
+                          <input name='quarto' id={`input_${index}`} type='radio' value={element.title} onClick={selectRoom} />
+                          <GenericLabel for={`input_${index}`}><MiniTitle span='R$ ' text={element.price} /></GenericLabel>
+                        </div>
                       </div>
-                    </div>
-                  </S.quartoSingleInput>
-                ))
-              }
-            </div>
-          </S.containerQuartos>
-          <S.Btn01>
-            <S.BtnModal1>
-            <Button useDefaultStyle={false} action={() => setModalOpen(true)}>Mais Serviços</Button>
-            </S.BtnModal1>
-          </S.Btn01>
-        </S.ModalContainer>
-        <S.ContainerResume>
+                    </S.quartoSingleInput>
+                  ))
+                }
+              </div>
+            </S.containerQuartos>
+            <S.Btn01>
+              <S.BtnModal1>
+                <Button useDefaultStyle={false} action={() => setModalOpen(true)}>Mais Serviços</Button>
+              </S.BtnModal1>
+            </S.Btn01>
+          </S.ModalContainer>
+          <S.ContainerResume>
             <UnorderedList arr={resumeItens.map(element => {
               const value = typeof element.content === 'object' ? element.content.title : element.content
               return (`${element.name} ${value}`)
             })} />
             <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Confirmar</Button>
-        </S.ContainerResume>
-      </S.RoomsContainer>
-    </S.FormContainer>
-       
+          </S.ContainerResume>
+        </S.RoomsContainer>
+      </S.FormContainer>
+
       {/* Aqui iniciam os modais */}
 
       <S.ContainerModal>
@@ -551,13 +573,13 @@ export const Reservas = () => {
           </S.HeaderModal>
           <S.ModalOptions>
             <ul>
-              {optionsCollection.map((element) => (  
-              <li key={element.id}>
+              {optionsCollection.map((element) => (
+                <li key={element.id}>
                   <S.ModalCont>
-                  <GenericLabel>
-                  <GenericInput type={element.type} onClick={handleCheckbox} name={element.name} id={element.id} value={element.price} ></GenericInput>
-                  </GenericLabel>
-                  <DescriptionParagraph msg={element.msg}></DescriptionParagraph></S.ModalCont><SpanText>{element.price}</SpanText>
+                    <GenericLabel>
+                      <GenericInput type={element.type} onClick={handleCheckbox} name={element.name} id={element.id} value={element.price} ></GenericInput>
+                    </GenericLabel>
+                    <DescriptionParagraph msg={element.msg}></DescriptionParagraph></S.ModalCont><SpanText>{element.price}</SpanText>
                 </li>)
               )}
             </ul>
@@ -566,7 +588,7 @@ export const Reservas = () => {
             <Button action={handleMoreService}>Confirmar</Button>
           </S.Btn01>
         </Modal>
-        
+
         <Modal isOpen={resumeOpen} setIsOpen={setResumeOpen}>
           <S.HeaderModal>
             <SubTitle>Confirme sua reserva</SubTitle>
@@ -575,16 +597,16 @@ export const Reservas = () => {
             <UnorderedList arr={inputsCollection.map(element => {
               const value = element.valueId === 'telephone' ? phoneFormatter(valueFields[element.valueId]) : valueFields[element.valueId]
               return (
-                <p 
-                  style={{ textTransform: element.valueId === 'name' ? 'capitalize' : 'none' }} 
+                <p
+                  style={{ textTransform: element.valueId === 'name' ? 'capitalize' : 'none' }}
                   key={element.id}
                 >
                   {element.label} {value}
                 </p>
               )
             })} />
-            </S.ModalResume>
-            <S.ModalResume2>
+          </S.ModalResume>
+          <S.ModalResume2>
             <UnorderedList arr={resumeItens.map(element => {
               const isQuarto = typeof element.content === 'object'
               const value = isQuarto ? element.content.title : element.content
@@ -605,10 +627,12 @@ export const Reservas = () => {
             })} />
           </S.ModalResume2>
           <S.Btn01>
-            <Button action={() => setResumeOpen(false)}>Finalizar</Button>
+            {/* <Button action={() => setResumeOpen(false)}>Finalizar</Button> */}
+            <Button action={() => sendReserve()}>Finalizar</Button>
           </S.Btn01>
         </Modal>
-    </S.ContainerModal>
+      </S.ContainerModal>
+      
     </S.PrincipalContainer>
   )
 

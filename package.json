@@ -1,6 +1,7 @@
 {
   "name": "fullstack-domhotel",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "start": "npm-run-all --parallel start:client start:server",
     "start:client": "npm start --w=client",
