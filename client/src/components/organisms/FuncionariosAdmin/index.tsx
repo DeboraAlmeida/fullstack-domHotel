@@ -12,6 +12,7 @@ const FuncionariosAdmin = (): JSX.Element => {
 
   const [showModal, setShowModal] = useState(false)
 
+
   const handleOpenModal = (): void => {
     setShowModal(true)
   }

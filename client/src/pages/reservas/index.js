@@ -492,7 +492,7 @@ export const Reservas = ({ setForcedLogin }) => {
       const payload = {
         userData,
         moreService,
-        reserva,
+        reserva
       }
 
 
