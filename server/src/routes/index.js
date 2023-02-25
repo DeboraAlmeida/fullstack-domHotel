@@ -2,6 +2,7 @@ import express from 'express'
 import cors from '../middlewares/cors.js'
 import acomodacoes from './acomodacoes.js'
 import comentarios from './comentarios.js'
+import consumo from './consumo.js'
 import login from './login.js'
 import reservas from './reservas.js'
 import signup from './signup.js'
@@ -20,7 +21,8 @@ const routes = app => {
     reservas,
     comentarios,
     login,
-    signup
+    signup,
+    consumo,
   )
 }
 
