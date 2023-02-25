@@ -1,30 +1,24 @@
 // Arquivo criado: 19/01/2023 às 14:32
 import React, { FormEvent, useEffect, useState } from 'react'
-import GenericSelect from '../../../components/atoms/GenericSelect'
+import DescriptionParagraph from '../../../components/atoms/DescriptionParagraph'
+import MiniTitle from '../../../components/atoms/MiniTitle'
+import Modal from '../../../components/atoms/Modal'
 import getReserves from '../../../services/getReserves'
+import postExpenditure from '../../../services/postExpenditure'
 import Button from '../../atoms/Button'
 import GenericLabel from '../../atoms/GenericLabel'
 import data from './data'
 import * as S from './styles'
 
 
-// interface Cliente {
-//   id: string
-//   nome: string
-//   consumo: Consumo[]
-// }
-
-// interface Consumo {
-//   nome: string
-//   quantidade: number
-// }
-
 const ConsumoAdmin = () => {
 
   const [payload, setPayload] = useState({
-    reserve: '',
+    reserve: 0,
     product: '',
   })
+
+  const [actualTab, setActualTab] = useState('frigobar')
 
   const [reservesData, setReservesData] = useState([{
     active: 0,
@@ -37,6 +31,12 @@ const ConsumoAdmin = () => {
     user_name: "Flaviano",
   }])
 
+  const [showModal, setShowModal] = useState(false)
+  const [modalContent, setModalContent] = useState({
+    title: '',
+    description: ''
+  })
+
   useEffect(() => {
     const listReserves = async () => {
       const result = await getReserves()
@@ -46,7 +46,7 @@ const ConsumoAdmin = () => {
     listReserves()
   }, [])
 
-  const handleReserves = (value: any) => {
+  const handleReserves = (value: number) => {
     setPayload((prev) => ({ ...prev, reserve: value }))
   }
 
@@ -54,20 +54,42 @@ const ConsumoAdmin = () => {
     setPayload((prev) => ({ ...prev, product: value }))
   }
 
-  const handleForm = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const handleTabProducts = (value: string) => {
+    setActualTab(value)
+  }
 
-    const form = new FormData(e.currentTarget)
-    const data = Object.fromEntries(form)
-
-    if (!payload.reserve || !payload.product) {
-      return alert('Selecione um cliente e um produto')
+  const actualProduct = () => {
+    if (actualTab === 'frigobar') {
+      return data.frigobar.map((product: string, index: number) => (
+        <li key={index} value={product} onClick={() => handleProducts(product)}>{product}</li>
+      ))
     }
 
+    if (actualTab === 'cesta') {
+      return data.cesta.map((product: string, index: number) => (
+        <li key={index} value={product} onClick={() => handleProducts(product)}>{product}</li>
+      ))
+    }
 
+    if (actualTab === 'bar') {
+      return data.bar.map((product: string, index: number) => (
+        <li key={index} value={product} onClick={() => handleProducts(product)}>{product}</li>
+      ))
+    }
+  }
 
-    e.currentTarget.reset()
-    return alert('Produto adicionado com sucesso')
+  const handleForm =  async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    if (!payload.reserve || !payload.product) {
+      setModalContent({title: 'Erro', description: 'Selecione um cliente e um produto'})
+      setShowModal(true)
+      return
+    }
+
+    const result = await postExpenditure(payload)
+    setModalContent({title: 'Aviso', description: result})
+    setShowModal(true)
   }
 
   return (
@@ -79,53 +101,36 @@ const ConsumoAdmin = () => {
         <div>
           <S.ContainerReserves>
             <GenericLabel for='reserves'>Reservas Ativas</GenericLabel>
-            <GenericSelect id='reserves' aName='reserves' onBlur={(e) => handleReserves(e.target.value)}>
-              <option value="checked" disabled >Selecionar Reserva:</option>            {
-                reservesData.map((reserve, index: number) => (
-                  <option key={index} value={reserve.user_name}>{reserve.user_name}</option>
-                ))
-              }
-            </GenericSelect>
+            <ul>
+              {reservesData.map((reserve, index: number) => (
+                <li key={index} value={reserve.id} onClick={() => handleReserves(reserve.id)}>ID: {reserve.id} | {reserve.user_name}</li>
+              ))}
+            </ul>
           </S.ContainerReserves>
 
           <S.ContainerProducts>
-            <GenericLabel for='product'>Adicionar Produto:</GenericLabel>
-            <GenericSelect id='product' aName='products' onBlur={(e) => handleProducts(e.target.value)}>
-              <option value="checked" disabled >Selecionar Produto</option>
-              <optgroup label='Frigobar'>              {
-                data.frigobar.map((produto: string, index: number) => (
-                  <option key={index} value={produto}>{produto}</option>
-                ))
-              }
-              </optgroup>
-
-              <optgroup label='Cesta'>
-                {
-                  data.cesta.map((produto: string, index: number) => (
-                    <option key={index} value={produto}>{produto}</option>
-                  ))
+            <GenericLabel for='product'>Adicionar Produto</GenericLabel>
+            <S.ContainerTabProducts>
+              {Object.keys(data).map((tab, index) => {
+                if (index > 0) {
+                  return (<span key={index} onClick={() => handleTabProducts(tab)}>{tab}</span>)
                 }
-              </optgroup>
-
-              <optgroup label='Bar'>
-                {
-                  data.bar.map((produto: string, index: number) => (
-                    <option key={index} value={produto}>{produto}</option>
-                  ))
-                }
-              </optgroup>
-            </GenericSelect>
+              })}
+            </S.ContainerTabProducts>
+            <ul>
+              {actualProduct()}
+            </ul>
           </S.ContainerProducts>
 
         </div>
-
-
-
         <S.Button>
           <Button>Enviar</Button>
         </S.Button>
-
       </S.Form>
+      <Modal isOpen={showModal} setIsOpen={setShowModal}>
+        <MiniTitle text={modalContent.title} />
+        <DescriptionParagraph msg={modalContent.description} />
+      </Modal>
     </S.Container>
   )
 
