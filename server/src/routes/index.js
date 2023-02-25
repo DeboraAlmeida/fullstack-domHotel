@@ -1,10 +1,14 @@
 import express from 'express'
 import acomodacoes from './acomodacoes.js'
+<<<<<<< HEAD
 import funcionarios from './funcionarios.js'
+=======
+import comentarios from './comentarios.js'
+import consumo from './consumo.js'
+>>>>>>> c89398b0caa59c88c4fe48996477b743cc7f0dc8
 import login from './login.js'
 import reservas from './reservas.js'
 import signup from './signup.js'
-import user from './user.js'
 
 const routes = app => {
   app.route('/').get((_req, res) => {
@@ -17,11 +21,15 @@ const routes = app => {
     // cors,
     express.json(),
     acomodacoes,
-    user,
     reservas,
+    comentarios,
     login,
     signup,
+<<<<<<< HEAD
     funcionarios
+=======
+    consumo,
+>>>>>>> c89398b0caa59c88c4fe48996477b743cc7f0dc8
   )
 }
 
