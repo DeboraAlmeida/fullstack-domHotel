@@ -14,7 +14,7 @@ const HeaderAdmin = ({
     <S.Header >
       <S.Nav>
         <li onClick={() => setPage('home')}>Home</li>|
-        <li onClick={() => setPage('hospedes')}>Hóspedes</li>|
+        <li onClick={() => setPage('hospedes')}>Consumo</li>|
         <li onClick={() => setPage('funcionarios')}>Funcionários</li>|
         <li onClick={() => setPage('reservas')}>Reservas</li>
       </S.Nav>
