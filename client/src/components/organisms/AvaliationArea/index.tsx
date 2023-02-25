@@ -3,7 +3,6 @@ import React from 'react'
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
 import backEnd from '../../../utils/backEnd'
 import Button from '../../atoms/Button'
-import GenericInput from '../../atoms/GenericInput'
 import GenericLabel from '../../atoms/GenericLabel'
 import SubTitle from '../../atoms/SubTitle'
 import TextArea from '../../atoms/TextArea'
@@ -128,7 +127,6 @@ export default class AvaliationArea extends React.Component<Props> {
   }
 
   handleForm = (): void => {
-    const name = document.getElementById('name') as HTMLInputElement
     const msg = document.getElementById('comment') as HTMLTextAreaElement
 
     const feedBack = (msg: string) => {
@@ -150,25 +148,27 @@ export default class AvaliationArea extends React.Component<Props> {
     }
 
     const savingComment = (): void => {
-      const hasComments: string | null = localStorage.getItem('comments')
-      const comments = hasComments ? JSON.parse(hasComments) : []
-
       const comment = {
-        quartoId: this.content.id,
-        name: name.value,
-        comment: msg.value,
-        stars: this.state.stars.filter((star: string) => star === 'marked').length
+        description: msg.value,
+        avaliation: this.state.stars.filter((star: string) => star === 'marked').length
       }
 
-      comments.push(comment)
-      localStorage.setItem('comments', JSON.stringify(comments))
-      this.setState({
-        form: {
-          show: false,
-          title: 'Avaliação enviada!',
-          msg: 'DOM Hotel agradece sua avaliação.'
+      backEnd(`/comment/${this.content.id}`, 'POST', true, comment).then(res => {
+        if(res.status === 200){
+          this.setState({
+            form: {
+              show: false,
+              title: 'Avaliação enviada!',
+              msg: 'DOM Hotel agradece sua avaliação.'
+            }
+          })
+
+          return
         }
+
+        feedBack(res.message)
       })
+
     }
 
     if (!this.handleLogged()) {
@@ -179,16 +179,6 @@ export default class AvaliationArea extends React.Component<Props> {
       feedBack('Preencha as Estrelas')
       return 
     }
-
-    if (name.value === '') {
-      feedBack('Informe seu Nome')
-      return
-    }
-
-    if (name.value.length > 30) {
-      feedBack('Nome muito grande')
-      return
-    } 
 
     if (msg.value.length > 250) {
       feedBack('Mensagem muito grande')
@@ -209,8 +199,6 @@ export default class AvaliationArea extends React.Component<Props> {
                 <S.TitleContainer id={'title-container'}>
                   <SubTitle>{'Avalie'}</SubTitle>
                 </S.TitleContainer>
-                <GenericLabel for={'name'}>Nome:</GenericLabel>
-                <GenericInput type={'text'} id={'name'} aName={'name'} />
                 <GenericLabel for={'comment'}>Comentário:</GenericLabel>
                 <TextArea id={'comment'} />
                 <S.StarsContainer>

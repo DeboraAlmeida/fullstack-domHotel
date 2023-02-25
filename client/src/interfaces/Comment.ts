@@ -1,6 +1,6 @@
 export interface Comment {
-  comment: string
-  name: string
-  quartoId: number
-  stars: number
+  description: string
+  user_name: string
+  room_id: number
+  avaliation: number
 }
