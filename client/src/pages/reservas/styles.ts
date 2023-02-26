@@ -191,8 +191,13 @@ export const quartoSingleInput = styled.div`
   border-bottom: 2px solid ${pallete.greenDefault};
 
   .-img{
-    width:inherit;
-    max-width: 200px;
+    width: inherit;
+    
+  }
+
+  .-img img{
+    width: 200px;
+    height: 150px;
   }
 
   .-informacoes{
@@ -225,9 +230,12 @@ export const quartoSingleInput = styled.div`
     flex-direction: column;
 
     .-img{
-      max-width: 100%;
+      width: 100%;
     }
 
+    .-img img {
+      width: 100%;
+    }
     .-informacoes{
       padding-left: 0;
       
