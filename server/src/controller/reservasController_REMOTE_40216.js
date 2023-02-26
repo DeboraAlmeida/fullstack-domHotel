@@ -138,7 +138,8 @@ class ReservasController {
       case 'Premium':
         return 2
       case 'Standard':
-        return 3 
+        return 3
+
       default:
         break
       }
