@@ -27,7 +27,7 @@ import * as S from './styles'
  */
 
 interface Props {
-  msg: string
+  msg: string | JSX.Element
   className?: string
   useDefaultStyle?: boolean
   textTransform?: string
