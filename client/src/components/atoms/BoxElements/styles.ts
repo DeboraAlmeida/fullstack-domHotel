@@ -11,6 +11,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 40%;
+  min-height: 100px ;
   text-align: center;
 
   @media (max-width: 810px) {

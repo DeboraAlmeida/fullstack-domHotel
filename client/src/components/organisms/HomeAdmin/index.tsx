@@ -223,7 +223,6 @@ const HomeAdmin = () => {
   return (
     <>
     <PrincipalTitle>DOM Hotel</PrincipalTitle>
-    <SubTitle>Área Administrativa</SubTitle>
     <BoxAdminHome>
       <BoxElements>
         <SubTitle>{ activeUsers }</SubTitle> 
