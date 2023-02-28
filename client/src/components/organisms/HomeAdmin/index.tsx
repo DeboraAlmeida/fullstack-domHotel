@@ -2,7 +2,10 @@
 import React, { useEffect, useState } from "react"
 import getTotalReserves from "../../../services/getTotalReserves"
 import getTotalUsers from "../../../services/getTotalUsers"
+import BoxAdminHome from "../../atoms/BoxAdminHome"
+import BoxElements from "../../atoms/BoxElements"
 import PrincipalTitle from "../../atoms/PrincipalTitle"
+import SubTitle from "../../atoms/SubTitle"
 
 // interface Cliente {
 //   id: string
@@ -220,8 +223,26 @@ const HomeAdmin = () => {
   return (
     <>
     <PrincipalTitle>DOM Hotel</PrincipalTitle>
-      <p>{ activeUsers } clientes ativos</p>
-      <p>{ activeReserves } reservas ativas</p>
+    <SubTitle>Área Administrativa</SubTitle>
+    <BoxAdminHome>
+      <BoxElements>
+        <SubTitle>{ activeUsers }</SubTitle> 
+        <p>clientes ativos</p>
+      </BoxElements>
+      <BoxElements>
+        <SubTitle>{ activeReserves }</SubTitle> 
+        <p>reservas ativas</p>
+      </BoxElements>
+      <BoxElements>
+        <SubTitle>{ activeUsers }</SubTitle> 
+        <p>clientes ativos</p>
+      </BoxElements>
+      <BoxElements>
+        <SubTitle>{ activeReserves }</SubTitle> 
+        <p>reservas ativas</p>
+      </BoxElements>
+    </BoxAdminHome>
+      
     </>
   )
 }
