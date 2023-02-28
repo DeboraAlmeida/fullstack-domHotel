@@ -80,6 +80,31 @@ class ReservasController {
 
   }
 
+  static getReservesNumber = (_req, res) => {
+
+    sqlDB.query('SELECT COUNT(`active`) AS `active_reserves` FROM `reserve`', (err, data) => {
+
+      if (err) {
+        res.status(500).send({ message: err.message })
+        return
+      }
+      if (data.length <= 0) {
+        res.status(500).json({
+          status: 500,
+          message: 'Não existem reservas ativas'
+        })
+        return
+      }
+
+      res.status(200).json({
+        status: 200,
+        // data: { active_reserves: data[0].active_reserves }
+        data: data[0].active_reserves
+      })
+    })
+
+  }
+
   static postReserve = (req, res) => {
     const payload = req.body 
     const idRoom = () => {

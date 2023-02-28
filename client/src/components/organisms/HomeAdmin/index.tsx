@@ -1,6 +1,8 @@
 // Arquivo criado: 19/01/2023 às 15:52
 import React, { useEffect, useState } from "react"
+import getTotalReserves from "../../../services/getTotalReserves"
 import getTotalUsers from "../../../services/getTotalUsers"
+import PrincipalTitle from "../../atoms/PrincipalTitle"
 
 // interface Cliente {
 //   id: string
@@ -206,8 +208,21 @@ const HomeAdmin = () => {
     }
     getActiveUsers()
   },[])
+
+  const [activeReserves, setActiveReserves] = useState(0)
+  useEffect(() => {
+    const getActiveReserves = async () => {
+      const result = await getTotalReserves()
+      setActiveReserves(result)
+    }
+    getActiveReserves()
+  },[])
   return (
-      <p>{ activeUsers }</p>
+    <>
+    <PrincipalTitle>DOM Hotel</PrincipalTitle>
+      <p>{ activeUsers } clientes ativos</p>
+      <p>{ activeReserves } reservas ativas</p>
+    </>
   )
 }
 
