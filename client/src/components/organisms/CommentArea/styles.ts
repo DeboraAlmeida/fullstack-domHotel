@@ -14,6 +14,7 @@ export const Wrapper = styled.div`
 
 export const NameContainer = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 5px;
 
