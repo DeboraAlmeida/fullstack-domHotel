@@ -10,10 +10,14 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 35%;
+  width: 40%;
+  text-align: center;
 
   @media (max-width: 810px) {
    width: 60%;
-   text-align: center;
+  }
+
+  @media (max-width: 576px) {
+   width: 90%;
   }
 `
