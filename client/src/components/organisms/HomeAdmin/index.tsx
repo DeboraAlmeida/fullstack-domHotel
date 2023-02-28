@@ -1,5 +1,6 @@
 // Arquivo criado: 19/01/2023 às 15:52
-import React from "react"
+import React, { useEffect, useState } from "react"
+import getTotalUsers from "../../../services/getTotalUsers"
 
 // interface Cliente {
 //   id: string
@@ -197,8 +198,16 @@ import React from "react"
 // }
 
 const HomeAdmin = () => {
+  const [activeUsers, setActiveUsers] = useState(0)
+  useEffect(() => {
+    const getActiveUsers = async () => {
+      const result = await getTotalUsers()
+      setActiveUsers(result)
+    }
+    getActiveUsers()
+  },[])
   return (
-      <p>Reservas</p>
+      <p>{ activeUsers }</p>
   )
 }
 
