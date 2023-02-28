@@ -1,5 +1,6 @@
 import express from 'express'
 import ReservasController from '../controller/reservasController.js'
+import decrypt from '../middlewares/decrypt.js'
 
 const router = express.Router()
 
@@ -9,5 +10,7 @@ router
   .get('/reservasAtivas', ReservasController.getActiveReserves)
   .get('/reservasAtivasTotal', ReservasController.getReservesNumber)
   .post('/reserva', ReservasController.postReserve)
+  .put('/reservas/:id', decrypt, ReservasController.updateStatusReserve)
+  .get('/reservas-by-date/:startDate/:endDate', ReservasController.searchByDates)
 
 export default router

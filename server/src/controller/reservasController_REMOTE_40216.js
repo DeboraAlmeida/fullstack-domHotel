@@ -129,31 +129,6 @@ class ReservasController {
 
   }
 
-  static getReservesNumber = (_req, res) => {
-
-    sqlDB.query('SELECT COUNT(`active`) AS `active_reserves` FROM `reserve`', (err, data) => {
-
-      if (err) {
-        res.status(500).send({ message: err.message })
-        return
-      }
-      if (data.length <= 0) {
-        res.status(500).json({
-          status: 500,
-          message: 'Não existem reservas ativas'
-        })
-        return
-      }
-
-      res.status(200).json({
-        status: 200,
-        // data: { active_reserves: data[0].active_reserves }
-        data: data[0].active_reserves
-      })
-    })
-
-  }
-
   static postReserve = (req, res) => {
     const payload = req.body
     const idRoom = () => {
@@ -163,12 +138,8 @@ class ReservasController {
       case 'Premium':
         return 2
       case 'Standard':
-<<<<<<< HEAD
-        return 3        
-      
-=======
-        return 3 
->>>>>>> develop
+        return 3
+
       default:
         break
       }
@@ -184,11 +155,7 @@ class ReservasController {
       user_name: payload.userData.name
     }
 
-<<<<<<< HEAD
-    sqlDB.query('INSERT INTO `reserve` (amount_people, check_in, check_out, user_id, room_id, active, user_name) VALUES (?, ?, ?, ?, ?, ?, ?)', [obj.amount_people, obj.check_in, obj.check_out, obj.user_id, obj.room_id, obj.active, obj.user_name], (err, data) => {
-=======
     sqlDB.query('INSERT INTO `reserve` (amount_people, check_in, check_out, user_id, room_id, active, user_name, room_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [obj.amount_people, obj.check_in, obj.check_out, obj.user_id, obj.room_id, obj.active, obj.user_name, payload.reserva.quarto], (err, data) => {
->>>>>>> develop
 
       if (err) {
         res.status(500).send({ message: err.message })
