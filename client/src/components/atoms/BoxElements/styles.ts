@@ -1,8 +1,7 @@
 import styled from 'styled-components'
-import pallete from '../../../pallete'
 
 export const Container = styled.div`
-  background-color: ${pallete.greenDefault};
+  background-color: #02732A;
   margin: 20px;
   padding: 20px;
   border-radius: 5px;

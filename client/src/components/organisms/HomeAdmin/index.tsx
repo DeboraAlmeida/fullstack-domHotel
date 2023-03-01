@@ -2,10 +2,12 @@
 import React, { useEffect, useState } from "react"
 import getTotalReserves from "../../../services/getTotalReserves"
 import getTotalUsers from "../../../services/getTotalUsers"
-import BoxAdminHome from "../../atoms/BoxAdminHome"
+import getTotalWorkers from "../../../services/getTotalWorkers"
 import BoxElements from "../../atoms/BoxElements"
+import ContainerLayoutAdmin from "../../atoms/ContainerLayoutAdmin"
 import PrincipalTitle from "../../atoms/PrincipalTitle"
 import SubTitle from "../../atoms/SubTitle"
+import * as S from "./styles"
 
 // interface Cliente {
 //   id: string
@@ -220,27 +222,39 @@ const HomeAdmin = () => {
     }
     getActiveReserves()
   },[])
+
+  const [activeWorkers, setActiveWorkers] = useState(0)
+  useEffect(() => {
+    const getActiveWorkers = async () => {
+      const result = await getTotalWorkers()
+      setActiveWorkers(result)
+    }
+    getActiveWorkers()
+  },[])
+
   return (
     <>
     <PrincipalTitle>DOM Hotel</PrincipalTitle>
-    <BoxAdminHome>
-      <BoxElements>
-        <SubTitle>{ activeUsers }</SubTitle> 
-        <p>clientes ativos</p>
-      </BoxElements>
-      <BoxElements>
-        <SubTitle>{ activeReserves }</SubTitle> 
-        <p>reservas ativas</p>
-      </BoxElements>
-      <BoxElements>
-        <SubTitle>{ activeUsers }</SubTitle> 
-        <p>clientes ativos</p>
-      </BoxElements>
-      <BoxElements>
-        <SubTitle>{ activeReserves }</SubTitle> 
-        <p>reservas ativas</p>
-      </BoxElements>
-    </BoxAdminHome>
+    <S.BoxAdminHome>
+      <ContainerLayoutAdmin>
+        <BoxElements>
+          <SubTitle>{ activeUsers }</SubTitle> 
+          <p>clientes ativos</p>
+        </BoxElements>
+        <BoxElements>
+          <SubTitle>{ activeReserves }</SubTitle> 
+          <p>reservas ativas</p>
+        </BoxElements>
+        <BoxElements>
+          <SubTitle>{ activeWorkers }</SubTitle> 
+          <p>funcionários ativos</p>
+        </BoxElements>
+        <BoxElements>
+          <SubTitle>{ activeReserves }</SubTitle> 
+          <p>reservas ativas</p>
+        </BoxElements>
+      </ContainerLayoutAdmin>
+    </S.BoxAdminHome>
       
     </>
   )
