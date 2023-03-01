@@ -22,8 +22,8 @@ export const Button = styled.div`
   }
 `
 export const BoxAdminHome = styled.div`
-    margin: 30px auto;
-    width: 60%;
+  margin: 30px auto;
+  width: 60%;
   div{
     display: flex;
     justify-content: space-around;
