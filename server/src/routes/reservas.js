@@ -8,6 +8,7 @@ router
   .get('/reservas', ReservasController.getReserves)
   .get('/reservas/:id', ReservasController.getReserveById)
   .get('/reservasAtivas', ReservasController.getActiveReserves)
+  .get('/reservasAtivasTotal', ReservasController.getReservesNumber)
   .post('/reserva', ReservasController.postReserve)
   .put('/reservas/:id', decrypt, ReservasController.updateStatusReserve)
   .get('/reservas-by-date/:startDate/:endDate', ReservasController.searchByDates)
