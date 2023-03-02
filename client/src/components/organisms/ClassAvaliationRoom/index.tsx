@@ -3,18 +3,19 @@
 import { Comment } from '@/interfaces/Comment';
 import { Content } from '@/interfaces/Content';
 import React from 'react';
+import backEnd from '../../../utils/backEnd';
 import Button from '../../atoms/Button/';
-import ImageDefault from '../../atoms/ImageDefault/index.js';
-import MiniTitle from '../../atoms/MiniTitle/index.js';
-import SubTitle from '../../atoms/SubTitle/index.js';
-import CommentArea from '../CommentArea/index.js';
+import ImageDefault from '../../atoms/ImageDefault';
+import MiniTitle from '../../atoms/MiniTitle';
+import SubTitle from '../../atoms/SubTitle';
+import CommentArea from '../CommentArea';
 import * as S from './styles';
 
 
 interface Props {
   content: Content
   setStage: React.Dispatch<React.SetStateAction<string>>
-  comments: Comment[]
+  comments?: Comment[]
 }
 
 
@@ -35,18 +36,14 @@ export default class ClassAvaliationRoom extends React.Component<Props> {
   }
 
   componentDidMount(): void {
-    const hasComments: string | null = localStorage.getItem('comments')
-    const localComments = hasComments ? JSON.parse(hasComments) : []
 
-    const arr: Comment[] = []
-    localComments.forEach((comment: Comment) => {
-      if (comment.quartoId === this.content.id) {
-        arr.push(comment)
-      }
+    backEnd(`/comments/${this.content.id}`,'GET',false).then((res: any) => {
+     if(res.status === 200) {
+        this.setState({comments: res.data})
+     }
     })
-    this.setState({ 
-      comments: arr
-    })
+
+    
   }
 
   handleButton = () => {
@@ -69,8 +66,8 @@ export default class ClassAvaliationRoom extends React.Component<Props> {
               <MiniTitle span={'Comentários'} />
             </S.TitleCommentContainer>
             <S.CommentContainer>
-              {this.state.comments.map((user: Comment, index: number) => (
-                <CommentArea key={index} name={user.name} comment={user.comment} star={user.stars} />
+              {this.state.comments.map((val: Comment, index: number) => (
+                <CommentArea key={index} name={val.user_name} comment={val.description} star={val.avaliation} />
               ))}
             </S.CommentContainer>
           </>
