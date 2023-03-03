@@ -21,3 +21,18 @@ export const Button = styled.div`
     width: 200px;
   }
 `
+export const BoxAdminHome = styled.div`
+  margin: 30px auto;
+  width: 60%;
+  div{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    @media (max-width: 810px) {
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+`

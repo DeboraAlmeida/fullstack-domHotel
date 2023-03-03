@@ -9,5 +9,7 @@ router
   .get('/funcionariosAtivos', FuncionariosController.getActiveWorkers)
   .post('/funcionariosCadastro', decrypt, FuncionariosController.postNewWorkers)
   .put('/funcionariosAtualiza', FuncionariosController.updateWorkers)
+  // .get('/funcionarios/Ativos', FuncionariosController.getWorkersActived)
+  .get('/funcionarios/AtivosTotal', FuncionariosController.getWorkersNumber)
 
 export default router

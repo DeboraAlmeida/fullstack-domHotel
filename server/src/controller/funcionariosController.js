@@ -43,6 +43,32 @@ class FuncionariosController {
 
   }
 
+
+  static getWorkersNumber = (_req, res) => {
+
+    sqlDB.query('SELECT COUNT(`ativo`) AS `active_workers` FROM `admin_workers`', (err, data) => {
+
+      if (err) {
+        res.status(500).send({ message: err.message })
+        return
+      }
+      if (data.length <= 0) {
+        res.status(500).json({
+          status: 500,
+          message: 'Nenhum funcionário encontrado'
+        })
+        return
+      }
+
+      res.status(200).json({
+        status: 200,
+        // data: { active_reserves: data[0].active_reserves }
+        data: data[0].active_workers
+      })
+    })
+
+  }
+  
   static updateWorkers = (req, res) => {
     const id = req.params.id
     const active = req.body.active
