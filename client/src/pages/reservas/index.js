@@ -1,7 +1,6 @@
 // Arquivo criado: 15/12/2022 às 20:49
 import React, { useEffect, useState } from 'react'
 import Button from '../../components/atoms/Button'
-import DescriptionParagraph from '../../components/atoms/DescriptionParagraph'
 import GenericInput from '../../components/atoms/GenericInput'
 import GenericLabel from '../../components/atoms/GenericLabel'
 import ImageDefault from '../../components/atoms/ImageDefault'
@@ -496,8 +495,8 @@ export const Reservas = ({ setForcedLogin }) => {
       }
 
 
-      const result = await postReserve(payload)
-    } 
+      await postReserve(payload)
+    }
     setForcedLogin(true)
   }
 
@@ -573,13 +572,21 @@ export const Reservas = ({ setForcedLogin }) => {
           </S.HeaderModal>
           <S.ModalOptions>
             <ul>
-              {optionsCollection.map((element) => (
+              {optionsCollection.map(element => (
                 <li key={element.id}>
-                  <S.ModalCont>
-                    <GenericLabel>
-                      <GenericInput type={element.type} onClick={handleCheckbox} name={element.name} id={element.id} value={element.price} ></GenericInput>
-                    </GenericLabel>
-                    <DescriptionParagraph msg={element.msg}></DescriptionParagraph></S.ModalCont><SpanText>{element.price}</SpanText>
+                  <GenericLabel>
+                    <div>
+                      <GenericInput
+                        type={element.type}
+                        onClick={handleCheckbox}
+                        name={element.name}
+                        id={element.id}
+                        value={element.price}
+                      />
+                      <span>{element.msg}</span>
+                    </div>
+                    <SpanText>{element.price}</SpanText>
+                  </GenericLabel>
                 </li>)
               )}
             </ul>
@@ -632,7 +639,7 @@ export const Reservas = ({ setForcedLogin }) => {
           </S.Btn01>
         </Modal>
       </S.ContainerModal>
-      
+
     </S.PrincipalContainer>
   )
 

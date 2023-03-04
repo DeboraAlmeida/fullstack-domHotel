@@ -1,20 +1,15 @@
-import { Content } from '@/interfaces/Content'
+import Button from 'components/atoms/Button'
+import GenericLabel from 'components/atoms/GenericLabel'
+import SubTitle from 'components/atoms/SubTitle'
+import TextArea from 'components/atoms/TextArea'
+import { Content } from 'interfaces/Content'
 import React from 'react'
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
-import backEnd from '../../../utils/backEnd'
-import Button from '../../atoms/Button'
-import GenericLabel from '../../atoms/GenericLabel'
-import SubTitle from '../../atoms/SubTitle'
-import TextArea from '../../atoms/TextArea'
+import backEnd from 'utils/backEnd'
 import * as S from './styles'
 
 interface Props {
   content: Content
-}
-
-interface Login {
-  email: string
-  password: string
 }
 
 export default class AvaliationArea extends React.Component<Props> {
