@@ -100,10 +100,6 @@ export const HeaderModal = styled.div`
     padding-right: 25px;
   }
 `
-export const ModalCont = styled.div`
-    display: flex;
-    align-items: center;
-`
 
 export const ModalOptions = styled.div`
   display: flex;
@@ -112,30 +108,38 @@ export const ModalOptions = styled.div`
     margin: 0;
     text-align: start;
     width: 100%;
-  }
-  ul li {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 2px solid #02732A;
-    padding: 20px 0;
-  }
-  ul li label {
-    display: flex;
-    align-items: center;
-    margin: 0;
+
+    li{
+      list-style-type: none;
+
+      label {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 2px solid ${pallete.greenDefault};
+        list-style-type: none;
+        padding: 20px 0px;
+
+        div {
+          margin: 0;
+
+          input {
+            box-shadow: none;
+            margin: 0;
+            width: auto;
+          }
+
+          span{
+            font-weight: normal;
+            margin-left: 10px;
+          }
+        }
+
+      }
+    }
   }
 
-  ul li input {
-    margin: 0;
-    align-items: left;
-    margin-right: 20px;
-    box-shadow: none;
-  }
-  ul li span {
-    text-align: right;
-  }
 `
 export const Btn01 = styled.div`
   text-align: center;
@@ -146,25 +150,27 @@ export const Btn01 = styled.div`
 
 export const BtnModal1 = styled.div`
   button {
-  font-size: 1.2rem;
-  font-weight: 600;
-  border: none;
-  border-radius: .5rem;
-  text-decoration: none;
-  text-align: center;
-  margin-top: 2rem;
-  width: 40vw;
-  height: 4vw;
-  border: 2px solid #02732A;
-  color: #02732A;
-  background-color:white;
-  cursor:pointer;
-    
-  &:hover {
-    background-color: #02732A;
-    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: none;
+    border-radius: .5rem;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 2rem;
+    width: 40vw;
+    height: 4vw;
+    border: 2px solid #02732A;
+    color: #02732A;
+    background-color:white;
+    cursor:pointer;
+      
+    &:hover {
+      background-color: #02732A;
+      color: white;
+    }
   }
-}`
+`
+
 export const containerQuartos = styled.div`
 
   margin-top: 20px;
@@ -182,7 +188,8 @@ export const containerQuartos = styled.div`
   }
 `
 
-export const quartoSingleInput = styled.div`
+export const quartoSingleInput = styled.label`
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -193,11 +200,10 @@ export const quartoSingleInput = styled.div`
   .-img{
     width: inherit;
     
-  }
-
-  .-img img{
-    width: 200px;
-    height: 150px;
+    img{
+      width: 200px;
+      height: 150px;
+    }
   }
 
   .-informacoes{
@@ -231,11 +237,12 @@ export const quartoSingleInput = styled.div`
 
     .-img{
       width: 100%;
+
+      img {
+        width: 100%;
+      }
     }
 
-    .-img img {
-      width: 100%;
-    }
     .-informacoes{
       padding-left: 0;
       
@@ -288,11 +295,13 @@ export const ContainerResume = styled.div`
   ul {
     margin: 0 0 16px 0;
     padding: 0 0 0 32px;
+
+     > li {
+      margin: 10px;
+      padding: 3px;
+    }
   }
-  ul > li {
-    margin: 10px;
-    padding: 3px;
-  }
+
   li:nth-child(odd) {
     margin-bottom: 30px;
   }
