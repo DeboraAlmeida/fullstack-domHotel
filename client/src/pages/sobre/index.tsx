@@ -1,9 +1,9 @@
 // Arquivo criado: 15/12/2022 às 20:49
+import DescriptionParagraph from 'components/atoms/DescriptionParagraph'
+import ImageDefault from 'components/atoms/ImageDefault'
+import PrincipalTitle from 'components/atoms/PrincipalTitle'
+import SubTitle from 'components/atoms/SubTitle'
 import React from 'react'
-import DescriptionParagraph from '../../components/atoms/DescriptionParagraph'
-import ImageDefault from '../../components/atoms/ImageDefault'
-import PrincipalTitle from '../../components/atoms/PrincipalTitle'
-import SubTitle from '../../components/atoms/SubTitle'
 import premio2 from './imgs/premio_2019.webp'
 import premio1 from './imgs/premio_2021.webp'
 import img1 from './imgs/quem_somos.webp'

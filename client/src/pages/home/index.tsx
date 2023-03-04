@@ -1,5 +1,5 @@
 // Arquivo criado: 15/12/2022 às 20:47
-import { Content } from '@/interfaces/Content'
+import { Content } from 'interfaces/Content'
 import React, { useState } from 'react'
 import Anchor from '../../components/atoms/Anchor'
 import DescriptionParagraph from '../../components/atoms/DescriptionParagraph'
