@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import ImageDefault from '../../atoms/ImageDefault'
 import MiniTitle from '../../atoms/MiniTitle'
-import Modal from '../../atoms/Modal'
-import AvaliationArea from '../AvaliationArea'
-import ClassAvaliationRoom from '../ClassAvaliationRoom'
+import ModalAvaliationRoom from '../ModalAvaliationRoom'
 import * as S from './styles'
 
 interface Props {
@@ -21,7 +19,6 @@ interface Image {
 
 const RoomDropdown = ({ title, imgCollection }: Props) => {
   const [showModal, setShowModal] = useState(false)
-  const [stage, setStage] = useState('comment')
 
   const [actualImage, setActualImage] = useState({
     title: '',
@@ -30,12 +27,6 @@ const RoomDropdown = ({ title, imgCollection }: Props) => {
     description: ''
   })
 
-  useEffect(() => {
-    if (!showModal) {
-      setStage('comment')
-    }
-  }, [showModal])
-
   const handleImage = (img: Image) => {
     setActualImage(prev => ({ ...prev, title: img.title, src: img.src, alt: img.alt, description: img.titleDescription, id: img.id }))
     setShowModal(true)
@@ -43,22 +34,19 @@ const RoomDropdown = ({ title, imgCollection }: Props) => {
 
   return (
     <S.Wrapper>
-      <MiniTitle span={title}/>
+      <MiniTitle span={title} />
       <S.ImagesContainer>
         {imgCollection.map((img, index) => (
           <div key={index} onClick={() => handleImage(img)}>
-            <ImageDefault src={img.src} altText={img.alt}/>      
-          </div>         
+            <ImageDefault src={img.src} altText={img.alt} />
+          </div>
         ))}
       </S.ImagesContainer>
-      <Modal isOpen={showModal} setIsOpen={setShowModal}>
-        {stage === 'comment' && (
-          <ClassAvaliationRoom content={actualImage} setStage={setStage} />
-        )}
-        {stage === 'avaliation' && (
-          <AvaliationArea content={actualImage} />
-        )}   
-      </Modal>
+      <ModalAvaliationRoom
+        showModal={showModal}
+        setShowModal={setShowModal}
+        actualImage={actualImage}
+      />
     </S.Wrapper>
   )
 }

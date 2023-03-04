@@ -496,7 +496,7 @@ export const Reservas = ({ setForcedLogin }) => {
       }
 
 
-      const result = await postReserve(payload)
+      await postReserve(payload)
     } 
     setForcedLogin(true)
   }

@@ -65,7 +65,7 @@ export const Header = ({ forcedLogin }: any) => {
           ? <div className='-body-right'>
             {isLogged && (
               <>
-                <Anchor href='#' msg={`Olá ${loggedName.toUpperCase()}`} />
+                <Anchor href='#' msg={`Olá ${loggedName}`} />
                 <Anchor action={handleLogout} msg='Sair' />
               </>
             )}
