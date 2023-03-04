@@ -1,5 +1,5 @@
 // Arquivo criado: 19/01/2023 às 15:56
-import { Reserves } from '@/interfaces/Reserves'
+import { Reserves } from 'interfaces/Reserves'
 import React, { FormEvent, useEffect, useState } from 'react'
 import { FaInfoCircle } from 'react-icons/fa'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'

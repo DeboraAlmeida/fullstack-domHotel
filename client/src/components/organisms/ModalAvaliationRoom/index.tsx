@@ -1,5 +1,5 @@
 // Arquivo criado: 04/03/2023 às 16:53
-import { Content } from '@/interfaces/Content'
+import { Content } from 'interfaces/Content'
 import React, { Dispatch, SetStateAction, useState } from 'react'
 import Modal from '../../../components/atoms/Modal'
 import AvaliationArea from '../AvaliationArea'

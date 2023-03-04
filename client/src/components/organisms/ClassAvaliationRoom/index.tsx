@@ -1,7 +1,7 @@
 // Arquivo criado: 01/12/2022 às 19:20
 
-import { Comment } from '@/interfaces/Comment';
-import { Content } from '@/interfaces/Content';
+import { Comment } from 'interfaces/Comment';
+import { Content } from 'interfaces/Content';
 import React, { Component, Dispatch, SetStateAction } from 'react';
 import backEnd from '../../../utils/backEnd';
 import Button from '../../atoms/Button/';
