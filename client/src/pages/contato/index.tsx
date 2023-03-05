@@ -10,7 +10,7 @@ import TextArea from '../../components/atoms/TextArea'
 import { validateEmail, validateName, validateNumber } from '../../utils/validateFields'
 import * as S from './styles'
 
-export const Contato = () => {  
+const Contato = () => {  
   const [valueFields, setValueFields] = useState(
     {
       email: '',

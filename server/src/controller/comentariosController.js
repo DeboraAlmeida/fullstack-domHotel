@@ -30,7 +30,7 @@ class ComentariosController {
     })
   }
 
-  static setCooment = async (req, res) => {
+  static setComment = async (req, res) => {
     const { rommId } = req.params
     const { description, avaliation, user } = req.body
 

@@ -37,7 +37,7 @@ export const Container = styled.div`
   background-color: ${pallete.greenDefault};
   display: flex;
   justify-content: space-around;
-  padding: 60px 0;
+  padding-top: 50px;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -48,6 +48,6 @@ export const Container = styled.div`
 
 export const CopyRight = styled.div`
   background-color: ${pallete.greenDark};
-  padding: 30px 0;
+  padding: 20px 0;
   text-align: center;
 `
