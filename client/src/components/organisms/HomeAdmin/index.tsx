@@ -72,36 +72,24 @@ const HomeAdmin = () => {
 
   return (
     <S.Container>
-    <PrincipalTitle>DOM Hotel</PrincipalTitle>
-    <S.ContainerReserves>
-      <GenericLabel for='metrics'>Métricas</GenericLabel>
-      <ul>
-        {metrics.map((metric, index: number) => (
-          <li key={index} value={metric.id}><SubTitle>{metric.name}</SubTitle> <Anchor activeLink='' hoverColor='' msg={metric.text} href='' /> </li>
-        ))}
-      </ul>
-    </S.ContainerReserves>
-    {/* <S.ContainerReserves>
-      <ContainerLayoutAdmin>
-        <BoxElements>
-          <SubTitle>{ activeUsers }</SubTitle> 
-          <p>clientes ativos</p>
-        </BoxElements>
-        <BoxElements>
-          <SubTitle>{ activeReserves }</SubTitle> 
-          <p>reservas ativas</p>
-        </BoxElements>
-        <BoxElements>
-          <SubTitle>{ activeWorkers }</SubTitle> 
-          <p>funcionários ativos</p>
-        </BoxElements>
-        <BoxElements>
-          <SubTitle>{ monthReserves }</SubTitle> 
-          <p>reservas para este mês</p>
-        </BoxElements>
-      </ContainerLayoutAdmin>
-    </S.ContainerReserves> */}
-      
+      <PrincipalTitle>DOM Hotel</PrincipalTitle>
+      <S.BoxItens>
+        <S.ContainerReserves>
+          <GenericLabel for='metrics'>Métricas</GenericLabel>
+          <ul>
+            {metrics.map((metric, index: number) => (
+              <li key={index} value={metric.id}><SubTitle>{metric.name}</SubTitle> <Anchor activeLink='' hoverColor='' msg={metric.text} href='' /> </li>
+            ))}
+          </ul>
+        </S.ContainerReserves>
+        <S.ContainerContact>
+          <GenericLabel for='contact'>Informações de Contato</GenericLabel>
+          <S.ContainerTabContact>
+            <span>Aqui vai entrar</span>
+            <span>Info dos contatos</span>
+          </S.ContainerTabContact>
+        </S.ContainerContact>
+      </S.BoxItens>
     </S.Container>
   )
 }

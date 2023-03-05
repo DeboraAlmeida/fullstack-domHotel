@@ -1,9 +1,12 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  p {
-    margin-top: 25px;
-  }
+
+`
+
+export const BoxItens = styled.div`
+  display: flex;
+  justify-content: space-around;
 `
 
 export const ContainerReserves = styled.div`
@@ -50,7 +53,7 @@ export const ContainerReserves = styled.div`
     }
 `
 
-export const ContainerProducts = styled.div`
+export const ContainerContact = styled.div`
     width: 100%;
     max-width: 360px;
     border: 2px solid rgba(204, 204, 204, 0.12);
@@ -92,6 +95,41 @@ export const ContainerProducts = styled.div`
     }
     }
 `
+export const ContainerTabContact = styled.div`
+  width: 100%;
+  display: flex;
+  margin-top: 15px;
+  padding: 0px 5px;
+  gap: 0 5px;
+
+  span {
+    width: 100%;
+    text-align: center;
+    padding: 20px 0px;
+    background-color: #038C33;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    :hover {
+      background-color: #02732A;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    :focus {
+      background-color: #02732A;
+      text-decoration: underline;
+    }
+  }
+
+  @media screen and (max-width: 320px) {
+      flex-direction: column;
+      align-items: center;
+      gap: 5px 0px;
+  }
+`
+
 export const BoxAdminHome = styled.div`
   margin: 30px auto;
   width: 60%;
