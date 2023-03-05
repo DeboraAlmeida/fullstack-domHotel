@@ -2,13 +2,13 @@
 import encrypt from "./encrypt"
 import getIdToken from "./getIdToken"
 
-const backEnd = async (route: string, method: 'GET' | 'POST' | 'PUT' | 'DELETE', needAuthentication: boolean, bodyInfo?: any): Promise<any> => {
+const backEnd = async (route: string, method: 'GET' | 'POST' | 'PUT' | 'DELETE', needAuthentication: false | 'admin' | 'user', bodyInfo?: any): Promise<any> => {
   const url = process.env.NODE_ENV === 'development'
     ? 'http://localhost:3002'
     : 'http://localhost:3002'
 
 
-  const token = needAuthentication ? getIdToken() : null
+  const token = needAuthentication !== false ? getIdToken(needAuthentication) : null
 
   return await fetch(`${url}${route}`, {
     method,

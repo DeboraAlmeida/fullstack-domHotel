@@ -1,6 +1,8 @@
 import Button from 'components/atoms/Button'
+import GenericInput from 'components/atoms/GenericInput'
 import GenericLabel from 'components/atoms/GenericLabel'
 import MiniTitle from 'components/atoms/MiniTitle'
+import Modal from 'components/atoms/Modal'
 import React, { useEffect, useState } from 'react'
 import backEnd from 'utils/backEnd'
 import { validateEmail } from 'utils/validateFields'
@@ -19,20 +21,23 @@ interface LoginArr {
 const LoginAdmin = ({ setIsLogged }: Props) => {
 
 
-  const [valueField, setValueFields] = useState(
-    {
-      email: '',
-      password: ''
-    }
-  )
-  const [errorFields, setErrosFields] = useState(
-    {
-      email: false,
-      password: false
-    }
-  )
+  const [valueField, setValueFields] = useState({
+    email: '',
+    password: ''
+  })
+
+  const [errorFields, setErrosFields] = useState({
+    email: false,
+    password: false
+  })
 
   const [showModal, setShowModal] = useState(false)
+  const [messageModal, setMessageModal] = useState('')
+
+  const handleShowMessage = (msg: string) => {
+    setShowModal(true)
+    setMessageModal(msg)
+  }
 
   const handleEmail = (value: string) => {
     setValueFields((prev) => ({ ...prev, email: value }))
@@ -73,28 +78,15 @@ const LoginAdmin = ({ setIsLogged }: Props) => {
         }))
 
       } else {
-        // handleShowMessage(res.message)
+        handleShowMessage(res.message)
         setIsLogged(false)
       }
 
 
-    }).catch((err) => {
-      // handleShowMessage(err.message)
+    }).catch(err => {
+      handleShowMessage(err.message)
     })
 
-    // let result = false
-    // logins.forEach(user => {
-    //   if (user.email === data.email && user.password === data.password) {
-    //     result = true
-    //   }
-    // })
-    // if (result) {
-    //   setIsLogged(true)
-    //   sessionStorage.setItem('isLoggedAdmin', JSON.stringify({ ...data, isLogged: true }))
-    // } else {
-    //   alert('Administrador não cadastrado!')
-    //   setIsLogged(false)
-    // }    
   }
 
   const handleButton = () => {
@@ -106,7 +98,7 @@ const LoginAdmin = ({ setIsLogged }: Props) => {
   }
 
   const inputsSignIn = [
-    { 
+    {
       id: 'email-login',
       label: 'E-mail:',
       method: handleEmail,
@@ -114,7 +106,7 @@ const LoginAdmin = ({ setIsLogged }: Props) => {
       valueId: 'email',
       type: 'email'
     },
-    { 
+    {
       id: 'password-login',
       label: 'Senha:',
       method: handlePassword,
@@ -125,20 +117,20 @@ const LoginAdmin = ({ setIsLogged }: Props) => {
   ]
 
   useEffect(() => {
-    if (sessionStorage.getItem('isLoggedAdmin')){
+    if (sessionStorage.getItem('isLoggedAdmin')) {
       const result = JSON.parse(sessionStorage.getItem('isLoggedAdmin') as string)
       setIsLogged(result.isLogged)
       return
     }
     setIsLogged(false)
-   
+
   }, [])
 
   return (
     <>
       <S.Wrapper>
         <S.WrapperLogin>
-          <MiniTitle text={'Login Admin'} />
+          <MiniTitle text='Login Admin' />
           {inputsSignIn.map((element, index) => (
             <S.ContainerInputSignIn key={index}>
               <GenericLabel for={element.id}>{element.label}</GenericLabel>
@@ -150,6 +142,9 @@ const LoginAdmin = ({ setIsLogged }: Props) => {
         </S.WrapperLogin>
       </S.Wrapper>
 
+      <Modal isOpen={showModal} setIsOpen={setShowModal}>
+        <S.tittleAviso>{messageModal}</S.tittleAviso>
+      </Modal>
     </>
   )
 }

@@ -1,5 +1,6 @@
 // Arquivo criado: 19/01/2023 às 15:43
 import React, { useEffect, useState } from 'react'
+import validateIsAdminLogged from 'utils/validateIsAdminLogged'
 import ConsumoAdmin from '../ConsumoAdmin'
 import FuncionariosAdmin from '../FuncionariosAdmin'
 import HeaderAdmin from '../HeaderAdmin'
@@ -15,6 +16,9 @@ const ControllerAdmin = () => {
 
   useEffect(() => {
     const handlePage = () => {
+
+      validateIsAdminLogged()
+
       switch (page) {
         case 'home':
           return setComponent(<HomeAdmin />)

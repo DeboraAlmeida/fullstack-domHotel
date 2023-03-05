@@ -26,7 +26,7 @@ const ReservasAdmin = (): JSX.Element => {
   })
 
   useEffect(() => {
-    backEnd('/reservas', 'GET', false).then((res) => {
+    backEnd('/reservas', 'GET', 'admin').then(res => {
       if (res.status === 200) {
         setReservas(res.data)
       }
@@ -80,7 +80,7 @@ const ReservasAdmin = (): JSX.Element => {
       })
     }
 
-    backEnd(`/reservas/${id}`, 'PUT', false, { active }).then(res => {
+    backEnd(`/reservas/${id}`, 'PUT', 'admin', { active }).then(res => {
       if (res.status === 200) {
         setReservas(changeStatus(reservas))
         return
@@ -112,7 +112,7 @@ const ReservasAdmin = (): JSX.Element => {
       data: []
     })
 
-    backEnd(`/reservas-by-date/${data.inicioData}/${data.finalData}`, 'GET', false).then(res => {
+    backEnd(`/reservas-by-date/${data.inicioData}/${data.finalData}`, 'GET', 'admin').then(res => {
 
       if (res.status === 200) {
         setSearchResults({

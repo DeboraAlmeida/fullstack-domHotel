@@ -8,75 +8,110 @@ class LoginController {
     const isAdmin = req.query.admin !== undefined
     const table = isAdmin ? 'admin_workers' : 'user'
 
-    if (!email || !password) {
-      res.status(400).json({ message: 'Invalid request' })
-      return
-    }
-
-    sqlDB.query('SELECT name,password,ativo,id FROM ?? WHERE `email` = ? LIMIT 1', [table, email], async (err, data) => {
-      if (err) {
-        res.status(500).send({
-          status: 500,
-          message: err.message
-        })
+    try {
+      if (!email || !password) {
+        res.status(400).json({ message: 'Invalid request' })
         return
       }
 
-      if (data.length <= 0) {
-        res.status(500).json({
-          status: 500,
-          message: 'Senha ou email incorretos'
-        })
-        return
-      }
-
-      if (!data[0].ativo) {
-        res.status(500).json({
-          status: 500,
-          message: 'Usuário desativado'
-        })
-        return
-      }
-
-      const isMatch = await bcrypt.compare(password, data[0].password)
-
-      if (!isMatch) {
-        res.status(500).json({
-          status: 500,
-          message: 'Senha incorreta'
-        })
-        return
-      }
-
-      const token = createToken({ 
-        name: data[0].name,
-        email, 
-        id: data[0].id,
-        ...(isAdmin && { admin: true })
-      })
-
-      sqlDB.query('UPDATE ?? SET `lastLogin` = ? WHERE `email` = ?', [table, new Date(), email], err => {
+      const defaultValidations = (err, data) => {
         if (err) {
           res.status(500).send({
             status: 500,
             message: err.message
           })
+          return false
+        }
+
+        if (data.length <= 0) {
+          res.status(500).json({
+            status: 500,
+            message: 'Senha ou email incorretos'
+          })
+          return false
+        }
+
+        return true
+      }
+
+      sqlDB.query('SELECT name,password,ativo,id FROM ?? WHERE `email` = ? LIMIT 1', [table, email], async (err, data) => {
+
+        if (defaultValidations(err, data) === false) return
+
+        if (!data[0].ativo) {
+          res.status(500).json({
+            status: 500,
+            message: 'Usuário desativado'
+          })
           return
         }
 
-        res.status(200).json({
-          status: 200,
-          message: 'Login realizado com sucesso',
-          data: {
-            name: data[0].name,
-            id_user: data[0].id,
-            ...(isAdmin && { admin: true })
-          },
-          token
-        })
-      })
+        const isMatch = await bcrypt.compare(password, data[0].password)
 
-    })
+        if (!isMatch) {
+          res.status(500).json({
+            status: 500,
+            message: 'Senha incorreta'
+          })
+          return
+        }
+
+        const getIdOffice = async () => {
+          return new Promise(resolve => {
+            sqlDB.query('SELECT `id_office` FROM `workers_offices` WHERE `id_worker` = ? LIMIT 1', [data[0].id], (err, data) => {
+
+              if (defaultValidations(err, data) === false) {
+                return
+              }
+
+              resolve(data[0].id_office)
+
+            })
+          })
+        }
+
+
+        const token = createToken({
+          name: data[0].name,
+          email,
+          id: data[0].id,
+          ...(isAdmin && {
+            admin: true,
+            id_office: await getIdOffice()
+          })
+        })
+
+        sqlDB.query('UPDATE ?? SET `lastLogin` = ? WHERE `email` = ?', [table, new Date(), email], async err => {
+          if (err) {
+            res.status(500).send({
+              status: 500,
+              message: err.message
+            })
+            return
+          }
+
+          res.status(200).json({
+            status: 200,
+            message: 'Login realizado com sucesso',
+            data: {
+              name: data[0].name,
+              id_user: data[0].id,
+              ...(isAdmin && {
+                admin: true,
+                id_office: await getIdOffice()
+              })
+            },
+            token
+          })
+        })
+
+      })
+    } catch (err) {
+      res.status(500).send({
+        status: 500,
+        message: err.message
+      })
+    }
   }
 }
 
