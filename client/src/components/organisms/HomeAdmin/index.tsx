@@ -85,8 +85,8 @@ const HomeAdmin = () => {
         <S.ContainerContact>
           <GenericLabel for='contact'>Informações de Contato</GenericLabel>
           <S.ContainerTabContact>
-            <span>Aqui vai entrar</span>
-            <span>Info dos contatos</span>
+            <span>Hoje</span>
+            <span>Último mês</span>
           </S.ContainerTabContact>
         </S.ContainerContact>
       </S.BoxItens>
