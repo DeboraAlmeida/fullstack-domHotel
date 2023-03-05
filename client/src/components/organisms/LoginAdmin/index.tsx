@@ -21,18 +21,15 @@ interface LoginArr {
 const LoginAdmin = ({ setIsLogged }: Props) => {
 
 
-  const [valueField, setValueFields] = useState(
-    {
-      email: '',
-      password: ''
-    }
-  )
-  const [errorFields, setErrosFields] = useState(
-    {
-      email: false,
-      password: false
-    }
-  )
+  const [valueField, setValueFields] = useState({
+    email: '',
+    password: ''
+  })
+
+  const [errorFields, setErrosFields] = useState({
+    email: false,
+    password: false
+  })
 
   const [showModal, setShowModal] = useState(false)
   const [messageModal, setMessageModal] = useState('')
@@ -86,7 +83,7 @@ const LoginAdmin = ({ setIsLogged }: Props) => {
       }
 
 
-    }).catch((err) => {
+    }).catch(err => {
       handleShowMessage(err.message)
     })
 
@@ -101,7 +98,7 @@ const LoginAdmin = ({ setIsLogged }: Props) => {
   }
 
   const inputsSignIn = [
-    { 
+    {
       id: 'email-login',
       label: 'E-mail:',
       method: handleEmail,
@@ -109,7 +106,7 @@ const LoginAdmin = ({ setIsLogged }: Props) => {
       valueId: 'email',
       type: 'email'
     },
-    { 
+    {
       id: 'password-login',
       label: 'Senha:',
       method: handlePassword,
@@ -120,13 +117,13 @@ const LoginAdmin = ({ setIsLogged }: Props) => {
   ]
 
   useEffect(() => {
-    if (sessionStorage.getItem('isLoggedAdmin')){
+    if (sessionStorage.getItem('isLoggedAdmin')) {
       const result = JSON.parse(sessionStorage.getItem('isLoggedAdmin') as string)
       setIsLogged(result.isLogged)
       return
     }
     setIsLogged(false)
-   
+
   }, [])
 
   return (

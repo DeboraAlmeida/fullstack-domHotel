@@ -38,7 +38,7 @@ export default class AvaliationArea extends React.Component<Props> {
 
     const handleCanComment = () => {
       if(sessionStorage.getItem('isLogged')){
-        backEnd(`/verify-can-comment/${this.content.id}`, 'GET', true).then(res => {
+        backEnd(`/verify-can-comment/${this.content.id}`, 'GET', 'user').then(res => {
           if (res.canComment) {
             this.setState({
               form: {
@@ -148,7 +148,7 @@ export default class AvaliationArea extends React.Component<Props> {
         avaliation: this.state.stars.filter((star: string) => star === 'marked').length
       }
 
-      backEnd(`/comment/${this.content.id}`, 'POST', true, comment).then(res => {
+      backEnd(`/comment/${this.content.id}`, 'POST', 'user', comment).then(res => {
         if(res.status === 200){
           this.setState({
             form: {
@@ -192,7 +192,7 @@ export default class AvaliationArea extends React.Component<Props> {
             ? (
               <>
                 <S.TitleContainer id={'title-container'}>
-                  <SubTitle>{'Avalie'}</SubTitle>
+                  <SubTitle>Avalie</SubTitle>
                 </S.TitleContainer>
                 <GenericLabel for={'comment'}>Comentário:</GenericLabel>
                 <TextArea id={'comment'} />

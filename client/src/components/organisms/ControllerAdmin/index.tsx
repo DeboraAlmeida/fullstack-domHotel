@@ -1,5 +1,6 @@
 // Arquivo criado: 19/01/2023 às 15:43
 import React, { useEffect, useState } from 'react'
+import validateIsAdminLogged from 'utils/validateIsAdminLogged'
 import ConsumoAdmin from '../ConsumoAdmin'
 import FuncionariosAdmin from '../FuncionariosAdmin'
 import HeaderAdmin from '../HeaderAdmin'
@@ -16,10 +17,7 @@ const ControllerAdmin = () => {
   useEffect(() => {
     const handlePage = () => {
 
-      const session = sessionStorage.getItem('isLoggedAdmin')
-      if (session === undefined || session === null) {
-        window.location.reload()
-      }
+      validateIsAdminLogged()
 
       switch (page) {
         case 'home':
