@@ -7,7 +7,7 @@ const router = express.Router()
 
 router
   .get('/comments/:rommId', ComentariosController.getComments)
-  .post('/comment/:rommId', decrypt, validateToken, ComentariosController.setCooment)
-  .get('/verify-can-comment/:roomId', validateToken, ComentariosController.verifyCanComment)
+  .post('/comment/:rommId', decrypt, validateToken(), ComentariosController.setComment)
+  .get('/verify-can-comment/:roomId', validateToken(), ComentariosController.verifyCanComment)
 
 export default router

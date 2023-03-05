@@ -1,22 +1,14 @@
+import { contentRoomBox } from '../acomodacoes/data'
 import coz4 from './images/coz4.webp'
-import quarto1 from './images/quarto1.webp'
-import quarto2 from './images/quarto2.webp'
-import quarto3 from './images/quarto3.webp'
 
 export const content = {
   section1: {
     title: 'Conheça nosso Hotel',
     description: 'Sejam bem vindos ao Dom Hotel, o local feito para você apreciar todo o luxo, conforto e lazer que podemos oferecer. Localizados no estado de São Paulo, nosso ambiente é composto por suítes premiadas, que oferecem o que tem de melhor em charme e sofisticação. Aqui você encontra o lugar ideal para passar uma noite ou as férias inteiras. Com uma explêndida área de lazer, contamos com 3 piscinas, todas aquecidas,com ilhas especiais para aproveitar aquele drink ou uma bela refeição e um espaço especial para os pequenos, com a charmosa piscina infantil.',
     imageCollection: [
-      {
-        src: quarto1
-      },
-      {
-        src: quarto2
-      },
-      {
-        src: quarto3
-      }
+      contentRoomBox[2].imgCollection[0],
+      contentRoomBox[1].imgCollection[0],
+      contentRoomBox[0].imgCollection[0],
     ] 
   },
   section2: {

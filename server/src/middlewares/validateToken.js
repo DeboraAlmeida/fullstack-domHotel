@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-const validateToken = (req, res, next) => {
+const validateToken = (isAdmin = false) => (req, res, next) => {
 
   const authHeader = req.headers.authorization
 
@@ -18,8 +18,15 @@ const validateToken = (req, res, next) => {
 
   jwt.verify(token, process.env.JWT_TOKEN, (err, decoded) => {
     if (err) {
-      return res.status(401).send({ message: 'Unauthorized!' })
+      res.status(401).send({ message: 'Unauthorized!' })
+      return 
     }
+
+    if (isAdmin && !decoded.admin) {
+      res.status(401).send({ message: 'You are not an admin!' })
+      return 
+    }
+
     req.body.user = decoded
     
     next()

@@ -1,8 +1,8 @@
 // Arquivo criado: 01/12/2022 às 19:20
 
-import { Comment } from '@/interfaces/Comment';
-import { Content } from '@/interfaces/Content';
-import React from 'react';
+import { Comment } from 'interfaces/Comment';
+import { Content } from 'interfaces/Content';
+import React, { Component, Dispatch, SetStateAction } from 'react';
 import backEnd from '../../../utils/backEnd';
 import Button from '../../atoms/Button/';
 import ImageDefault from '../../atoms/ImageDefault';
@@ -14,15 +14,15 @@ import * as S from './styles';
 
 interface Props {
   content: Content
-  setStage: React.Dispatch<React.SetStateAction<string>>
+  setStage: Dispatch<SetStateAction<string>>
   comments?: Comment[]
 }
 
 
-export default class ClassAvaliationRoom extends React.Component<Props> {
+export default class ClassAvaliationRoom extends Component<Props> {
 
   content: Content
-  setStage: React.Dispatch<React.SetStateAction<string>>
+  setStage: Dispatch<SetStateAction<string>>
 
   state = {
     comments: []
@@ -37,9 +37,9 @@ export default class ClassAvaliationRoom extends React.Component<Props> {
 
   componentDidMount(): void {
 
-    backEnd(`/comments/${this.content.id}`,'GET',false).then((res: any) => {
+    backEnd(`/comments/${this.content.id}`,'GET',false).then(res => {
      if(res.status === 200) {
-        this.setState({comments: res.data})
+        this.setState({ comments: res.data })
      }
     })
 
