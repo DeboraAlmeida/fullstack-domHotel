@@ -19,7 +19,7 @@ import vip from './images/acomodacao_vip.webp'
 import * as S from './styles'
 
 
-export const Reservas = ({ setForcedLogin }) => {
+const Reservas = ({ setForcedLogin }) => {
   const [valueFields] = useState(
     {
       email: '',

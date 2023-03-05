@@ -8,7 +8,7 @@ import RoomDropdown from '../../components/organisms/RoomDropdown'
 import { contentListOffer, contentRoomBox } from './data'
 import * as S from './styles'
 
-export const Acomodacoes = () => {
+const Acomodacoes = () => {
   return (
     <S.Wrapper> 
       <PrincipalTitle>Nossas Acomodações</PrincipalTitle>

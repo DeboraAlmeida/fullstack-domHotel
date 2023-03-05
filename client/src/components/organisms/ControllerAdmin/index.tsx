@@ -15,6 +15,12 @@ const ControllerAdmin = () => {
 
   useEffect(() => {
     const handlePage = () => {
+
+      const session = sessionStorage.getItem('isLoggedAdmin')
+      if (session === undefined || session === null) {
+        window.location.reload()
+      }
+
       switch (page) {
         case 'home':
           return setComponent(<HomeAdmin />)
