@@ -11,7 +11,7 @@ import postContact from '../../services/postContact'
 import { validateEmail, validateName, validateNumber } from '../../utils/validateFields'
 import * as S from './styles'
 
-export const Contato = () => {  
+const Contato = () => {  
 
   const [payload, setPayload] = useState({
     name: '',

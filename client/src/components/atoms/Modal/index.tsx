@@ -1,10 +1,10 @@
-import React, { Dispatch, MouseEvent, SetStateAction } from 'react'
+import React, { Dispatch, MouseEvent, ReactNode, SetStateAction } from 'react'
 import { RiCloseFill } from 'react-icons/ri'
 import Button from '../Button/index'
 import * as S from './styles'
 
 interface Props {
-  children: React.ReactNode
+  children: ReactNode
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
 }

@@ -1,3 +1,5 @@
+import getIdToken from "utils/getIdToken";
+
 const getMonthReserves = async () => {
   const date = new Date();
   const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
@@ -13,6 +15,7 @@ const getMonthReserves = async () => {
             'Content-Type': 'application/json',
             'Connection': 'keep-alive',
             'Keep-Alive': 'timeout=5',
+            'Authorization': `Bearer ${getIdToken('admin')}`
         }
     })
     const result = await response.json()

@@ -6,7 +6,7 @@ const decrypt = (req, res, next) => {
   const { body } = req.body
 
   if (body === undefined) {
-    res.status(401).send('Request body is empty')
+    res.status(422).send('Request body is empty')
     return
   }
 

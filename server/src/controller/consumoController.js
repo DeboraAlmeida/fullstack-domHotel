@@ -10,7 +10,7 @@ class ConsumoController {
       id_reserve: payload.reserve
     }
 
-    sqlDB.query('INSERT INTO `expenditure` (product, id_reserve) VALUES (?, ?)', [obj.product, obj.id_reserve],(err, data) => {
+    sqlDB.query('INSERT INTO `expenditure` (product, id_reserve) VALUES (?, ?)', [obj.product, obj.id_reserve], (err, data) => {
 
       if (err) {
         res.status(500).send({ message: err.message })
@@ -19,7 +19,7 @@ class ConsumoController {
 
       res.status(201).json({
         status: 201,
-        data: `consumo cadastrado com sucesso.`
+        data: 'Consumo cadastrado com sucesso.'
       })
     })
   }

@@ -13,6 +13,7 @@ export const ImagesContainer = styled.div`
 
   > div {
     width: 30%;
+    cursor: pointer;
   }
 
   @media screen and (max-width: 750px) {

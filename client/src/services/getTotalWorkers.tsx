@@ -1,3 +1,5 @@
+import getIdToken from "utils/getIdToken"
+
 const getTotalWorkers = async () => {
   try {
     const response = await fetch('http://localhost:3002/funcionarios/AtivosTotal', {
@@ -6,14 +8,14 @@ const getTotalWorkers = async () => {
         'X-Powered-By': 'Express',
         'Content-Type': 'application/json',
         Connection: 'keep-alive',
-        'Keep-Alive': 'timeout=5'
+        'Keep-Alive': 'timeout=5',
+        'Authorization': `Bearer ${getIdToken('admin')}`
       }
     })
     const result = await response.json()
     return result.data
   } catch (error) {
-    console.error(`get workers failed ${error}`)
-        
+    return    
   }
 }
 
