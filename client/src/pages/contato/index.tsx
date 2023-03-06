@@ -1,5 +1,5 @@
 // Arquivo criado: 15/12/2022 às 20:49
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import Button from '../../components/atoms/Button'
 import GenericInput from '../../components/atoms/GenericInput'
 import GenericLabel from '../../components/atoms/GenericLabel'
@@ -7,10 +7,23 @@ import GenericSelect from '../../components/atoms/GenericSelect'
 import PrincipalTitle from '../../components/atoms/PrincipalTitle'
 import SubTitle from '../../components/atoms/SubTitle'
 import TextArea from '../../components/atoms/TextArea'
+import postContact from '../../services/postContact'
 import { validateEmail, validateName, validateNumber } from '../../utils/validateFields'
 import * as S from './styles'
 
 const Contato = () => {  
+
+  const [payload, setPayload] = useState({
+    name: '',
+    email: '',
+    comment: '',
+    subject: ''
+  }) 
+
+  useEffect(() => {
+    localStorage.setItem('contato', JSON.stringify(payload))
+  }, [payload])
+  
   const [valueFields, setValueFields] = useState(
     {
       email: '',
@@ -37,6 +50,7 @@ const Contato = () => {
       return
     }
     setErrosFields((prev) => ({ ...prev, email: false }))
+    setPayload((prev) => ({ ...prev, email: value }))
   }
 
   const handleName = (value: string) => {
@@ -46,6 +60,7 @@ const Contato = () => {
       return
     }
     setErrosFields((prev) => ({ ...prev, name: false }))
+    setPayload((prev) => ({ ...prev, name: value }))
   }
 
   const handleTelephone = (value: string) => {
@@ -58,6 +73,7 @@ const Contato = () => {
   }
 
   const handleSelect = (event: ChangeEvent<HTMLSelectElement>) => {
+    setPayload((prev) => ({ ...prev, subject: event.target.value }))
     valueFields.select = event.target.value
     if (valueFields.select !== 'checked') {
       setErrosFields((prev) => ({ ...prev, select: false }))
@@ -67,6 +83,7 @@ const Contato = () => {
   }
 
   const handleTextArea = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setPayload((prev) => ({ ...prev, comment: event.target.value }))
     valueFields.textArea = event.target.value
     if (valueFields.textArea !== '') {
       setErrosFields((prev) => ({ ...prev, textArea: false }))
@@ -102,7 +119,7 @@ const Contato = () => {
     }
   ]
 
-  const handleButton = () => {
+  const handleButton = async () => {
     if (valueFields.email === '' || valueFields.name === '' || valueFields.telephone === '' || valueFields.select === 'checked' || valueFields.textArea === '') {
       if (valueFields.email === '') {
         setErrosFields((prev) => ({ ...prev, email: true }))
@@ -120,6 +137,14 @@ const Contato = () => {
         setErrosFields((prev) => ({ ...prev, textArea: true }))
       } 
     }
+
+    if(localStorage.getItem('contato')){
+
+      const contato = JSON.parse(localStorage.getItem('contato') as string)
+      await postContact(contato) 
+
+    }
+
   }
   
   return (

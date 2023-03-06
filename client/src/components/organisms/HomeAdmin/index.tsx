@@ -1,11 +1,11 @@
 // Arquivo criado: 19/01/2023 às 15:52
 import React, { useEffect, useState } from "react"
-import getMouthReserves from "../../../services/getMouthReserves"
+import getMonthReserves from "../../../services/getMonthReserves"
 import getTotalReserves from "../../../services/getTotalReserves"
 import getTotalUsers from "../../../services/getTotalUsers"
 import getTotalWorkers from "../../../services/getTotalWorkers"
-import BoxElements from "../../atoms/BoxElements"
-import ContainerLayoutAdmin from "../../atoms/ContainerLayoutAdmin"
+import Anchor from "../../atoms/Anchor"
+import GenericLabel from "../../atoms/GenericLabel"
 import PrincipalTitle from "../../atoms/PrincipalTitle"
 import SubTitle from "../../atoms/SubTitle"
 import * as S from "./styles"
@@ -15,7 +15,7 @@ const HomeAdmin = () => {
   const [activeUsers, setActiveUsers] = useState(0)
   const [activeReserves, setActiveReserves] = useState(0)
   const [activeWorkers, setActiveWorkers] = useState(0)
-  const [mouthReserves, setMouthReserves] = useState(0)
+  const [monthReserves, setMonthReserves] = useState(0)
   useEffect(() => {
     const getActiveUsers = async () => {
       const result = await getTotalUsers()
@@ -29,44 +29,68 @@ const HomeAdmin = () => {
       const result = await getTotalWorkers()
       setActiveWorkers(result)
     }
-    const getMouthReservesNumber = async () => {
-      const result = await getMouthReserves()
-      setMouthReserves(result)
+    const getMonthReservesNumber = async () => {
+      const result = await getMonthReserves()
+      setMonthReserves(result)
     }
     getActiveWorkers()
     getActiveUsers()
     getActiveReserves()
-    getMouthReservesNumber()
+    getMonthReservesNumber()
   },[])
+
+  const metrics = [
+    {
+      name: activeUsers,
+      text: 'clientes ativos',
+      id: 1,
+      href: '/'
+    },
+    {
+      name: activeReserves,
+      text: 'reservas ativas',
+      id: 2,
+      href: '/'
+    },
+    {
+      name: activeWorkers,
+      text: 'funcionários ativos',
+      id: 3,
+      href: '/'
+    },
+    {
+      name: monthReserves,
+      text: 'reservas para este mês',
+      id: 4,
+      href: '/'
+    }
+
+  ]
 
  
 
 
   return (
-    <>
-    <PrincipalTitle>DOM Hotel</PrincipalTitle>
-    <S.BoxAdminHome>
-      <ContainerLayoutAdmin>
-        <BoxElements>
-          <SubTitle>{ activeUsers }</SubTitle> 
-          <p>clientes ativos</p>
-        </BoxElements>
-        <BoxElements>
-          <SubTitle>{ activeReserves }</SubTitle> 
-          <p>reservas ativas</p>
-        </BoxElements>
-        <BoxElements>
-          <SubTitle>{ activeWorkers }</SubTitle> 
-          <p>funcionários ativos</p>
-        </BoxElements>
-        <BoxElements>
-          <SubTitle>{ mouthReserves }</SubTitle> 
-          <p>reservas para este mês</p>
-        </BoxElements>
-      </ContainerLayoutAdmin>
-    </S.BoxAdminHome>
-      
-    </>
+    <S.Container>
+      <PrincipalTitle>DOM Hotel</PrincipalTitle>
+      <S.BoxItens>
+        <S.ContainerReserves>
+          <GenericLabel for='metrics'>Métricas</GenericLabel>
+          <ul>
+            {metrics.map((metric, index: number) => (
+              <li key={index} value={metric.id}><SubTitle>{metric.name}</SubTitle> <Anchor activeLink='' hoverColor='' msg={metric.text} href='' /> </li>
+            ))}
+          </ul>
+        </S.ContainerReserves>
+        <S.ContainerContact>
+          <GenericLabel for='contact'>Informações de Contato</GenericLabel>
+          <S.ContainerTabContact>
+            <span>Hoje</span>
+            <span>Último mês</span>
+          </S.ContainerTabContact>
+        </S.ContainerContact>
+      </S.BoxItens>
+    </S.Container>
   )
 }
 
