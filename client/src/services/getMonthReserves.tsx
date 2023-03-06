@@ -1,6 +1,6 @@
 import getIdToken from "utils/getIdToken";
 
-const getMouthReserves = async () => {
+const getMonthReserves = async () => {
   const date = new Date();
   const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
   let lastDayDate = lastDay.toLocaleDateString()
@@ -25,4 +25,4 @@ const getMouthReserves = async () => {
 }
 }
 
-export default getMouthReserves
+export default getMonthReserves
