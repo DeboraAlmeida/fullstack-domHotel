@@ -9,7 +9,7 @@ const getMouthReserves = async () => {
   lastDayDate = lastDayDate.split('/').reverse().join('-')
   firstDayDate = firstDayDate.split('/').reverse().join('-')
   try {
-    const response = await fetch(`http://localhost:3002/reservas-by-date/${firstDayDate}/${lastDayDate}`, {
+    const response = await fetch(`http://localhost:3002/reservas-pela-data/${firstDayDate}/${lastDayDate}`, {
         method: 'GET', headers: {
             'X-Powered-By': 'Express',
             'Content-Type': 'application/json',

@@ -2,7 +2,7 @@ import getIdToken from "utils/getIdToken"
 
 const getTotalWorkers = async () => {
   try {
-    const response = await fetch('http://localhost:3002/funcionarios/AtivosTotal', {
+    const response = await fetch('http://localhost:3002/funcionarios-ativos-total', {
       method: 'GET',
       headers: {
         'X-Powered-By': 'Express',

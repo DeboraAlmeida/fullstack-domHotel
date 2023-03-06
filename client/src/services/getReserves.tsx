@@ -2,7 +2,7 @@ import getIdToken from "utils/getIdToken"
 
 const getReserves = async () => {
     try {
-        const response = await fetch(`http://localhost:3002/reservasAtivas`, {
+        const response = await fetch(`http://localhost:3002/reservas-ativas`, {
             method: 'GET', headers: {
                 'X-Powered-By': 'Express',
                 'Content-Type': 'application/json',

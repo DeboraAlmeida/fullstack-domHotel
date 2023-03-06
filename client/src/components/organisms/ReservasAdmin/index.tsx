@@ -112,7 +112,7 @@ const ReservasAdmin = (): JSX.Element => {
       data: []
     })
 
-    backEnd(`/reservas-by-date/${data.inicioData}/${data.finalData}`, 'GET', 'admin').then(res => {
+    backEnd(`/reservas-pela-data/${data.inicioData}/${data.finalData}`, 'GET', 'admin').then(res => {
 
       if (res.status === 200) {
         setSearchResults({

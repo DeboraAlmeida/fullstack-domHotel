@@ -37,7 +37,7 @@ export default class ClassAvaliationRoom extends Component<Props> {
 
   componentDidMount(): void {
 
-    backEnd(`/comments/${this.content.id}`,'GET',false).then(res => {
+    backEnd(`/comentarios/${this.content.id}`,'GET',false).then(res => {
      if(res.status === 200) {
         this.setState({ comments: res.data })
      }
