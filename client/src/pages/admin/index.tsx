@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import ControllerAdmin from '../../components/organisms/ControllerAdmin'
 import LoginAdmin from '../../components/organisms/LoginAdmin'
-import * as S from './styles'
 
 
 const Admin = () => {
@@ -10,13 +9,13 @@ const Admin = () => {
   const [isLogged, setIsLogged] = useState(false)
 
   return (
-    <S.Wrapper>
+    <div>
       {
         isLogged 
           ? <ControllerAdmin />
           : <LoginAdmin setIsLogged={setIsLogged} />
       }
-    </S.Wrapper>
+    </div>
   )
 }
 

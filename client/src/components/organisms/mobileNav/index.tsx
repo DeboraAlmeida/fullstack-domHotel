@@ -1,7 +1,7 @@
 // Arquivo criado: 29/12/2022 às 11:21
+import NavBar from 'components/atoms/NavBar'
 import React, { useState } from 'react'
 import { FaBars } from 'react-icons/fa'
-import NavBar from '../../atoms/NavBar'
 import * as S from './styles'
 
 interface Props {
@@ -35,12 +35,12 @@ export const MobileNav = ({
     <S.Wrapper>
       <FaBars onClick={handleOpen} />
       {
-        isOpen && 
+        isOpen &&
         <S.coverOptions onClick={handleOpen}>
           <S.containerOptions>
             <NavBar />
             {
-              isLogged 
+              isLogged
                 ? <span onClick={loggout}>Sair</span>
                 : <span onClick={handleLogin}>Entrar</span>
             }

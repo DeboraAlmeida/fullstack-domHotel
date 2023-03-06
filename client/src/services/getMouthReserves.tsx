@@ -6,10 +6,10 @@ const getMouthReserves = async () => {
     const date = new Date();
 
     const data = type === 'first'
-      ? new Date(date.getFullYear(), date.getMonth(), 1) 
+      ? new Date(date.getFullYear(), date.getMonth(), 1)
       : new Date(date.getFullYear(), date.getMonth() + 1, 0)
 
-   
+
     return data.toLocaleDateString().split('/').reverse().join('-')
   }
 

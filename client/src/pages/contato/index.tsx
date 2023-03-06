@@ -1,13 +1,13 @@
 // Arquivo criado: 15/12/2022 às 20:49
+import Button from 'components/atoms/Button'
+import GenericInput from 'components/atoms/GenericInput'
+import GenericLabel from 'components/atoms/GenericLabel'
+import GenericSelect from 'components/atoms/GenericSelect'
+import PrincipalTitle from 'components/atoms/PrincipalTitle'
+import SubTitle from 'components/atoms/SubTitle'
+import TextArea from 'components/atoms/TextArea'
 import React, { ChangeEvent, useState } from 'react'
-import Button from '../../components/atoms/Button'
-import GenericInput from '../../components/atoms/GenericInput'
-import GenericLabel from '../../components/atoms/GenericLabel'
-import GenericSelect from '../../components/atoms/GenericSelect'
-import PrincipalTitle from '../../components/atoms/PrincipalTitle'
-import SubTitle from '../../components/atoms/SubTitle'
-import TextArea from '../../components/atoms/TextArea'
-import { validateEmail, validateName, validateNumber } from '../../utils/validateFields'
+import { validateEmail, validateName, validateNumber } from 'utils/validateFields'
 import * as S from './styles'
 
 const Contato = () => {  

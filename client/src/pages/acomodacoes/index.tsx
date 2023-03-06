@@ -1,10 +1,10 @@
 // Arquivo criado: 15/12/2022 às 20:49
+import DescriptionParagraph from 'components/atoms/DescriptionParagraph'
+import MiniTitle from 'components/atoms/MiniTitle'
+import PrincipalTitle from 'components/atoms/PrincipalTitle'
+import UnorderedList from 'components/atoms/UnorderedList'
+import RoomDropdown from 'components/organisms/RoomDropdown'
 import React from 'react'
-import DescriptionParagraph from '../../components/atoms/DescriptionParagraph'
-import MiniTitle from '../../components/atoms/MiniTitle'
-import PrincipalTitle from '../../components/atoms/PrincipalTitle'
-import UnorderedList from '../../components/atoms/UnorderedList'
-import RoomDropdown from '../../components/organisms/RoomDropdown'
 import { contentListOffer, contentRoomBox } from './data'
 import * as S from './styles'
 

@@ -1,5 +1,5 @@
+import pallete from 'pallete'
 import styled from 'styled-components'
-import pallete from '../../../pallete'
 
 
 export const Header = styled.div`

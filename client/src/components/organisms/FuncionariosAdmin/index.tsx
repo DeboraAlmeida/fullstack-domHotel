@@ -1,11 +1,11 @@
 // Arquivo criado: 19/01/2023 às 15:54
+import ContainerLayoutAdmin from 'components/atoms/ContainerLayoutAdmin'
+import GenericSelect from 'components/atoms/GenericSelect'
+import Modal from 'components/atoms/Modal'
+import pallete from 'pallete'
 import React, { useEffect, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
-import pallete from '../../../pallete'
-import getWorkers from '../../../services/getWorkers'
-import ContainerLayoutAdmin from '../../atoms/ContainerLayoutAdmin'
-import GenericSelect from '../../atoms/GenericSelect'
-import Modal from '../../atoms/Modal'
+import getWorkers from 'services/getWorkers'
 import CadastroFuncionarioContent from '../CadastroFuncionarioContent'
 import * as S from './styles'
 

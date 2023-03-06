@@ -15,7 +15,7 @@ const getTotalWorkers = async () => {
     const result = await response.json()
     return result.data
   } catch (error) {
-    return    
+    return
   }
 }
 

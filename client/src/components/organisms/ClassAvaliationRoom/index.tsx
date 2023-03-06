@@ -1,13 +1,13 @@
 // Arquivo criado: 01/12/2022 às 19:20
 
+import Button from 'components/atoms/Button/';
+import ImageDefault from 'components/atoms/ImageDefault';
+import MiniTitle from 'components/atoms/MiniTitle';
+import SubTitle from 'components/atoms/SubTitle';
 import { Comment } from 'interfaces/Comment';
 import { Content } from 'interfaces/Content';
 import React, { Component, Dispatch, SetStateAction } from 'react';
-import backEnd from '../../../utils/backEnd';
-import Button from '../../atoms/Button/';
-import ImageDefault from '../../atoms/ImageDefault';
-import MiniTitle from '../../atoms/MiniTitle';
-import SubTitle from '../../atoms/SubTitle';
+import backEnd from 'utils/backEnd';
 import CommentArea from '../CommentArea';
 import * as S from './styles';
 
@@ -28,7 +28,7 @@ export default class ClassAvaliationRoom extends Component<Props> {
     comments: []
   }
 
-  
+
   constructor(props: Props) {
     super(props)
     this.content = props.content
@@ -37,13 +37,13 @@ export default class ClassAvaliationRoom extends Component<Props> {
 
   componentDidMount(): void {
 
-    backEnd(`/comentarios/${this.content.id}`,'GET',false).then(res => {
-     if(res.status === 200) {
+    backEnd(`/comentarios/${this.content.id}`, 'GET', false).then(res => {
+      if (res.status === 200) {
         this.setState({ comments: res.data })
-     }
+      }
     })
 
-    
+
   }
 
   handleButton = () => {

@@ -1,7 +1,7 @@
 // Arquivo criado: 04/03/2023 às 16:53
+import Modal from 'components/atoms/Modal'
 import { Content } from 'interfaces/Content'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import Modal from '../../../components/atoms/Modal'
 import AvaliationArea from '../AvaliationArea'
 import ClassAvaliationRoom from '../ClassAvaliationRoom'
 import * as S from './styles'
@@ -18,10 +18,10 @@ const ModalAvaliationRoom = ({ actualImage, showModal, setShowModal }: Props) =>
   const [stage, setStage] = useState('comment')
 
   useEffect(() => {
-    if(showModal){
+    if (showModal) {
       setStage('comment')
     }
-  },[showModal])
+  }, [showModal])
 
   return (
     <S.Container>

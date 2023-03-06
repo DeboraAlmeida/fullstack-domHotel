@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
  
   h2 {
     font-size: 16px;
@@ -11,9 +11,9 @@ align-items: center;
 `
 
 export const RoomsContainer = styled.div` 
-display: flex;
+  display: flex;
 
-&:nth-child(3) {
+  &:nth-child(3) {
     margin-bottom: 15px;
     padding-top: 15px;
     border-top: 2px solid green;
@@ -66,21 +66,22 @@ export const OfferDescription = styled.div`
   
   P {
     margin: 15px 0;
-  }
 
-  p:last-child {
-    font-weight: bold;
+    :last-child {
+      font-weight: bold;
+    }
   }
 
   ul {
     margin: 20px 0;
     list-style-type: disc;
     list-style-position: inside;
+
+    li {
+      margin: 5px 0;
+    }
   }
 
-  ul li {
-    margin: 5px 0;
-  }
 `
 
 export const GreenLine = styled.hr`
