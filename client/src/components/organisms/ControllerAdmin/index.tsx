@@ -11,17 +11,21 @@ import ReservasAdmin from '../ReservasAdmin'
 const ControllerAdmin = () => {
 
   const [page, setPage] = useState('home')
-  const [component, setComponent] = useState(<HomeAdmin />)
+  const [component, setComponent] = useState(<HomeAdmin setPage={setPage} />)
 
 
   useEffect(() => {
     const handlePage = () => {
 
-      validateIsAdminLogged()
+
+      if (!validateIsAdminLogged()) {
+        window.location.reload()
+        return
+      }
 
       switch (page) {
         case 'home':
-          return setComponent(<HomeAdmin />)
+          return setComponent(<HomeAdmin setPage={setPage} />)
         case 'hospedes':
           return setComponent(<ConsumoAdmin />)
         case 'funcionarios':

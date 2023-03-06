@@ -3,8 +3,9 @@
 const validateIsAdminLogged = () => {
   const session = sessionStorage.getItem('isLoggedAdmin')
   if (session === undefined || session === null) {
-    window.location.reload()
+    return false
   }
+  return true
 }
 
 export default validateIsAdminLogged
