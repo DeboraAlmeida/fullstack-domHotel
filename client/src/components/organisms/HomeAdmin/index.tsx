@@ -1,21 +1,26 @@
 // Arquivo criado: 19/01/2023 às 15:52
+import GenericLabel from "components/atoms/GenericLabel"
+import PrincipalTitle from "components/atoms/PrincipalTitle"
+import SubTitle from "components/atoms/SubTitle"
 import React, { useEffect, useState } from "react"
-import getMonthReserves from "../../../services/getMonthReserves"
-import getTotalReserves from "../../../services/getTotalReserves"
-import getTotalUsers from "../../../services/getTotalUsers"
-import getTotalWorkers from "../../../services/getTotalWorkers"
-import Anchor from "../../atoms/Anchor"
-import GenericLabel from "../../atoms/GenericLabel"
-import PrincipalTitle from "../../atoms/PrincipalTitle"
-import SubTitle from "../../atoms/SubTitle"
+import getMonthReserves from "services/getMonthReserves"
+import getTotalReserves from "services/getTotalReserves"
+import getTotalUsers from "services/getTotalUsers"
+import getTotalWorkers from "services/getTotalWorkers"
 import * as S from "./styles"
 
 
-const HomeAdmin = () => {
+interface Props {
+  setPage: (page: string) => void
+}
+
+const HomeAdmin = ({ setPage }: Props) => {
   const [activeUsers, setActiveUsers] = useState(0)
   const [activeReserves, setActiveReserves] = useState(0)
   const [activeWorkers, setActiveWorkers] = useState(0)
   const [monthReserves, setMonthReserves] = useState(0)
+  const [loading, setLoading] = useState(true)
+
   useEffect(() => {
     const getActiveUsers = async () => {
       const result = await getTotalUsers()
@@ -33,41 +38,55 @@ const HomeAdmin = () => {
       const result = await getMonthReserves()
       setMonthReserves(result)
     }
-    getActiveWorkers()
-    getActiveUsers()
-    getActiveReserves()
-    getMonthReservesNumber()
-  },[])
+
+    const getAll = async () => {
+      setLoading(true)
+      await getActiveWorkers()
+      await getActiveUsers()
+      await getActiveReserves()
+      await getMonthReservesNumber()
+      setLoading(false)
+    }
+
+    getAll()
+  }, [])
 
   const metrics = [
     {
       name: activeUsers,
       text: 'clientes ativos',
       id: 1,
-      href: '/'
+      action: () => setPage('reservas'),
+      descricaoClick: 'Clique e veja a tela de reservas'
     },
     {
       name: activeReserves,
       text: 'reservas ativas',
       id: 2,
-      href: '/'
+      action: () => setPage('reservas'),
+      descricaoClick: 'Clique para ver as reservas'
+
     },
     {
       name: activeWorkers,
       text: 'funcionários ativos',
       id: 3,
-      href: '/'
+      action: () => setPage('funcionarios'),
+      descricaoClick: 'Clique para ver os funcionários'
+
     },
     {
       name: monthReserves,
       text: 'reservas para este mês',
       id: 4,
-      href: '/'
+      action: () => setPage('reservas'),
+      descricaoClick: 'Clique para ver as reservas para este mês'
+
     }
 
   ]
 
- 
+
 
 
   return (
@@ -76,11 +95,24 @@ const HomeAdmin = () => {
       <S.BoxItens>
         <S.ContainerReserves>
           <GenericLabel for='metrics'>Métricas</GenericLabel>
-          <ul>
-            {metrics.map((metric, index: number) => (
-              <li key={index} value={metric.id}><SubTitle>{metric.name}</SubTitle> <Anchor activeLink='' hoverColor='' msg={metric.text} href='' /> </li>
-            ))}
-          </ul>
+          {
+            loading
+              ? (
+                <S.ContainerLoading>
+                  Carregando...
+                </S.ContainerLoading>
+              )
+              : (
+                <ul>
+                  {metrics.map((metric, index) => (
+                    <li title={metric.descricaoClick} onClick={metric.action} key={index} value={metric.id}>
+                      <SubTitle>{metric.name}</SubTitle>
+                      <span>{metric.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              )
+          }
         </S.ContainerReserves>
         <S.ContainerContact>
           <GenericLabel for='contact'>Informações de Contato</GenericLabel>

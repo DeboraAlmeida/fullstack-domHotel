@@ -6,10 +6,10 @@ const router = express.Router()
 
 router
   .get('/funcionarios', FuncionariosController.getWorkers)
-  .get('/funcionariosAtivos', FuncionariosController.getActiveWorkers)
-  .post('/funcionariosCadastro', decrypt, FuncionariosController.postNewWorkers)
-  .put('/funcionariosAtualiza', FuncionariosController.updateWorkers)
+  .get('/funcionarios-ativos', FuncionariosController.getActiveWorkers)
+  .post('/funcionarios', decrypt, FuncionariosController.postNewWorkers)
+  .put('/funcionarios/:id', FuncionariosController.updateWorkers)
   // .get('/funcionarios/Ativos', FuncionariosController.getWorkersActived)
-  .get('/funcionarios/AtivosTotal', FuncionariosController.getWorkersNumber)
+  .get('/funcionarios-ativos-total', FuncionariosController.getWorkersNumber)
 
 export default router

@@ -1,3 +1,4 @@
+import pallete from 'pallete'
 import styled from 'styled-components'
 
 export const Container = styled.div`
@@ -77,12 +78,12 @@ export const ContainerReserves = styled.div`
       box-shadow: 5px 5px 5px #a0a0a0ea;
 
       :hover {
-        border-color: #038C33;
+        border-color: ${pallete.greenDefault};
         cursor: pointer;
       }
 
       ::selection {
-        border-color: #038C33
+        border-color: ${pallete.greenDefault}
      }
     }
 `
@@ -120,12 +121,12 @@ export const ContainerProducts = styled.div`
       box-shadow: 5px 5px 5px #a0a0a0ea;
 
       :hover {
-        border-color: #038C33;
+        border-color: ${pallete.greenDefault};
         cursor: pointer;
       }
 
       :focus {
-        border-color: #038C33
+        border-color: ${pallete.greenDefault}
     }
     }
 `
@@ -141,19 +142,19 @@ export const ContainerTabProducts = styled.div`
     width: 100%;
     text-align: center;
     padding: 20px 0px;
-    background-color: #038C33;
+    background-color: ${pallete.greenDefault};
     color: white;
     text-transform: uppercase;
     font-weight: bold;
 
     :hover {
-      background-color: #02732A;
+      background-color: ${pallete.greenDark};
       text-decoration: underline;
       cursor: pointer;
     }
 
     :focus {
-      background-color: #02732A;
+      background-color: ${pallete.greenDark};
       text-decoration: underline;
     }
   }
