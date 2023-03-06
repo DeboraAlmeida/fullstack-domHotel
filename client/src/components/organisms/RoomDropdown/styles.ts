@@ -16,6 +16,11 @@ export const ImagesContainer = styled.div`
     cursor: pointer;
   }
 
+  > div img {
+    width: 100%;
+    height: 100%
+  }
+
   @media screen and (max-width: 750px) {
     flex-direction: column;
     align-items: center;
