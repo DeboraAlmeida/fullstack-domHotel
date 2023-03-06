@@ -1,7 +1,7 @@
 // Arquivo criado: 10/12/2022 às 11:55
 
+import pallete from 'pallete'
 import React, { ChangeEvent, useRef, useState } from 'react'
-import pallete from '../../../pallete'
 import * as S from './styles'
 
 /**
@@ -93,7 +93,7 @@ export default function TextArea({
 
 
   const handleVal = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    if(ref.current){
+    if (ref.current) {
       ref.current.value.length > 0 && !disabled ? setBorder(focusColor) : setBorder('transparent')
       onChange(e)
     }

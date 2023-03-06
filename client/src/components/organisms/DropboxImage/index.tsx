@@ -16,17 +16,17 @@ const Dropboximage = ({ srcImage, description }: Props) => {
 
   return (
     <S.Wrapper>
-    <S.BoxImage onClick={handleImage}>
-      {srcImage}
-    </S.BoxImage>
-    {showDescription && (
-      <S.BoxDescription>
-        {description}
-      </S.BoxDescription>
-    )}    
-  </S.Wrapper>
+      <S.BoxImage onClick={handleImage}>
+        {srcImage}
+      </S.BoxImage>
+      {showDescription && (
+        <S.BoxDescription>
+          {description}
+        </S.BoxDescription>
+      )}
+    </S.Wrapper>
   )
-  
+
 }
 
 export default Dropboximage

@@ -2,7 +2,7 @@ import getIdToken from "utils/getIdToken"
 
 const getTotalReserves = async () => {
   try {
-    const response = await fetch('http://localhost:3002/reservasAtivasTotal', {
+    const response = await fetch('http://localhost:3002/reservas-ativas-total', {
       method: 'GET',
       headers: {
         'X-Powered-By': 'Express',

@@ -11,9 +11,9 @@ interface Props {
 
 const GenericSelect = ({ id, aName, children, onBlur, error = false }: Props) => {
   return (
-        <S.SelectInput defaultValue={'checked'} id={id} name={aName} onBlur={onBlur} errorField={error}>
-            { children }
-        </S.SelectInput>
+    <S.SelectInput defaultValue={'checked'} id={id} name={aName} onBlur={onBlur} errorField={error}>
+      {children}
+    </S.SelectInput>
 
   )
 }

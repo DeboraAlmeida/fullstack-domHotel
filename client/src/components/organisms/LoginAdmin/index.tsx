@@ -6,7 +6,6 @@ import Modal from 'components/atoms/Modal'
 import React, { useEffect, useState } from 'react'
 import backEnd from 'utils/backEnd'
 import { validateEmail } from 'utils/validateFields'
-import { adminLogins } from './adminLogins'
 import * as S from './styles'
 
 interface Props {
@@ -53,7 +52,7 @@ const LoginAdmin = ({ setIsLogged }: Props) => {
     setErrosFields((prev) => ({ ...prev, password: false }))
   }
 
-  const actionSignIn = async (data: LoginArr, logins: LoginArr[]) => {
+  const actionSignIn = async (data: LoginArr) => {
     if (data.email === '' || data.password === '') {
       if (data.email === '') {
         setErrosFields((prev) => ({ ...prev, email: true }))
@@ -94,7 +93,7 @@ const LoginAdmin = ({ setIsLogged }: Props) => {
       email: valueField.email,
       password: valueField.password
     }
-    actionSignIn(data, adminLogins)
+    actionSignIn(data)
   }
 
   const inputsSignIn = [
