@@ -7,10 +7,11 @@ import PrincipalTitle from 'components/atoms/PrincipalTitle'
 import SubTitle from 'components/atoms/SubTitle'
 import TextArea from 'components/atoms/TextArea'
 import React, { ChangeEvent, useState } from 'react'
+import { Helmet } from 'react-helmet'
 import { validateEmail, validateName, validateNumber } from 'utils/validateFields'
 import * as S from './styles'
 
-const Contato = () => {  
+const Contato = () => {
   const [valueFields, setValueFields] = useState(
     {
       email: '',
@@ -76,7 +77,7 @@ const Contato = () => {
   }
 
   const inputsContact = [
-    { 
+    {
       id: 'name-contact',
       label: 'Nome:',
       method: handleName,
@@ -84,7 +85,7 @@ const Contato = () => {
       valueId: 'name',
       type: 'text'
     },
-    { 
+    {
       id: 'email-contact',
       label: 'E-mail:',
       method: handleEmail,
@@ -92,7 +93,7 @@ const Contato = () => {
       valueId: 'email',
       type: 'email'
     },
-    { 
+    {
       id: 'telephone-contact',
       label: 'Telefone:',
       method: handleTelephone,
@@ -118,44 +119,50 @@ const Contato = () => {
       }
       if (valueFields.textArea === '') {
         setErrosFields((prev) => ({ ...prev, textArea: true }))
-      } 
+      }
     }
   }
-  
+
   return (
-    <S.Wrapper>      
-      <PrincipalTitle>Entre em contato conosco</PrincipalTitle>     
-      <SubTitle>Como podemos ajudar?</SubTitle>
-      <S.FormContainer>
-      {inputsContact.map((element, index) => (
-        <S.Container key={index} className='inputsContainer'>
-          <GenericLabel for={element.id}>{element.label}</GenericLabel>
-          <GenericInput 
-            type={element.type} 
-            id={element.id}
-            // @ts-expect-error
-            value={valueFields[`${element.valueId}`]}
-            onChange={(e) => element.method(e.target.value)}
-            error={element.model}/>
-        </S.Container>
-      ))}
-      <S.Container className='inputsContainer'> 
-        <GenericLabel for='subject'>Assunto de Interesse:</GenericLabel>
-        <GenericSelect id='subject' aName='subject' onBlur={handleSelect} error={errorFields.select}>
-          <option value="checked" disabled>Selecione</option>
-          <option value="cancelamento">Cancelamento de Reserva</option>
-          <option value="ouvidoria">Ouvidoria</option>
-          <option value="departamento_financeiro">Departamento Financeiro</option>
-          <option value="outros">Outros</option>
-        </GenericSelect>
-      </S.Container>
-      <S.Container className='inputsContainer'>
-        <GenericLabel for='comentario'>Deixe um comentário:</GenericLabel>
-        <TextArea id='comentario' rows={10} onChange={handleTextArea} error={errorFields.textArea}/>
-      </S.Container>
-        <Button action={handleButton} disabled={(errorFields.email || errorFields.name || errorFields.telephone || errorFields.select || errorFields.textArea)}>Enviar</Button>
-      </S.FormContainer>
-    </S.Wrapper>
+    <>
+      <Helmet>
+        <title>DOM Hotel - Contato</title>
+        <meta name='description' content='Entre em contato conosco' />
+      </Helmet>
+      <S.Wrapper>
+        <PrincipalTitle>Entre em contato conosco</PrincipalTitle>
+        <SubTitle>Como podemos ajudar?</SubTitle>
+        <S.FormContainer>
+          {inputsContact.map((element, index) => (
+            <S.Container key={index} className='inputsContainer'>
+              <GenericLabel for={element.id}>{element.label}</GenericLabel>
+              <GenericInput
+                type={element.type}
+                id={element.id}
+                // @ts-expect-error
+                value={valueFields[`${element.valueId}`]}
+                onChange={(e) => element.method(e.target.value)}
+                error={element.model} />
+            </S.Container>
+          ))}
+          <S.Container className='inputsContainer'>
+            <GenericLabel for='subject'>Assunto de Interesse:</GenericLabel>
+            <GenericSelect id='subject' aName='subject' onBlur={handleSelect} error={errorFields.select}>
+              <option value="checked" disabled>Selecione</option>
+              <option value="cancelamento">Cancelamento de Reserva</option>
+              <option value="ouvidoria">Ouvidoria</option>
+              <option value="departamento_financeiro">Departamento Financeiro</option>
+              <option value="outros">Outros</option>
+            </GenericSelect>
+          </S.Container>
+          <S.Container className='inputsContainer'>
+            <GenericLabel for='comentario'>Deixe um comentário:</GenericLabel>
+            <TextArea id='comentario' rows={10} onChange={handleTextArea} error={errorFields.textArea} />
+          </S.Container>
+          <Button action={handleButton} disabled={(errorFields.email || errorFields.name || errorFields.telephone || errorFields.select || errorFields.textArea)}>Enviar</Button>
+        </S.FormContainer>
+      </S.Wrapper>
+    </>
   )
 }
 
