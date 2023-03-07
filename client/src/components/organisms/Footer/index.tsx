@@ -1,6 +1,6 @@
 // Arquivo criado: 17/12/2022 às 19:38
+import Navbar from 'components/atoms/NavBar'
 import React from 'react'
-import Navbar from '../../atoms/NavBar'
 import * as S from './styles'
 
 export const Footer = () => {

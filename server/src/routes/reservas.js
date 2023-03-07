@@ -8,10 +8,10 @@ const router = express.Router()
 router
   .get('/reservas', validateToken(true), ReservasController.getReserves)
   .get('/reservas/:id', validateToken(true), ReservasController.getReserveById)
-  .get('/reservasAtivas', validateToken(true), ReservasController.getActiveReserves)
-  .get('/reservasAtivasTotal', validateToken(true), ReservasController.getReservesNumber)
+  .get('/reservas-ativas', validateToken(true), ReservasController.getActiveReserves)
+  .get('/reservas-ativas-total', validateToken(true), ReservasController.getReservesNumber)
   .post('/reserva', validateToken(true), ReservasController.postReserve)
   .put('/reservas/:id', decrypt, validateToken(true), ReservasController.updateStatusReserve)
-  .get('/reservas-by-date/:startDate/:endDate', validateToken(true), ReservasController.searchByDates)
+  .get('/reservas-pela-data/:startDate/:endDate', validateToken(true), ReservasController.searchByDates)
 
 export default router

@@ -1,14 +1,15 @@
 import getIdToken from "utils/getIdToken"
 
-const postReserve = async (payload: any) => {
-    const { userData, moreService, reserva } = payload
+const postNewEmployee = async (payload: any) => {
+    const {name , email, password, office} = payload
     const obj = {
-        userData,
-        reserva,
-        moreService
+        name,
+        email,
+        password,
+        office
     }
     try {
-        const response = await fetch(`http://localhost:3002/reserva`, {
+        const response = await fetch(`http://localhost:3002/funcionariosCadastro`, {
             method: 'POST', headers: {
                 'X-Powered-By': 'Express',
                 'Content-Type': 'application/json',
@@ -24,4 +25,4 @@ const postReserve = async (payload: any) => {
     }
 }
 
-export default postReserve
+export default postNewEmployee

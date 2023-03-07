@@ -1,6 +1,6 @@
+import ImageDefault from 'components/atoms/ImageDefault'
+import MiniTitle from 'components/atoms/MiniTitle'
 import React, { useState } from 'react'
-import ImageDefault from '../../atoms/ImageDefault'
-import MiniTitle from '../../atoms/MiniTitle'
 import ModalAvaliationRoom from '../ModalAvaliationRoom'
 import * as S from './styles'
 

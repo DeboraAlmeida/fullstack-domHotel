@@ -1,8 +1,8 @@
 // Arquivo criado: 16/02/2023
 import React, { useState } from 'react'
+import { Helmet } from 'react-helmet'
 import ControllerAdmin from '../../components/organisms/ControllerAdmin'
 import LoginAdmin from '../../components/organisms/LoginAdmin'
-import * as S from './styles'
 
 
 const Admin = () => {
@@ -10,13 +10,16 @@ const Admin = () => {
   const [isLogged, setIsLogged] = useState(false)
 
   return (
-    <S.Wrapper>
+    <div>
+      <Helmet>
+        <title>DOM Hotel - Admin</title>
+      </Helmet>
       {
         isLogged 
           ? <ControllerAdmin />
           : <LoginAdmin setIsLogged={setIsLogged} />
       }
-    </S.Wrapper>
+    </div>
   )
 }
 

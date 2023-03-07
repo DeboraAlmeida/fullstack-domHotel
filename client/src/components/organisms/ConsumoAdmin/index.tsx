@@ -1,12 +1,12 @@
 // Arquivo criado: 19/01/2023 às 14:32
+import Button from 'components/atoms/Button'
+import DescriptionParagraph from 'components/atoms/DescriptionParagraph'
+import GenericLabel from 'components/atoms/GenericLabel'
+import MiniTitle from 'components/atoms/MiniTitle'
+import Modal from 'components/atoms/Modal'
 import React, { FormEvent, useEffect, useState } from 'react'
-import DescriptionParagraph from '../../../components/atoms/DescriptionParagraph'
-import MiniTitle from '../../../components/atoms/MiniTitle'
-import Modal from '../../../components/atoms/Modal'
-import getReserves from '../../../services/getReserves'
-import postExpenditure from '../../../services/postExpenditure'
-import Button from '../../atoms/Button'
-import GenericLabel from '../../atoms/GenericLabel'
+import getReserves from 'services/getReserves'
+import postExpenditure from 'services/postExpenditure'
 import data from './data'
 import * as S from './styles'
 
@@ -78,17 +78,17 @@ const ConsumoAdmin = () => {
     }
   }
 
-  const handleForm =  async (e: FormEvent<HTMLFormElement>) => {
+  const handleForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (!payload.reserve || !payload.product) {
-      setModalContent({title: 'Erro', description: 'Selecione um cliente e um produto'})
+      setModalContent({ title: 'Erro', description: 'Selecione um cliente e um produto' })
       setShowModal(true)
       return
     }
 
     const result = await postExpenditure(payload)
-    setModalContent({title: 'Aviso', description: result})
+    setModalContent({ title: 'Aviso', description: result })
     setShowModal(true)
   }
 
