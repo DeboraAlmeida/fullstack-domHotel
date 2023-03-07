@@ -23,14 +23,14 @@ const Modal = ({ children, isOpen, setIsOpen }: Props) => {
   return (
     <S.Backdrop onClick={handleClose} >
       <S.ModalComp onClick={handleClickInside}>
-      <S.BtnClose>
-        <Button useDefaultStyle={false} action={handleClose}>
-          <RiCloseFill />
-        </Button>
-      </S.BtnClose>
-      { children }
-    </S.ModalComp>
-  </S.Backdrop>
+        <S.BtnClose>
+          <Button useDefaultStyle={false} action={handleClose}>
+            <RiCloseFill />
+          </Button>
+        </S.BtnClose>
+        {children}
+      </S.ModalComp>
+    </S.Backdrop>
   )
 }
 

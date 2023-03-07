@@ -8,9 +8,11 @@ interface Props {
 
 const MiniTitle = ({ span, text }: Props) => {
   return (
-    <S.DivWrapper>
-      <S.H2Title><S.SpanText>{span}</S.SpanText>{text}</S.H2Title>
-    </S.DivWrapper>
+    <div>
+      <h2>
+        <S.SpanText>{span}</S.SpanText>{text}
+      </h2>
+    </div>
   )
 }
 

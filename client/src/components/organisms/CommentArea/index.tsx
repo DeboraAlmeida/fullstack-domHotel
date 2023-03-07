@@ -1,7 +1,7 @@
+import DescriptionParagraph from 'components/atoms/DescriptionParagraph'
+import Stars from 'components/atoms/Stars'
+import SubTitle from 'components/atoms/SubTitle'
 import React from 'react'
-import DescriptionParagraph from '../../atoms/DescriptionParagraph'
-import Stars from '../../atoms/Stars'
-import SubTitle from '../../atoms/SubTitle'
 import * as S from './styles'
 
 interface Props {

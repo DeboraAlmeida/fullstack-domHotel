@@ -1,5 +1,5 @@
+import pallete from 'pallete'
 import React from 'react'
-import pallete from '../../../pallete'
 import Anchor from '../Anchor'
 import * as S from './styles'
 

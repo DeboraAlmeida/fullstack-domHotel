@@ -1,16 +1,15 @@
 // Arquivo criado: 19/01/2023 às 15:54
 import React, { useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
-import getActiveWorkers from 'services/getActiveWorkers'
-import getInactiveWorkers from 'services/getInactiveWorkers'
 import pallete from '../../../pallete'
+import getActiveWorkers from '../../../services/getActiveWorkers'
+import getInactiveWorkers from '../../../services/getInactiveWorkers'
 import getWorkers from '../../../services/getWorkers'
 import ContainerLayoutAdmin from '../../atoms/ContainerLayoutAdmin'
 import GenericSelect from '../../atoms/GenericSelect'
 import Modal from '../../atoms/Modal'
 import CadastroFuncionarioContent from '../CadastroFuncionarioContent'
 import * as S from './styles'
-
 
 const FuncionariosAdmin = (): JSX.Element => {
 

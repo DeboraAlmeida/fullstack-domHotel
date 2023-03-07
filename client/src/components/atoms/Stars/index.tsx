@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
-import * as S from './styles'
 
 interface Props {
   level: number
@@ -21,15 +20,15 @@ const Stars = ({ level }: Props) => {
   }, [])
 
   return (
-    <S.Wrapper>
+    <div>
       {starLevel.map((star, index) => {
         if (star === 'void') {
-          return <AiOutlineStar key={index}/>
+          return <AiOutlineStar key={index} />
         } else {
-          return <AiFillStar key={index}/>
+          return <AiFillStar key={index} />
         }
       })}
-    </S.Wrapper>
+    </div>
   )
 }
 

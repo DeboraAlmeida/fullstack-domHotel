@@ -100,7 +100,7 @@ const CadastroFuncionarioContent = (): JSX.Element => {
           }
         </GenericSelect>
       </S.ContainerInputSignUp>
-      
+
       {inputsSignUp.map(element => (
         <S.ContainerInputSignUp key={element.id}>
           <GenericLabel for={element.id}>{element.label}</GenericLabel>

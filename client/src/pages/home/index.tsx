@@ -1,6 +1,7 @@
 // Arquivo criado: 15/12/2022 às 20:47
 import { Content } from 'interfaces/Content'
 import React, { useState } from 'react'
+import { Helmet } from 'react-helmet'
 import Anchor from '../../components/atoms/Anchor'
 import DescriptionParagraph from '../../components/atoms/DescriptionParagraph'
 import ImageDefault from '../../components/atoms/ImageDefault'
@@ -32,6 +33,10 @@ const Home = () => {
 
   return (
     <>
+      <Helmet>
+        <title>DOM Hotel - Home</title>
+        <meta name='description' content='DOM Hotel - Inicio' />
+      </Helmet>
       <S.Wrapper>
         <PrincipalTitle>{content.section1.title}</PrincipalTitle>
         <DescriptionParagraph msg={content.section1.description} />
