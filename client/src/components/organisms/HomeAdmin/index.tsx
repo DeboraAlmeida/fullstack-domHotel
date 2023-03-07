@@ -2,11 +2,15 @@
 import GenericLabel from "components/atoms/GenericLabel"
 import PrincipalTitle from "components/atoms/PrincipalTitle"
 import SubTitle from "components/atoms/SubTitle"
+import PayloadContact from "interfaces/payloadContact"
 import React, { useEffect, useState } from "react"
 import getMonthReserves from "services/getMonthReserves"
+import getThisMonthContacts from "services/getThisMonthContacts"
 import getTotalReserves from "services/getTotalReserves"
 import getTotalUsers from "services/getTotalUsers"
 import getTotalWorkers from "services/getTotalWorkers"
+import dataFormatter from "utils/dataFormatter"
+import CommentArea from "../CommentArea"
 import * as S from "./styles"
 
 
@@ -20,6 +24,8 @@ const HomeAdmin = ({ setPage }: Props) => {
   const [activeWorkers, setActiveWorkers] = useState(0)
   const [monthReserves, setMonthReserves] = useState(0)
   const [loading, setLoading] = useState(true)
+  const [contacts, setContacts] = useState<PayloadContact[]>([])
+  const [seeTodayContacts, setSeeTodayContacts] = useState(true)
 
   useEffect(() => {
     const getActiveUsers = async () => {
@@ -39,17 +45,37 @@ const HomeAdmin = ({ setPage }: Props) => {
       setMonthReserves(result)
     }
 
+    const getThisMonthContactsData = async () => {
+      const result = await getThisMonthContacts()
+      setContacts(result)
+    }
+
     const getAll = async () => {
       setLoading(true)
       await getActiveWorkers()
       await getActiveUsers()
       await getActiveReserves()
       await getMonthReservesNumber()
+      await getThisMonthContactsData()
       setLoading(false)
     }
 
     getAll()
   }, [])
+
+  const getContacts = (type: boolean) => {
+
+    return contacts.filter(d => {
+      const date = new Date(d.createdAt).toDateString()
+      const today = new Date().toDateString()
+
+      if (type) {
+        return date === today
+      }
+      return date !== today
+    })
+
+  }
 
   const metrics = [
     {
@@ -86,6 +112,22 @@ const HomeAdmin = ({ setPage }: Props) => {
 
   ]
 
+  const filterTypeContact = (type: string) => {
+    switch (type) {
+      case 'sugestao':
+        return 'Sugestão'
+      case 'cancelamento':
+        return 'Cancelamento'
+      case 'ouvidoria':
+        return 'Ouvidoria'
+      case 'departamento_financeiro':
+        return 'D. Financeiro'
+      case 'outros':
+        return 'Outros'
+      default:
+        return 'Outros'
+    }
+  }
 
 
 
@@ -117,9 +159,42 @@ const HomeAdmin = ({ setPage }: Props) => {
         <S.ContainerContact>
           <GenericLabel for='contact'>Informações de Contato</GenericLabel>
           <S.ContainerTabContact>
-            <span>Hoje</span>
-            <span>Último mês</span>
+            <S.SpanTipoContact selected={seeTodayContacts} onClick={() => setSeeTodayContacts(true)}>Hoje</S.SpanTipoContact>
+            <S.SpanTipoContact selected={!seeTodayContacts} onClick={() => setSeeTodayContacts(false)}>Último mês</S.SpanTipoContact>
           </S.ContainerTabContact>
+          <ul>
+            {contacts.length === 0 && (
+              <S.ContainerLoading>
+                {loading ? 'Carregando...' : 'Ainda não há contatos'}
+              </S.ContainerLoading>
+            )}
+            {/* repeti o componente porq ia ficar uma condicional muito complexa. Ao meu ver sem necessídade. */}
+            {getContacts(seeTodayContacts).length === 0 && !loading && (
+              <S.ContainerLoading>
+                Nada encontrado para {seeTodayContacts ? 'hoje' : 'este mês'}
+              </S.ContainerLoading>
+            )}
+            {getContacts(seeTodayContacts).map((contact, index) => {
+
+              const comment = `${contact.comment.slice(0, 30)}...`
+
+              return (
+                <CommentArea
+                  key={index}
+                  comment={comment.toLowerCase()}
+                  name={contact.name.toLowerCase()}
+                  button={
+                    <S.TypeInfoContactSingle>
+                      {
+                        seeTodayContacts
+                          ? filterTypeContact(contact.subject)
+                          : dataFormatter(contact.createdAt)
+                      }
+                    </S.TypeInfoContactSingle>}
+                />
+              )
+            })}
+          </ul>
         </S.ContainerContact>
       </S.BoxItens>
     </S.Container>

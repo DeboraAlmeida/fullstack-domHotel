@@ -22,4 +22,23 @@ export default class ContatoController {
     })
   }
 
+  static getContato = (_req, res) => {
+    
+    sqlDB.query('SELECT * FROM `contact` WHERE MONTH(createdAt) = MONTH(CURRENT_DATE())', (err, data) => {
+      if (err) {
+        res.status(500).send({ 
+          status: 500,
+          message: err.message
+        })
+        return
+      }
+
+      res.status(200).json({
+        status: 200,
+        data
+      })
+    })
+   
+  }
+
 }

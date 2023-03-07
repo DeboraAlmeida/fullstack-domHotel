@@ -3,4 +3,5 @@ export default interface PayloadContact {
   email: string
   comment: string
   subject: string
+  createdAt: Date
 }

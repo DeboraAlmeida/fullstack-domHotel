@@ -24,12 +24,12 @@ const Contato = () => {
     buttonMsg: 'Enviar'
   })
 
-  const [payload, setPayload] = useState<PayloadContact>({
+  const [payload, setPayload] = useState({
     name: getIfAlreadyLogged('name'),
     email: getIfAlreadyLogged('email'),
     comment: '',
     subject: ''
-  })
+  } as PayloadContact)
 
 
   useEffect(() => {
