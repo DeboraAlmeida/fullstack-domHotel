@@ -1,6 +1,5 @@
 import express from 'express'
 import cors from '../middlewares/cors.js'
-import acomodacoes from './acomodacoes.js'
 import comentarios from './comentarios.js'
 import consumo from './consumo.js'
 import contato from './contato.js'
@@ -20,7 +19,6 @@ const routes = app => {
   app.use(
     cors,
     express.json(),
-    acomodacoes,
     reservas,
     comentarios,
     login,

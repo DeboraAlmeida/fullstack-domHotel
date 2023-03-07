@@ -1,6 +1,10 @@
 import pallete from 'pallete'
 import styled from 'styled-components'
 
+interface ISpanTipoContact {
+  selected: boolean
+}
+
 export const Container = styled.div`
 
 `
@@ -77,30 +81,24 @@ export const ContainerContact = styled.div`
 
     ul {
       list-style: none;
+      margin-top: 10px;
       width: 100%;
       padding: 10px 15px;
-      height: 450px;
-      overflow: auto;
-    }
-
-    li {
-      margin: 10px 0px;
-      padding: 15px 40px;
-      width: 100%;
-      border: 2px solid rgba(204, 204, 204, 0.12);
-      background-color: rgba(204, 204, 204, 0.12);
-      border-radius: 0.5rem;
-      box-shadow: 5px 5px 5px #a0a0a0ea;
-      cursor: pointer;
-
-      :hover {
-        border-color: ${pallete.greenDefault};
+      height: 90%;
+      max-height: 365px;
+      overflow-y: auto;
+      
+      h2{
+        font-size: 20px;
+        text-transform: capitalize;
       }
 
-      :focus {
-        border-color: ${pallete.greenDefault}
+      p{
+        font-size: 13px;
+        text-transform: capitalize;
+      }
     }
-    }
+
 `
 export const ContainerTabContact = styled.div`
   width: 100%;
@@ -109,26 +107,6 @@ export const ContainerTabContact = styled.div`
   padding: 0px 5px;
   gap: 0 5px;
 
-  span {
-    width: 100%;
-    text-align: center;
-    padding: 20px 0px;
-    background-color: ${pallete.greenDefault};
-    color: white;
-    text-transform: uppercase;
-    font-weight: bold;
-
-    :hover {
-      background-color: ${pallete.greenDark};
-      text-decoration: underline;
-      cursor: pointer;
-    }
-
-    :focus {
-      background-color: ${pallete.greenDark};
-      text-decoration: underline;
-    }
-  }
 
   @media screen and (max-width: 320px) {
       flex-direction: column;
@@ -151,4 +129,28 @@ export const BoxAdminHome = styled.div`
       justify-content: space-between;
     }
   }
+`
+
+export const SpanTipoContact = styled.span<ISpanTipoContact>`
+
+  width: 100%;
+  text-align: center;
+  padding: 20px 0px;
+  background-color: ${pallete.greenDefault};
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+
+  :hover {
+    background-color: ${pallete.greenDark};
+    text-decoration: ${props => props.selected ? 'none' : 'underline'};
+    cursor: ${props => props.selected ? 'default' : 'pointer'};
+  }
+
+  background-color: ${props => props.selected ? pallete.greenDark : pallete.greenDefault};
+`
+
+export const TypeInfoContactSingle = styled.small`
+  font-size: 11px;
+  color: ${pallete.greenDark};
 `
