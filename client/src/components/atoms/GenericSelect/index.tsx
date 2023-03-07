@@ -5,13 +5,14 @@ interface Props {
   id: string
   aName: string
   onBlur?: (event: FocusEvent<HTMLSelectElement>) => void
+  onChange?: (event: FocusEvent<HTMLSelectElement>) => void
   error?: boolean
   children: ReactNode
 }
 
-const GenericSelect = ({ id, aName, children, onBlur, error = false }: Props) => {
+const GenericSelect = ({ id, aName, children, onBlur, onChange, error = false }: Props) => {
   return (
-        <S.SelectInput defaultValue={'checked'} id={id} name={aName} onBlur={onBlur} errorField={error}>
+        <S.SelectInput defaultValue={'checked'} id={id} name={aName} onBlur={onBlur} onChange={onChange} errorField={error}>
             { children }
         </S.SelectInput>
 
