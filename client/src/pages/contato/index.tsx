@@ -6,20 +6,31 @@ import GenericSelect from 'components/atoms/GenericSelect'
 import PrincipalTitle from 'components/atoms/PrincipalTitle'
 import SubTitle from 'components/atoms/SubTitle'
 import TextArea from 'components/atoms/TextArea'
+import PayloadContact from 'interfaces/payloadContact'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
+import { useNavigate } from 'react-router-dom'
 import postContact from 'services/postContact'
+import getIfAlreadyLogged from 'utils/getIfAlreadyLogged'
 import { validateEmail, validateName } from 'utils/validateFields'
 import * as S from './styles'
 
 const Contato = () => {
 
-  const [payload, setPayload] = useState({
-    name: '',
-    email: '',
+  const navigate = useNavigate()
+
+  const [loading, setLoading] = useState({
+    loading: false,
+    buttonMsg: 'Enviar'
+  })
+
+  const [payload, setPayload] = useState<PayloadContact>({
+    name: getIfAlreadyLogged('name'),
+    email: getIfAlreadyLogged('email'),
     comment: '',
     subject: ''
   })
+
 
   useEffect(() => {
     localStorage.setItem('contato', JSON.stringify(payload))
@@ -27,8 +38,8 @@ const Contato = () => {
 
   const [valueFields, setValueFields] = useState(
     {
-      email: '',
-      name: '',
+      name: getIfAlreadyLogged('name'),
+      email: getIfAlreadyLogged('email'),
       select: 'checked',
       textArea: ''
     }
@@ -102,26 +113,31 @@ const Contato = () => {
   ]
 
   const handleButton = async () => {
-    if (valueFields.email === '' || valueFields.name === '' || valueFields.select === 'checked' || valueFields.textArea === '') {
-      if (valueFields.email === '') {
-        setErrosFields((prev) => ({ ...prev, email: true }))
-      }
-      if (valueFields.name === '') {
-        setErrosFields((prev) => ({ ...prev, name: true }))
-      }
-      if (valueFields.select === 'checked') {
-        setErrosFields((prev) => ({ ...prev, select: true }))
-      }
-      if (valueFields.textArea === '') {
-        setErrosFields((prev) => ({ ...prev, textArea: true }))
-      }
+    if (valueFields.email === '') {
+      setErrosFields((prev) => ({ ...prev, email: true }))
+      return
+    }
+    if (valueFields.name === '') {
+      setErrosFields((prev) => ({ ...prev, name: true }))
+      return
+    }
+    if (valueFields.select === 'checked') {
+      setErrosFields((prev) => ({ ...prev, select: true }))
+      return
+    }
+    if (valueFields.textArea === '') {
+      setErrosFields((prev) => ({ ...prev, textArea: true }))
+      return
     }
 
     if (localStorage.getItem('contato')) {
 
       const contato = JSON.parse(localStorage.getItem('contato') as string)
+      setLoading({ loading: true, buttonMsg: 'Enviando...' })
       await postContact(contato)
-
+      setLoading({ loading: false, buttonMsg: 'Enviar' })
+      alert('Mensagem enviada com sucesso!')
+      navigate('/')
     }
 
   }
@@ -184,7 +200,9 @@ const Contato = () => {
             <GenericLabel for='comentario'>Deixe um comentário:</GenericLabel>
             <TextArea id='comentario' rows={10} onChange={handleTextArea} error={errorFields.textArea} />
           </S.Container>
-          <Button action={handleButton} disabled={(errorFields.email || errorFields.name || errorFields.select || errorFields.textArea)}>Enviar</Button>
+          <Button action={handleButton} disabled={(errorFields.email || loading.loading || errorFields.name || errorFields.select || errorFields.textArea)}>
+            {loading.buttonMsg}
+          </Button>
         </S.FormContainer>
       </S.Wrapper>
     </>

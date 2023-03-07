@@ -102,8 +102,6 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }: Props) => {
       } else {
         handleShowMessage(res.message)
       }
-    }).catch(err => {
-      console.log(err)
     })
   }
 
