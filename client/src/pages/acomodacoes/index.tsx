@@ -5,7 +5,7 @@ import PrincipalTitle from 'components/atoms/PrincipalTitle'
 import UnorderedList from 'components/atoms/UnorderedList'
 import RoomDropdown from 'components/organisms/RoomDropdown'
 import React from 'react'
-import { Helmet } from "react-helmet"
+import { Helmet } from 'react-helmet'
 import { contentListOffer, contentRoomBox } from './data'
 import * as S from './styles'
 

@@ -1,8 +1,8 @@
 import getIdToken from "utils/getIdToken"
 
-const getWorkers = async () => {
+const getActiveWorkers = async () => {
     try {
-        const response = await fetch(`http://localhost:3002/funcionarios`, {
+        const response = await fetch(`http://localhost:3002/funcionariosAtivos`, {
             method: 'GET', headers: {
                 'X-Powered-By': 'Express',
                 'Content-Type': 'application/json',
@@ -14,9 +14,8 @@ const getWorkers = async () => {
         const result = await response.json()
         return result.data
     } catch (error) {
-        console.error(`get workers failed ${error}`)
         return
     }
 }
 
-export default getWorkers
+export default getActiveWorkers

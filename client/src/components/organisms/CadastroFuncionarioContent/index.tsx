@@ -1,13 +1,49 @@
-import Button from 'components/atoms/Button'
-import GenericInput from 'components/atoms/GenericInput'
-import GenericLabel from 'components/atoms/GenericLabel'
 import GenericSelect from 'components/atoms/GenericSelect'
-import MiniTitle from 'components/atoms/MiniTitle'
-import React from 'react'
+import React, { useState } from 'react'
+import postNewEmployee from 'services/postNewEmployee'
+import Button from '../../atoms/Button'
+import GenericInput from '../../atoms/GenericInput'
+import GenericLabel from '../../atoms/GenericLabel'
+import MiniTitle from '../../atoms/MiniTitle'
 import * as S from './styles'
 
-
 const CadastroFuncionarioContent = (): JSX.Element => {
+
+  const [valueField, SetValueField] = useState({
+    name: '',
+    email: '',
+    password: '',
+    office: 0,
+  })
+
+
+  const setValueInField = (value: string, element: string) => {
+    switch (element) {
+      case 'name':
+        SetValueField((prev) => ({...prev, name: value}))
+        break;
+      case 'email':
+        SetValueField((prev) => ({...prev, email: value}))
+        break;
+      case 'password':
+        SetValueField((prev) => ({...prev, password: value}))
+        break;
+    }
+  }
+
+  const getValueField = (element: string) => {
+    switch (element) {
+      case 'name':
+        return valueField.name
+        break;
+      case 'email':
+        return valueField.email
+        break;
+      case 'password':
+        return valueField.password
+        break;
+    }
+  }
 
   const inputsSignUp = [
     {
@@ -30,41 +66,36 @@ const CadastroFuncionarioContent = (): JSX.Element => {
     }
   ]
 
-  const selectOptions = [
+  const offices = [
     {
-      label: 'Recepção'
+      type: 'admin',
+      id: 1
     },
     {
-      label: 'Restaurante'
+      type: 'funcionário',
+      id: 2
     },
-    {
-      label: 'Garagem'
-    },
-    {
-      label: 'Serviço de Quarto'
-    },
-    {
-      label: 'Gerencia'
-    },
-    {
-      label: 'Concierege'
-    },
-    {
-      label: 'Supervisor de Andar'
-    }
   ]
 
-  return (
-    <S.Wrapper>
+  const setOffice = (value: string) => {
+    SetValueField((prev) => ({...prev, office: Number(value)}))
+  }
+
+  const registerEmployee = async () => {
+    const result = await postNewEmployee(valueField)
+  }
+
+  return(
+   <S.Wrapper>
       <MiniTitle text={'Cadastrar'} />
       <br />
       <S.ContainerInputSignUp>
         <GenericLabel for='Cargo'>Cargo:</GenericLabel>
-        <GenericSelect id='Cargo' aName='Cargo'>
+        <GenericSelect id='Cargo' aName='Cargo' onChange={(e) => setOffice(e.target.value)}>
           <option value="checked" disabled >Selecionar Cargo</option>
           {
-            selectOptions.map((element, index) => (
-              <option key={index} value={element.label}>{element.label}</option>
+            offices.map((element) => (
+              <option key={element.id} value={element.id}>{element.type}</option>
             ))
           }
         </GenericSelect>
@@ -73,12 +104,11 @@ const CadastroFuncionarioContent = (): JSX.Element => {
       {inputsSignUp.map(element => (
         <S.ContainerInputSignUp key={element.id}>
           <GenericLabel for={element.id}>{element.label}</GenericLabel>
-          <GenericInput type={element.type} id={element.id} />
+          <GenericInput type={element.type} id={element.id} value={getValueField(element.valueId)} onChange={(e) => setValueInField(e.target.value, element.valueId)}/>
         </ S.ContainerInputSignUp>
       ))}
-      <Button disabled={false} action={() => { }}>Cadastrar</Button>
-
-    </S.Wrapper>
+      <Button disabled={false} action={registerEmployee}>Cadastrar</Button>      
+   </S.Wrapper>
   )
 }
 
