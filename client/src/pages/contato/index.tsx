@@ -6,20 +6,31 @@ import GenericSelect from 'components/atoms/GenericSelect'
 import PrincipalTitle from 'components/atoms/PrincipalTitle'
 import SubTitle from 'components/atoms/SubTitle'
 import TextArea from 'components/atoms/TextArea'
+import PayloadContact from 'interfaces/payloadContact'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
+import { useNavigate } from 'react-router-dom'
 import postContact from 'services/postContact'
-import { validateEmail, validateName, validateNumber } from 'utils/validateFields'
+import getIfAlreadyLogged from 'utils/getIfAlreadyLogged'
+import { validateEmail, validateName } from 'utils/validateFields'
 import * as S from './styles'
 
 const Contato = () => {
 
+  const navigate = useNavigate()
+
+  const [loading, setLoading] = useState({
+    loading: false,
+    buttonMsg: 'Enviar'
+  })
+
   const [payload, setPayload] = useState({
-    name: '',
-    email: '',
+    name: getIfAlreadyLogged('name'),
+    email: getIfAlreadyLogged('email'),
     comment: '',
     subject: ''
-  })
+  } as PayloadContact)
+
 
   useEffect(() => {
     localStorage.setItem('contato', JSON.stringify(payload))
@@ -27,9 +38,8 @@ const Contato = () => {
 
   const [valueFields, setValueFields] = useState(
     {
-      email: '',
-      name: '',
-      telephone: '',
+      name: getIfAlreadyLogged('name'),
+      email: getIfAlreadyLogged('email'),
       select: 'checked',
       textArea: ''
     }
@@ -38,7 +48,6 @@ const Contato = () => {
     {
       email: false,
       name: false,
-      telephone: false,
       select: false,
       textArea: false
     }
@@ -62,15 +71,6 @@ const Contato = () => {
     }
     setErrosFields((prev) => ({ ...prev, name: false }))
     setPayload((prev) => ({ ...prev, name: value }))
-  }
-
-  const handleTelephone = (value: string) => {
-    setValueFields((prev) => ({ ...prev, telephone: value }))
-    if (validateNumber(valueFields.telephone)) {
-      setErrosFields((prev) => ({ ...prev, telephone: true }))
-      return
-    }
-    setErrosFields((prev) => ({ ...prev, telephone: false }))
   }
 
   const handleSelect = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -109,41 +109,35 @@ const Contato = () => {
       model: errorFields.email,
       valueId: 'email',
       type: 'email'
-    },
-    {
-      id: 'telephone-contact',
-      label: 'Telefone:',
-      method: handleTelephone,
-      model: errorFields.telephone,
-      valueId: 'telephone',
-      type: 'tel'
     }
   ]
 
   const handleButton = async () => {
-    if (valueFields.email === '' || valueFields.name === '' || valueFields.telephone === '' || valueFields.select === 'checked' || valueFields.textArea === '') {
-      if (valueFields.email === '') {
-        setErrosFields((prev) => ({ ...prev, email: true }))
-      }
-      if (valueFields.telephone === '') {
-        setErrosFields((prev) => ({ ...prev, telephone: true }))
-      }
-      if (valueFields.name === '') {
-        setErrosFields((prev) => ({ ...prev, name: true }))
-      }
-      if (valueFields.select === 'checked') {
-        setErrosFields((prev) => ({ ...prev, select: true }))
-      }
-      if (valueFields.textArea === '') {
-        setErrosFields((prev) => ({ ...prev, textArea: true }))
-      }
+    if (valueFields.email === '') {
+      setErrosFields((prev) => ({ ...prev, email: true }))
+      return
+    }
+    if (valueFields.name === '') {
+      setErrosFields((prev) => ({ ...prev, name: true }))
+      return
+    }
+    if (valueFields.select === 'checked') {
+      setErrosFields((prev) => ({ ...prev, select: true }))
+      return
+    }
+    if (valueFields.textArea === '') {
+      setErrosFields((prev) => ({ ...prev, textArea: true }))
+      return
     }
 
     if (localStorage.getItem('contato')) {
 
       const contato = JSON.parse(localStorage.getItem('contato') as string)
+      setLoading({ loading: true, buttonMsg: 'Enviando...' })
       await postContact(contato)
-
+      setLoading({ loading: false, buttonMsg: 'Enviar' })
+      alert('Mensagem enviada com sucesso!')
+      navigate('/')
     }
 
   }
@@ -173,18 +167,42 @@ const Contato = () => {
           <S.Container className='inputsContainer'>
             <GenericLabel for='subject'>Assunto de Interesse:</GenericLabel>
             <GenericSelect id='subject' aName='subject' onBlur={handleSelect} error={errorFields.select}>
-              <option value="checked" disabled>Selecione</option>
-              <option value="cancelamento">Cancelamento de Reserva</option>
-              <option value="ouvidoria">Ouvidoria</option>
-              <option value="departamento_financeiro">Departamento Financeiro</option>
-              <option value="outros">Outros</option>
+              {
+                [
+                  {
+                    value: 'checked',
+                    disabled: true,
+                    text: 'Selecione'
+                  },
+                  {
+                    value: 'cancelamento',
+                    text: 'Cancelamento de Reserva'
+                  },
+                  {
+                    value: 'ouvidoria',
+                    text: 'Ouvidoria'
+                  },
+                  {
+                    value: 'departamento_financeiro',
+                    text: 'Departamento Financeiro'
+                  },
+                  {
+                    value: 'outros',
+                    text: 'Outros'
+                  }
+                ].map((element, index) => (
+                  <option key={index} value={element.value} disabled={element.disabled}>{element.text}</option>
+                ))
+              }
             </GenericSelect>
           </S.Container>
           <S.Container className='inputsContainer'>
             <GenericLabel for='comentario'>Deixe um comentário:</GenericLabel>
             <TextArea id='comentario' rows={10} onChange={handleTextArea} error={errorFields.textArea} />
           </S.Container>
-          <Button action={handleButton} disabled={(errorFields.email || errorFields.name || errorFields.telephone || errorFields.select || errorFields.textArea)}>Enviar</Button>
+          <Button action={handleButton} disabled={(errorFields.email || loading.loading || errorFields.name || errorFields.select || errorFields.textArea)}>
+            {loading.buttonMsg}
+          </Button>
         </S.FormContainer>
       </S.Wrapper>
     </>

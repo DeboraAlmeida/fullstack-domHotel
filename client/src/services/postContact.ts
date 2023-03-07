@@ -1,12 +1,6 @@
-const postContact = async (payload: any) => {
-    const {name, email, comment, subject} = payload
-    const obj = {
-        name,
-        email,
-        comment,
-        subject
-    }
-    console.log(obj)
+import PayloadContact from "interfaces/payloadContact"
+
+const postContact = async (payload: PayloadContact) => {
     try {
         const response = await fetch(`http://localhost:3002/contato`, {
             method: 'POST', headers: {
@@ -14,12 +8,11 @@ const postContact = async (payload: any) => {
                 'Content-Type': 'application/json',
                 'Connection': 'keep-alive',
                 'Keep-Alive': 'timeout=5',
-            }, body: JSON.stringify(obj) 
+            }, body: JSON.stringify(payload) 
         })
         const result = await response.json()
         return result.data
     } catch (error) {
-        console.error(`post message failed ${error}`)
         return 'Erro ao cadastrar a mensagem de contato!'
     }
 }
