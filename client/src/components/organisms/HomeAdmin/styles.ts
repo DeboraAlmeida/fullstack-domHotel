@@ -1,7 +1,14 @@
+import pallete from 'pallete'
 import styled from 'styled-components'
 
 export const Container = styled.div`
 
+`
+
+export const ContainerLoading = styled.ul`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 export const BoxItens = styled.div`
@@ -41,14 +48,14 @@ export const ContainerReserves = styled.div`
       background-color: rgba(204, 204, 204, 0.12);
       border-radius: 0.5rem;
       box-shadow: 5px 5px 5px #a0a0a0ea;
+      cursor: pointer;
 
       :hover {
-        border-color: #038C33;
-        cursor: pointer;
+        border-color: ${pallete.greenDefault};
       }
 
       ::selection {
-        border-color: #038C33
+        border-color: ${pallete.greenDefault}
      }
     }
 `
@@ -84,14 +91,14 @@ export const ContainerContact = styled.div`
       background-color: rgba(204, 204, 204, 0.12);
       border-radius: 0.5rem;
       box-shadow: 5px 5px 5px #a0a0a0ea;
+      cursor: pointer;
 
       :hover {
-        border-color: #038C33;
-        cursor: pointer;
+        border-color: ${pallete.greenDefault};
       }
 
       :focus {
-        border-color: #038C33
+        border-color: ${pallete.greenDefault}
     }
     }
 `
@@ -106,19 +113,19 @@ export const ContainerTabContact = styled.div`
     width: 100%;
     text-align: center;
     padding: 20px 0px;
-    background-color: #038C33;
+    background-color: ${pallete.greenDefault};
     color: white;
     text-transform: uppercase;
     font-weight: bold;
 
     :hover {
-      background-color: #02732A;
+      background-color: ${pallete.greenDark};
       text-decoration: underline;
       cursor: pointer;
     }
 
     :focus {
-      background-color: #02732A;
+      background-color: ${pallete.greenDark};
       text-decoration: underline;
     }
   }

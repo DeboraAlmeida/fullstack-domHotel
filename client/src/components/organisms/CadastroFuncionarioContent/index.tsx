@@ -1,9 +1,9 @@
+import Button from 'components/atoms/Button'
+import GenericInput from 'components/atoms/GenericInput'
+import GenericLabel from 'components/atoms/GenericLabel'
+import GenericSelect from 'components/atoms/GenericSelect'
+import MiniTitle from 'components/atoms/MiniTitle'
 import React from 'react'
-import Button from '../../atoms/Button'
-import GenericInput from '../../atoms/GenericInput'
-import GenericLabel from '../../atoms/GenericLabel'
-import GenericSelect from '../../atoms/GenericSelect'
-import MiniTitle from '../../atoms/MiniTitle'
 import * as S from './styles'
 
 
@@ -54,8 +54,8 @@ const CadastroFuncionarioContent = (): JSX.Element => {
     }
   ]
 
-  return(
-   <S.Wrapper>
+  return (
+    <S.Wrapper>
       <MiniTitle text={'Cadastrar'} />
       <br />
       <S.ContainerInputSignUp>
@@ -69,16 +69,16 @@ const CadastroFuncionarioContent = (): JSX.Element => {
           }
         </GenericSelect>
       </S.ContainerInputSignUp>
-      
+
       {inputsSignUp.map(element => (
         <S.ContainerInputSignUp key={element.id}>
           <GenericLabel for={element.id}>{element.label}</GenericLabel>
           <GenericInput type={element.type} id={element.id} />
         </ S.ContainerInputSignUp>
       ))}
-      <Button disabled={false} action={()=>{}}>Cadastrar</Button>
-      
-   </S.Wrapper>
+      <Button disabled={false} action={() => { }}>Cadastrar</Button>
+
+    </S.Wrapper>
   )
 }
 

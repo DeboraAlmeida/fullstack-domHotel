@@ -1,7 +1,7 @@
 import getIdToken from "utils/getIdToken"
 
 const postReserve = async (payload: any) => {
-    const {userData, moreService, reserva} = payload
+    const { userData, moreService, reserva } = payload
     const obj = {
         userData,
         reserva,
@@ -15,7 +15,7 @@ const postReserve = async (payload: any) => {
                 'Connection': 'keep-alive',
                 'Keep-Alive': 'timeout=5',
                 'Authorization': `Bearer ${getIdToken('admin')}`
-            }, body: JSON.stringify(obj) 
+            }, body: JSON.stringify(obj)
         })
         const result = await response.json()
         return result.data

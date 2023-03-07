@@ -38,8 +38,8 @@ export const ImageContainer = styled.div`
     gap: 50px;
     
     img {
-    width: 80%;
-  }
+      width: 80%;
+    }
   }
 `
 

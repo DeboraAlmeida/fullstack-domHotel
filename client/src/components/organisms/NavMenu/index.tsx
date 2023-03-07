@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import React from 'react'
 import * as S from './styles.js'
 
@@ -18,10 +17,6 @@ const NavMenu = ({ setStage }: Props) => {
       <S.MenuItem onClick={() => changeStage('components')}>Components</S.MenuItem>
     </S.Menu>
   )
-}
-
-NavMenu.propTypes = {
-  setStage: PropTypes.func.isRequired
 }
 
 export default NavMenu

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import React from 'react'
 import * as S from './style'
 
@@ -10,14 +9,8 @@ interface Props {
 
 const ImageDefault = ({ src, altText, onClick }: Props) => {
   return (
-    <S.Image src={src} alt={altText} onClick={onClick}/>
+    <S.Image src={src} alt={altText} onClick={onClick} />
   )
 }
-
-ImageDefault.propTypes = {
-  src: PropTypes.node,
-  altText: PropTypes.node
-}
-
 
 export default ImageDefault

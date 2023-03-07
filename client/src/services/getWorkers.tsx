@@ -1,3 +1,5 @@
+import getIdToken from "utils/getIdToken"
+
 const getWorkers = async () => {
     try {
         const response = await fetch(`http://localhost:3002/funcionarios`, {
@@ -6,6 +8,7 @@ const getWorkers = async () => {
                 'Content-Type': 'application/json',
                 'Connection': 'keep-alive',
                 'Keep-Alive': 'timeout=5',
+                'Authorization': `Bearer ${getIdToken('admin')}`
             }
         })
         const result = await response.json()
