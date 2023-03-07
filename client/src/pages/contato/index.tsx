@@ -9,7 +9,7 @@ import TextArea from 'components/atoms/TextArea'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import postContact from 'services/postContact'
-import { validateEmail, validateName, validateNumber } from 'utils/validateFields'
+import { validateEmail, validateName } from 'utils/validateFields'
 import * as S from './styles'
 
 const Contato = () => {
@@ -29,7 +29,6 @@ const Contato = () => {
     {
       email: '',
       name: '',
-      telephone: '',
       select: 'checked',
       textArea: ''
     }
@@ -38,7 +37,6 @@ const Contato = () => {
     {
       email: false,
       name: false,
-      telephone: false,
       select: false,
       textArea: false
     }
@@ -62,15 +60,6 @@ const Contato = () => {
     }
     setErrosFields((prev) => ({ ...prev, name: false }))
     setPayload((prev) => ({ ...prev, name: value }))
-  }
-
-  const handleTelephone = (value: string) => {
-    setValueFields((prev) => ({ ...prev, telephone: value }))
-    if (validateNumber(valueFields.telephone)) {
-      setErrosFields((prev) => ({ ...prev, telephone: true }))
-      return
-    }
-    setErrosFields((prev) => ({ ...prev, telephone: false }))
   }
 
   const handleSelect = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -109,24 +98,13 @@ const Contato = () => {
       model: errorFields.email,
       valueId: 'email',
       type: 'email'
-    },
-    {
-      id: 'telephone-contact',
-      label: 'Telefone:',
-      method: handleTelephone,
-      model: errorFields.telephone,
-      valueId: 'telephone',
-      type: 'tel'
     }
   ]
 
   const handleButton = async () => {
-    if (valueFields.email === '' || valueFields.name === '' || valueFields.telephone === '' || valueFields.select === 'checked' || valueFields.textArea === '') {
+    if (valueFields.email === '' || valueFields.name === '' || valueFields.select === 'checked' || valueFields.textArea === '') {
       if (valueFields.email === '') {
         setErrosFields((prev) => ({ ...prev, email: true }))
-      }
-      if (valueFields.telephone === '') {
-        setErrosFields((prev) => ({ ...prev, telephone: true }))
       }
       if (valueFields.name === '') {
         setErrosFields((prev) => ({ ...prev, name: true }))
@@ -173,18 +151,40 @@ const Contato = () => {
           <S.Container className='inputsContainer'>
             <GenericLabel for='subject'>Assunto de Interesse:</GenericLabel>
             <GenericSelect id='subject' aName='subject' onBlur={handleSelect} error={errorFields.select}>
-              <option value="checked" disabled>Selecione</option>
-              <option value="cancelamento">Cancelamento de Reserva</option>
-              <option value="ouvidoria">Ouvidoria</option>
-              <option value="departamento_financeiro">Departamento Financeiro</option>
-              <option value="outros">Outros</option>
+              {
+                [
+                  {
+                    value: 'checked',
+                    disabled: true,
+                    text: 'Selecione'
+                  },
+                  {
+                    value: 'cancelamento',
+                    text: 'Cancelamento de Reserva'
+                  },
+                  {
+                    value: 'ouvidoria',
+                    text: 'Ouvidoria'
+                  },
+                  {
+                    value: 'departamento_financeiro',
+                    text: 'Departamento Financeiro'
+                  },
+                  {
+                    value: 'outros',
+                    text: 'Outros'
+                  }
+                ].map((element, index) => (
+                  <option key={index} value={element.value} disabled={element.disabled}>{element.text}</option>
+                ))
+              }
             </GenericSelect>
           </S.Container>
           <S.Container className='inputsContainer'>
             <GenericLabel for='comentario'>Deixe um comentário:</GenericLabel>
             <TextArea id='comentario' rows={10} onChange={handleTextArea} error={errorFields.textArea} />
           </S.Container>
-          <Button action={handleButton} disabled={(errorFields.email || errorFields.name || errorFields.telephone || errorFields.select || errorFields.textArea)}>Enviar</Button>
+          <Button action={handleButton} disabled={(errorFields.email || errorFields.name || errorFields.select || errorFields.textArea)}>Enviar</Button>
         </S.FormContainer>
       </S.Wrapper>
     </>
