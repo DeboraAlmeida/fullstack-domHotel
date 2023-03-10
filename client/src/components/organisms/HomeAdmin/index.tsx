@@ -1,15 +1,21 @@
 // Arquivo criado: 19/01/2023 às 15:52
+import Button from "components/atoms/Button"
+import GenericInput from "components/atoms/GenericInput"
 import GenericLabel from "components/atoms/GenericLabel"
+import Modal from "components/atoms/Modal"
 import PrincipalTitle from "components/atoms/PrincipalTitle"
 import SubTitle from "components/atoms/SubTitle"
+import TextArea from "components/atoms/TextArea"
+import ContactStatus from "enums/ContactStatus"
 import PayloadContact from "interfaces/payloadContact"
+import pallete from "pallete"
 import React, { useEffect, useState } from "react"
+import { FaCheck, FaCopy } from "react-icons/fa"
 import getMonthReserves from "services/getMonthReserves"
 import getThisMonthContacts from "services/getThisMonthContacts"
 import getTotalReserves from "services/getTotalReserves"
 import getTotalUsers from "services/getTotalUsers"
 import getTotalWorkers from "services/getTotalWorkers"
-import dataFormatter from "utils/dataFormatter"
 import CommentArea from "../CommentArea"
 import * as S from "./styles"
 
@@ -26,6 +32,9 @@ const HomeAdmin = ({ setPage }: Props) => {
   const [loading, setLoading] = useState(true)
   const [contacts, setContacts] = useState<PayloadContact[]>([])
   const [seeTodayContacts, setSeeTodayContacts] = useState(true)
+  const [showModal, setShowModal] = useState(false)
+  const [selectedContact, setSelectedContact] = useState<PayloadContact>({} as PayloadContact)
+  const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     const getActiveUsers = async () => {
@@ -129,75 +138,127 @@ const HomeAdmin = ({ setPage }: Props) => {
     }
   }
 
+  const handleContactClick = (contact: PayloadContact) => {
+    setSelectedContact(contact)
+    setShowModal(true)
+  }
 
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
-    <S.Container>
-      <PrincipalTitle>DOM Hotel</PrincipalTitle>
-      <S.BoxItens>
-        <S.ContainerReserves>
-          <GenericLabel for='metrics'>Métricas</GenericLabel>
-          {
-            loading
-              ? (
+    <>
+      <S.Container>
+        <PrincipalTitle>DOM Hotel</PrincipalTitle>
+        <S.BoxItens>
+          <S.ContainerReserves>
+            <GenericLabel for='metrics'>Métricas</GenericLabel>
+            {
+              loading
+                ? (
+                  <S.ContainerLoading>
+                    Carregando...
+                  </S.ContainerLoading>
+                )
+                : (
+                  <ul>
+                    {metrics.map((metric, index) => (
+                      <li title={metric.descricaoClick} onClick={metric.action} key={index} value={metric.id}>
+                        <SubTitle>{metric.name}</SubTitle>
+                        <span>{metric.text}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )
+            }
+          </S.ContainerReserves>
+          <S.ContainerContact>
+            <GenericLabel for='contact'>Informações de Contato</GenericLabel>
+            <S.ContainerTabContact>
+              <S.SpanTipoContact selected={seeTodayContacts} onClick={() => setSeeTodayContacts(true)}>Hoje</S.SpanTipoContact>
+              <S.SpanTipoContact selected={!seeTodayContacts} onClick={() => setSeeTodayContacts(false)}>Último mês</S.SpanTipoContact>
+            </S.ContainerTabContact>
+            <ul>
+              {contacts.length === 0 && (
                 <S.ContainerLoading>
-                  Carregando...
+                  {loading ? 'Carregando...' : 'Ainda não há contatos'}
                 </S.ContainerLoading>
-              )
-              : (
-                <ul>
-                  {metrics.map((metric, index) => (
-                    <li title={metric.descricaoClick} onClick={metric.action} key={index} value={metric.id}>
-                      <SubTitle>{metric.name}</SubTitle>
-                      <span>{metric.text}</span>
-                    </li>
-                  ))}
-                </ul>
-              )
-          }
-        </S.ContainerReserves>
-        <S.ContainerContact>
-          <GenericLabel for='contact'>Informações de Contato</GenericLabel>
-          <S.ContainerTabContact>
-            <S.SpanTipoContact selected={seeTodayContacts} onClick={() => setSeeTodayContacts(true)}>Hoje</S.SpanTipoContact>
-            <S.SpanTipoContact selected={!seeTodayContacts} onClick={() => setSeeTodayContacts(false)}>Último mês</S.SpanTipoContact>
-          </S.ContainerTabContact>
-          <ul>
-            {contacts.length === 0 && (
-              <S.ContainerLoading>
-                {loading ? 'Carregando...' : 'Ainda não há contatos'}
-              </S.ContainerLoading>
-            )}
-            {/* repeti o componente porq ia ficar uma condicional muito complexa. Ao meu ver sem necessídade. */}
-            {getContacts(seeTodayContacts).length === 0 && !loading && (
-              <S.ContainerLoading>
-                Nada encontrado para {seeTodayContacts ? 'hoje' : 'este mês'}
-              </S.ContainerLoading>
-            )}
-            {getContacts(seeTodayContacts).map((contact, index) => {
+              )}
+              {/* repeti o componente porq ia ficar uma condicional muito complexa. Ao meu ver sem necessídade. */}
+              {getContacts(seeTodayContacts).length === 0 && !loading && (
+                <S.ContainerLoading>
+                  Nada encontrado para {seeTodayContacts ? 'hoje' : 'este mês'}
+                </S.ContainerLoading>
+              )}
+              {getContacts(seeTodayContacts).map((contact, index) => {
 
-              const comment = `${contact.comment.slice(0, 30)}...`
+                const comment = `${contact.comment.slice(0, 30)}...`
 
-              return (
-                <CommentArea
-                  key={index}
-                  comment={comment.toLowerCase()}
-                  name={contact.name.toLowerCase()}
-                  button={
-                    <S.TypeInfoContactSingle>
-                      {
-                        seeTodayContacts
-                          ? filterTypeContact(contact.subject)
-                          : dataFormatter(contact.createdAt)
-                      }
-                    </S.TypeInfoContactSingle>}
-                />
-              )
-            })}
-          </ul>
-        </S.ContainerContact>
-      </S.BoxItens>
-    </S.Container>
+                const color = () => {
+                  switch (contact.status) {
+                    case 0:
+                      return pallete.error
+                    case 1:
+                      return pallete.gold
+                    case 2:
+                      return pallete.greenDefault
+                    default:
+                      return pallete.gold
+                  }
+                }
+
+                return (
+                  <CommentArea
+                    key={index}
+                    onClick={() => handleContactClick(contact)}
+                    comment={comment.toLowerCase()}
+                    name={contact.name.toLowerCase()}
+                    button={
+                      <Button
+                        backgroundColor={color()}
+                        hoverColor={color()}
+                        paddingVertical='3px'
+                        paddingHorizontal='5px'>
+                        {ContactStatus[contact.status]}
+                      </Button>
+                    }
+                  />
+                )
+              })}
+            </ul>
+          </S.ContainerContact>
+        </S.BoxItens>
+      </S.Container>
+
+      <Modal isOpen={showModal} setIsOpen={setShowModal} >
+        <SubTitle>{ContactStatus[selectedContact.status]}</SubTitle>
+        <S.ContainerModalInfos>
+          <div className="-boxInput">
+            <GenericLabel for="email" >
+              <div className="-boxInput-spanContent">
+                <span>Email:</span>
+                {
+                  copied
+                    ? <FaCheck />
+                    : <FaCopy title="Copiar email" onClick={() => copyToClipboard(selectedContact.email)} />
+                }
+              </div>
+              <GenericInput value={selectedContact.email} disabled id="email" type="email" />
+            </GenericLabel>
+          </div>
+          <div className="-boxInput">
+            <GenericLabel for="mensagem" >
+              Mensagem:
+              <TextArea disabled defaultValue={selectedContact.comment} />
+            </GenericLabel>
+          </div>
+
+        </S.ContainerModalInfos>
+      </Modal>
+    </>
   )
 }
 
