@@ -1,8 +1,8 @@
-import React, { ChangeEvent, FocusEvent, MouseEvent } from 'react'
+import React, { ChangeEvent, FocusEvent, HTMLInputTypeAttribute, MouseEvent } from 'react'
 import * as S from './styles'
 
 interface Props {
-  type: string
+  type: HTMLInputTypeAttribute
   placeholder?: string
   id?: string
   aName?: string
@@ -13,6 +13,7 @@ interface Props {
   onBlur?: (event: FocusEvent<HTMLInputElement>) => void
   error?: boolean
   value?: string
+  disabled?: boolean
 }
 
 const GenericInput = ({
@@ -26,13 +27,15 @@ const GenericInput = ({
   onClick,
   onBlur,
   error = false,
-  value
+  value,
+  disabled = false,
 }: Props) => (
   <S.InputTypes
     type={type}
     placeholder={placeholder}
     id={id}
     name={aName}
+    disabled={disabled}
     max={max}
     min={min}
     onChange={onChange}
