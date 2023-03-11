@@ -40,7 +40,7 @@ const Carousel = () => {
   return (
     <S.ContainerCarousel>
       <BoxImage>
-        <ImageDefault src={images[currentIndex]} alt={`Image ${currentIndex}`}></ImageDefault>
+        <ImageDefault src={images[currentIndex]} altText={`Image ${currentIndex}`}></ImageDefault>
       </BoxImage>
       <S.BtnCarousel><SlArrowLeft onClick={handleClickNext}></SlArrowLeft></S.BtnCarousel>
       <S.BtnCarousel2><SlArrowRight onClick={handleClickPrevious}></SlArrowRight></S.BtnCarousel2>
