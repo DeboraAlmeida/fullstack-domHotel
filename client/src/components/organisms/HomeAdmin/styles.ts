@@ -18,6 +18,12 @@ export const ContainerLoading = styled.ul`
 export const BoxItens = styled.div`
   display: flex;
   justify-content: space-around;
+
+  @media screen and (max-width: 800px) {    
+      flex-direction: column;
+      align-items: center;
+      gap: 40px 0px;
+  }
 `
 
 export const ContainerReserves = styled.div`

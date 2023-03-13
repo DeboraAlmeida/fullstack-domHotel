@@ -57,12 +57,16 @@ const FuncionariosAdmin = (): JSX.Element => {
     }
   }
 
+  const typeEmployee = JSON.parse(sessionStorage.getItem('isLoggedAdmin') as string).id_office
+  
   return (
     <> 
-      <S.header onClick={handleOpenModal}>
-        <p>Adicionar Novo</p>
-        <FaPlus title='Adicionar Funcionário' color={pallete.greenDark} />
-      </S.header>   
+    {typeEmployee == 1 && (
+       <S.header onClick={handleOpenModal}>
+       <p>Adicionar Novo</p>
+       <FaPlus title='Adicionar Funcionário' color={pallete.greenDark} />
+     </S.header>   
+    )}    
     
      <ContainerLayoutAdmin>
         <S.ContentContainer> 
