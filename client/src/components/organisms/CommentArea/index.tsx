@@ -9,11 +9,12 @@ interface Props {
   star?: number
   comment: string | JSX.Element
   button?: JSX.Element
+  onClick?: () => void
 }
 
-const CommentArea = ({ name, star, comment, button }: Props) => {
+const CommentArea = ({ name, star, comment, button, onClick }: Props) => {
   return (
-    <S.Wrapper>
+    <S.Wrapper onClick={onClick}>
       <S.NameContainer>
         <SubTitle>{name}</SubTitle>
         {star ? <Stars level={star} /> : button}

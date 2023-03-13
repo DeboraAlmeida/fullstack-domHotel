@@ -8,6 +8,7 @@ import Navbar from 'components/atoms/NavBar'
 import React, { useEffect, useState } from 'react'
 import LoginContent from '../LoginContent'
 import MobileNav from '../mobileNav'
+import ModalUserInfos from '../ModalUserInfos'
 import * as S from './styles'
 
 export const Header = ({ forcedLogin }: any) => {
@@ -15,6 +16,7 @@ export const Header = ({ forcedLogin }: any) => {
   const [isLogged, setIsLogged] = useState(false)
   const [loggedName, setLoggedName] = useState('')
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768)
+  const [showModalUserInfos, setShowModalUserInfos] = useState(false)
 
   useEffect(() => {
 
@@ -53,46 +55,52 @@ export const Header = ({ forcedLogin }: any) => {
 
 
   return (
-    <S.Header>
-      <div className='-body'>
-        <div className='-body-left'>
-          <div className='-body-left-img'>
-            <ImageDefault src={logo} altText={'Logo DOM Hotel'} />
+    <>
+      <S.Header>
+        <div className='-body'>
+          <div className='-body-left'>
+            <div className='-body-left-img'>
+              <ImageDefault src={logo} altText={'Logo DOM Hotel'} />
+            </div>
+            <h3>Para viver momentos inesquecíves</h3>
           </div>
-          <h3>Para viver momentos inesquecíves</h3>
+          {isDesktop
+            ? <div className='-body-right'>
+              {isLogged && (
+                <>
+                  <Anchor action={() => setShowModalUserInfos(true)} href='#' msg={`Olá ${loggedName}`} />
+                  <Anchor action={handleLogout} msg='Sair' />
+                </>
+              )}
+              {!isLogged && (
+                <Button action={() => setShowModal(true)}
+                  paddingHorizontal="10px"
+                  paddingVertical="10px"
+                  className="-body-right-button"
+                >ENTRAR</Button>
+              )}
+            </div>
+            : <MobileNav
+              openLoginModal={setShowModal}
+              setIsLogged={setIsLogged}
+              isLogged={isLogged}
+            />
+          }
         </div>
-        {isDesktop
-          ? <div className='-body-right'>
-            {isLogged && (
-              <>
-                <Anchor href='#' msg={`Olá ${loggedName}`} />
-                <Anchor action={handleLogout} msg='Sair' />
-              </>
-            )}
-            {!isLogged && (
-              <Button action={() => setShowModal(true)}
-                paddingHorizontal="10px"
-                paddingVertical="10px"
-                className="-body-right-button"
-              >ENTRAR</Button>
-            )}
+        <div className='-navbar'>
+          <div>
+            {isDesktop && <Navbar />}
           </div>
-          : <MobileNav
-            openLoginModal={setShowModal}
-            setIsLogged={setIsLogged}
-            isLogged={isLogged}
-          />
-        }
-      </div>
-      <div className='-navbar'>
-        <div>
-          {isDesktop && <Navbar />}
         </div>
-      </div>
-      <Modal isOpen={showModal} setIsOpen={setShowModal}>
-        <LoginContent type={'sign-in'} setIsLogged={setIsLogged} setLoggedName={setLoggedName} />
+        <Modal isOpen={showModal} setIsOpen={setShowModal}>
+          <LoginContent type={'sign-in'} setIsLogged={setIsLogged} setLoggedName={setLoggedName} />
+        </Modal>
+      </S.Header>
+
+      <Modal isOpen={showModalUserInfos} setIsOpen={setShowModalUserInfos}>
+        <ModalUserInfos />
       </Modal>
-    </S.Header>
+    </>
   )
 
 }
