@@ -10,13 +10,14 @@ import TextArea from "components/atoms/TextArea"
 import ContactStatus from "enums/ContactStatus"
 import PayloadContact from "interfaces/payloadContact"
 import pallete from "pallete"
-import React, { useEffect, useState } from "react"
+import React, { ChangeEvent, useEffect, useState } from "react"
 import { FaCheck, FaCopy } from "react-icons/fa"
 import getMonthReserves from "services/getMonthReserves"
 import getThisMonthContacts from "services/getThisMonthContacts"
 import getTotalReserves from "services/getTotalReserves"
 import getTotalUsers from "services/getTotalUsers"
 import getTotalWorkers from "services/getTotalWorkers"
+import backEnd from "utils/backEnd"
 import CommentArea from "../CommentArea"
 import * as S from "./styles"
 
@@ -133,6 +134,40 @@ const HomeAdmin = ({ setPage }: Props) => {
     setTimeout(() => setCopied(false), 2000)
   }
 
+  const handleChangeContactStatus = async (e: ChangeEvent<HTMLSelectElement>) => {
+
+    const value = parseInt(e.target.value)
+
+    if (value === 0 || value === 1 || value === 2) {
+
+      // mudando no title do modal
+      setSelectedContact({ ...selectedContact, status: value })
+
+      // mudando no array de contatos
+      const newContacts = contacts.map(val => {
+        if (val.id === selectedContact.id) {
+          val.status = value
+        }
+        return val
+      })
+
+      setContacts(newContacts)
+
+      const body = {
+        status: value,
+        id: selectedContact.id
+      }
+
+      try {
+        await backEnd('/contato', 'PUT', 'admin', body)
+      } catch (err) {
+        alert(err)
+      }
+    }
+
+
+  }
+
   return (
     <>
       <S.Container>
@@ -224,10 +259,16 @@ const HomeAdmin = ({ setPage }: Props) => {
           <div className="-boxInput">
             <GenericLabel for="status" >
               <span>Status:</span>
-              <GenericSelect defaultValue={selectedContact.status} aName="status" id="status">
-                <option value="0">Pendente</option>
-                <option value="1">Em Andamento</option>
-                <option value="2">Concluído</option>
+              <GenericSelect onChange={handleChangeContactStatus} defaultValue={selectedContact.status} aName="status" id="status">
+                {
+                  [
+                    { value: 0, text: 'Pendente' },
+                    { value: 1, text: 'Em andamento' },
+                    { value: 2, text: 'Concluído' }
+                  ].map(option => (
+                    <option key={option.value} value={option.value}>{option.text}</option>
+                  ))
+                }
               </GenericSelect>
             </GenericLabel>
           </div>
