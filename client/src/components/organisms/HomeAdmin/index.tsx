@@ -2,6 +2,7 @@
 import Button from "components/atoms/Button"
 import GenericInput from "components/atoms/GenericInput"
 import GenericLabel from "components/atoms/GenericLabel"
+import GenericSelect from "components/atoms/GenericSelect"
 import Modal from "components/atoms/Modal"
 import PrincipalTitle from "components/atoms/PrincipalTitle"
 import SubTitle from "components/atoms/SubTitle"
@@ -121,23 +122,6 @@ const HomeAdmin = ({ setPage }: Props) => {
 
   ]
 
-  const filterTypeContact = (type: string) => {
-    switch (type) {
-      case 'sugestao':
-        return 'Sugestão'
-      case 'cancelamento':
-        return 'Cancelamento'
-      case 'ouvidoria':
-        return 'Ouvidoria'
-      case 'departamento_financeiro':
-        return 'D. Financeiro'
-      case 'outros':
-        return 'Outros'
-      default:
-        return 'Outros'
-    }
-  }
-
   const handleContactClick = (contact: PayloadContact) => {
     setSelectedContact(contact)
     setShowModal(true)
@@ -236,6 +220,18 @@ const HomeAdmin = ({ setPage }: Props) => {
       <Modal isOpen={showModal} setIsOpen={setShowModal} >
         <SubTitle>{ContactStatus[selectedContact.status]}</SubTitle>
         <S.ContainerModalInfos>
+
+          <div className="-boxInput">
+            <GenericLabel for="status" >
+              <span>Status:</span>
+              <GenericSelect defaultValue={selectedContact.status} aName="status" id="status">
+                <option value="0">Pendente</option>
+                <option value="1">Em Andamento</option>
+                <option value="2">Concluído</option>
+              </GenericSelect>
+            </GenericLabel>
+          </div>
+
           <div className="-boxInput">
             <GenericLabel for="email" >
               <div className="-boxInput-spanContent">
@@ -251,10 +247,12 @@ const HomeAdmin = ({ setPage }: Props) => {
           </div>
           <div className="-boxInput">
             <GenericLabel for="mensagem" >
-              Mensagem:
+              <span>Mensagem:</span>
               <TextArea disabled defaultValue={selectedContact.comment} />
             </GenericLabel>
           </div>
+
+
 
         </S.ContainerModalInfos>
       </Modal>
