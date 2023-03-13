@@ -10,7 +10,7 @@ router
   .get('/reservas/:id', validateToken(true), ReservasController.getReserveById)
   .get('/reservas-ativas', validateToken(true), ReservasController.getActiveReserves)
   .get('/reservas-ativas-total', validateToken(true), ReservasController.getReservesNumber)
-  .post('/reserva', validateToken(true), ReservasController.postReserve)
+  .post('/reserva', validateToken(false), ReservasController.postReserve)
   .put('/reservas/:id', decrypt, validateToken(true), ReservasController.updateStatusReserve)
   .get('/reservas-pela-data/:startDate/:endDate', validateToken(true), ReservasController.searchByDates)
 

@@ -14,7 +14,7 @@ const postReserve = async (payload: any) => {
                 'Content-Type': 'application/json',
                 'Connection': 'keep-alive',
                 'Keep-Alive': 'timeout=5',
-                'Authorization': `Bearer ${getIdToken('admin')}`
+                'Authorization': `Bearer ${getIdToken('user')}`
             }, body: JSON.stringify(obj)
         })
         const result = await response.json()
