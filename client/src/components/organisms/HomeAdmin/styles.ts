@@ -159,12 +159,20 @@ export const SpanTipoContact = styled.span<ISpanTipoContact>`
 `
 
 export const ContainerModalInfos = styled.div`
-  margin-top: 10px;
+  margin-top: 20px;
 
   .-boxInput{
 
+    select{
+      margin-bottom: 10px;
+    }
+
     label{
       cursor: default;
+    }
+
+    select{
+      cursor: pointer;
     }
 
     &-spanContent{

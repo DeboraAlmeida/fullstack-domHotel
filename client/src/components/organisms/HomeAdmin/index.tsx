@@ -2,6 +2,7 @@
 import Button from "components/atoms/Button"
 import GenericInput from "components/atoms/GenericInput"
 import GenericLabel from "components/atoms/GenericLabel"
+import GenericSelect from "components/atoms/GenericSelect"
 import Modal from "components/atoms/Modal"
 import PrincipalTitle from "components/atoms/PrincipalTitle"
 import SubTitle from "components/atoms/SubTitle"
@@ -9,13 +10,14 @@ import TextArea from "components/atoms/TextArea"
 import ContactStatus from "enums/ContactStatus"
 import PayloadContact from "interfaces/payloadContact"
 import pallete from "pallete"
-import React, { useEffect, useState } from "react"
+import React, { ChangeEvent, useEffect, useState } from "react"
 import { FaCheck, FaCopy } from "react-icons/fa"
 import getMonthReserves from "services/getMonthReserves"
 import getThisMonthContacts from "services/getThisMonthContacts"
 import getTotalReserves from "services/getTotalReserves"
 import getTotalUsers from "services/getTotalUsers"
 import getTotalWorkers from "services/getTotalWorkers"
+import backEnd from "utils/backEnd"
 import CommentArea from "../CommentArea"
 import * as S from "./styles"
 
@@ -121,23 +123,6 @@ const HomeAdmin = ({ setPage }: Props) => {
 
   ]
 
-  const filterTypeContact = (type: string) => {
-    switch (type) {
-      case 'sugestao':
-        return 'Sugestão'
-      case 'cancelamento':
-        return 'Cancelamento'
-      case 'ouvidoria':
-        return 'Ouvidoria'
-      case 'departamento_financeiro':
-        return 'D. Financeiro'
-      case 'outros':
-        return 'Outros'
-      default:
-        return 'Outros'
-    }
-  }
-
   const handleContactClick = (contact: PayloadContact) => {
     setSelectedContact(contact)
     setShowModal(true)
@@ -147,6 +132,40 @@ const HomeAdmin = ({ setPage }: Props) => {
     navigator.clipboard.writeText(text)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
+  }
+
+  const handleChangeContactStatus = async (e: ChangeEvent<HTMLSelectElement>) => {
+
+    const value = parseInt(e.target.value)
+
+    if (value === 0 || value === 1 || value === 2) {
+
+      // mudando no title do modal
+      setSelectedContact({ ...selectedContact, status: value })
+
+      // mudando no array de contatos
+      const newContacts = contacts.map(val => {
+        if (val.id === selectedContact.id) {
+          val.status = value
+        }
+        return val
+      })
+
+      setContacts(newContacts)
+
+      const body = {
+        status: value,
+        id: selectedContact.id
+      }
+
+      try {
+        await backEnd('/contato', 'PUT', 'admin', body)
+      } catch (err) {
+        alert(err)
+      }
+    }
+
+
   }
 
   return (
@@ -236,6 +255,24 @@ const HomeAdmin = ({ setPage }: Props) => {
       <Modal isOpen={showModal} setIsOpen={setShowModal} >
         <SubTitle>{ContactStatus[selectedContact.status]}</SubTitle>
         <S.ContainerModalInfos>
+
+          <div className="-boxInput">
+            <GenericLabel for="status" >
+              <span>Status:</span>
+              <GenericSelect onChange={handleChangeContactStatus} defaultValue={selectedContact.status} aName="status" id="status">
+                {
+                  [
+                    { value: 0, text: 'Pendente' },
+                    { value: 1, text: 'Em andamento' },
+                    { value: 2, text: 'Concluído' }
+                  ].map(option => (
+                    <option key={option.value} value={option.value}>{option.text}</option>
+                  ))
+                }
+              </GenericSelect>
+            </GenericLabel>
+          </div>
+
           <div className="-boxInput">
             <GenericLabel for="email" >
               <div className="-boxInput-spanContent">
@@ -251,10 +288,12 @@ const HomeAdmin = ({ setPage }: Props) => {
           </div>
           <div className="-boxInput">
             <GenericLabel for="mensagem" >
-              Mensagem:
+              <span>Mensagem:</span>
               <TextArea disabled defaultValue={selectedContact.comment} />
             </GenericLabel>
           </div>
+
+
 
         </S.ContainerModalInfos>
       </Modal>

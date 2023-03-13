@@ -42,4 +42,23 @@ export default class ContatoController {
 
   }
 
+  static updateContato = (req, res) => {
+    const payload = req.body
+
+    sqlDB.query('UPDATE `contact` SET status = ? WHERE id = ?', [payload.status, payload.id], err => {
+      if (err) {
+        res.status(500).send({
+          status: 500,
+          message: err.message
+        })
+        return
+      }
+
+      res.status(200).json({
+        status: 200,
+        msg: 'Status de contato atualizado com sucesso!'
+      })
+    })
+  }
+
 }
