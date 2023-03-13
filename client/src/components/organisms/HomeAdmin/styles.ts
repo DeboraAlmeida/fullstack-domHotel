@@ -87,6 +87,14 @@ export const ContainerContact = styled.div`
       height: 90%;
       max-height: 365px;
       overflow-y: auto;
+
+      >div{
+        cursor: pointer;
+
+        button{
+          font-size: 9px;
+        }
+      }
       
       h2{
         font-size: 20px;
@@ -150,7 +158,32 @@ export const SpanTipoContact = styled.span<ISpanTipoContact>`
   background-color: ${props => props.selected ? pallete.greenDark : pallete.greenDefault};
 `
 
-export const TypeInfoContactSingle = styled.small`
-  font-size: 11px;
-  color: ${pallete.greenDark};
+export const ContainerModalInfos = styled.div`
+  margin-top: 20px;
+
+  .-boxInput{
+
+    select{
+      margin-bottom: 10px;
+    }
+
+    label{
+      cursor: default;
+    }
+
+    select{
+      cursor: pointer;
+    }
+
+    &-spanContent{
+      display: flex;
+      align-items: center;
+
+      svg{
+        font-size: 12px;
+        margin-left: 5px;
+        cursor: pointer;
+      }
+    }
+  }
 `

@@ -8,11 +8,12 @@ interface Props {
   onChange?: (event: FocusEvent<HTMLSelectElement>) => void
   error?: boolean
   children: ReactNode
+  defaultValue?: string | number
 }
 
-const GenericSelect = ({ id, aName, children, onBlur, onChange, error = false }: Props) => {
+const GenericSelect = ({ id, aName, children, onBlur, onChange, error = false, defaultValue = 'checked' }: Props) => {
   return (
-        <S.SelectInput defaultValue={'checked'} id={id} name={aName} onBlur={onBlur} onChange={onChange} errorField={error}>
+    <S.SelectInput defaultValue={defaultValue} id={id} name={aName} onBlur={onBlur} onChange={onChange} errorField={error}>
             { children }
         </S.SelectInput>
 
