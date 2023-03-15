@@ -12,7 +12,6 @@ router
   .get('/funcionariosInativos', validateToken(true), FuncionariosController.getInactiveWorkers)
   .post('/funcionariosCadastro', validateToken(true), FuncionariosController.postNewWorkers)
   .put('/funcionariosAtualiza', validateToken(true), FuncionariosController.updateWorkers)
-  // .get('/funcionarios/Ativos',validateToken(true), FuncionariosController.getWorkersActived)
   .get('/funcionarios-ativos-total', validateToken(true), FuncionariosController.getWorkersNumber)
 
 export default router
