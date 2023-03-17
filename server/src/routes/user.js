@@ -8,5 +8,6 @@ const router = express.Router()
 
 router.get('/active-user', validateToken(true), UserController.getUsersNumber)
 router.post('/forgot-password', decrypt, UserController.createForgotPasswordLinkAndSend)
+router.post('/update-user/:id', decrypt, UserController.updateUser)
 
 export default router
