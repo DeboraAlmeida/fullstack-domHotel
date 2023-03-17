@@ -8,17 +8,11 @@ const sendEmail = (to, subject, text) => {
     from: process.env.EMAIL_USER,
     to,
     subject,
-    text
+    html: text
   }
 
 
-  transporter.sendMail(emailOptions, (error, info) => {
-    if (error) {
-      console.log(error)
-    } else {
-      console.log(`Email enviado: ${info.response}`)
-    }
-  })
+  transporter.sendMail(emailOptions)
 
 }
 
