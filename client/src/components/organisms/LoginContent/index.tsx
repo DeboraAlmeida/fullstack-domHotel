@@ -180,7 +180,7 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }: Props) => {
 
     await backEnd('/forgot-password', 'POST', false, { email }).then(res => {
       if (res.status === 200) {
-        handleShowMessage('E-mail enviado com sucesso')
+        handleShowMessage('Enviamos um e-mail para você com as instruções para redefinir sua senha')
       } else {
         handleShowMessage(res.message)
       }

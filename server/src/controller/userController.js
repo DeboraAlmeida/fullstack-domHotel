@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 import sqlDB from '../app/mysql.js'
 import createToken from '../utils/createToken.js'
 import sendEmail from '../utils/sendEmail.js'
-import validateEmail from '../utils/validateEmail.js'
 import validateName from '../utils/validateName.js'
 import validatePassword from '../utils/validatePassword.js'
 
@@ -87,22 +87,11 @@ class UserController {
 
   // vai ter q fazer dois. um para atualizar só o nome e outro para atualizar a senha. tanto aqui quanto la nas rotas.
   static updateUser = (req, res) => {
-    const { email, password, name } = req.body
+    const { name } = req.body
     const { id } = req.params
-    const changePass = req.query.changePass !== undefined
 
-    if (!email || !name) {
+    if (!name) {
       res.status(400).json({ status: 400, message: 'Invalid request' })
-      return
-    }
-
-    if (!changePass && !password) {
-      res.status(400).json({ status: 400, message: 'Invalid request' })
-      return
-    }
-
-    if (!validateEmail(email)) {
-      res.status(400).json({ status: 400, message: 'Email inválido. O email deve ter o formato: exemplo@gmail.com' })
       return
     }
 
@@ -111,22 +100,7 @@ class UserController {
       return
     }
 
-    if (!validatePassword(password) && changePass) {
-      res.status(400).json({ status: 400, message: 'Senha inválida. A senha deve ter no mínimo 6 caracteres, 1 número e 1 caractere especial' })
-      return
-    }
-
-    const encryptedPassword = bcrypt.hashSync(password, 10)
-
-    const query = changePass 
-      ? 'UPDATE `user` SET `password` = ?, `name` = ? WHERE `id` = ?'
-      : 'UPDATE `user` SET `name` = ? WHERE `id` = ?'
-
-    const params = changePass 
-      ? [encryptedPassword, name, id]
-      : [name, id]
-
-    sqlDB.query(query, params, err => {
+    sqlDB.query('UPDATE `user` SET `name` = ? WHERE `id` = ?', [name, id], err => {
       if (err) {
         res.status(500).send({
           status: 500,
@@ -135,11 +109,68 @@ class UserController {
         return
       }
 
-      req.body = { email, password }
 
-      sendEmail(email, 'Atualização de dados', 'Olá, você atualizou seus dados com sucesso!')
+      res.status(200).json({
+        status: 200,
+        message: 'Usuário atualizado com sucesso'
+      })
+
+    })
+
+  }
+
+  static updatePassword = (req, res) => {
+    const { password, token } = req.body
+
+    jwt.verify(token, process.env.JWT_TOKEN, { ignoreExpiration: false }, (err, decoded) => {
+      if (err) {
+
+        if (err.name === 'TokenExpiredError') {
+          res.status(401).send({
+            status: 401,
+            message: 'Token expirado'
+          })
+          return
+        }
+
+        res.status(401).send({
+          status: 401,
+          message: 'Unauthorized'
+        })
+        return
+      }
+
+      if (!password) {
+        res.status(400).json({ status: 400, message: 'Invalid request' })
+        return
+      }
+
+      if (!validatePassword(password)) {
+        res.status(400).json({ status: 400, message: 'Senha inválida. A senha deve ter no mínimo 6 caracteres, 1 número e 1 caractere especial' })
+        return
+      }
+
+      const encryptedPassword = bcrypt.hashSync(password, 10)
+      const { email } = decoded
 
 
+      sqlDB.query('UPDATE `user` SET `password` = ? WHERE `email` = ?', [encryptedPassword, email], err => {
+        if (err) {
+          res.status(500).send({
+            status: 500,
+            message: err.message
+          })
+          return
+        }
+
+        sendEmail(email, 'Senha alterada', 'Sua senha foi alterada com sucesso')
+
+        res.status(200).json({
+          status: 200,
+          message: 'Senha alterada com sucesso'
+        })
+
+      })
     })
 
   }

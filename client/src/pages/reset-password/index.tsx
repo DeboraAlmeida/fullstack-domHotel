@@ -7,6 +7,7 @@ import Modal from 'components/atoms/Modal'
 import React, { FormEvent, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useNavigate, useParams } from 'react-router-dom'
+import backEnd from 'utils/backEnd'
 import validatePassword from 'utils/validateFields'
 
 const ResetPassword = () => {
@@ -29,7 +30,7 @@ const ResetPassword = () => {
     }
   }, [])
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     if(!values.senha || !values.repetir_senha) {
@@ -47,7 +48,19 @@ const ResetPassword = () => {
       return
     }
 
-    // await backEnd(`/update-user/`
+    await backEnd('/update-user-password', 'POST', false, { password: values.senha, token }).then(res => {
+      if(res.status === 200) {
+        handleShowMessage('Senha alterada com sucesso. Basta fazer login novamente')
+
+        setTimeout(() => {
+          navigate('/')
+        }, 5000)
+        return
+      } 
+      handleShowMessage(res.message)
+    }).catch(() => {
+      handleShowMessage('Erro ao alterar senha')
+    })
   }
 
   const handleShowMessage = (msg: string) => {
