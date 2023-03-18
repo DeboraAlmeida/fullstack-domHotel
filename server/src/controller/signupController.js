@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt'
 import sqlDB from '../app/mysql.js'
+import sendEmail from '../utils/sendEmail.js'
 import validateEmail from '../utils/validateEmail.js'
 import validateName from '../utils/validateName.js'
 import validatePassword from '../utils/validatePassword.js'
@@ -46,6 +47,8 @@ class SignupController {
         }
 
         req.body = { email, password }
+
+        sendEmail(email, 'Bem vindo ao Dom Hotel', 'Seja bem vindo ao Dom Hotel. Esperamos que você tenha uma ótima experiência. Caso tenha alguma dúvida, entre em contato conosco.')
 
         LoginController.default(req, res)
 

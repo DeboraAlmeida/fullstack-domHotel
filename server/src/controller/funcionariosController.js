@@ -8,7 +8,7 @@ class FuncionariosController {
 
   static getWorkers = (req, res) => {
 
-    sqlDB.query('SELECT admin_workers.name, admin_offices.type FROM admin_workers INNER JOIN admin_offices ON admin_workers.id = admin_offices.id', (err, data) => {
+    sqlDB.query('SELECT admin_workers.name, admin_offices.type FROM workers_offices INNER JOIN admin_offices INNER JOIN admin_workers ON admin_workers.id = workers_offices.id_worker AND admin_offices.id = workers_offices.id_office', (err, data) => {
 
       if (err) {
         res.status(500).send({ message: err.message })
@@ -25,7 +25,7 @@ class FuncionariosController {
 
   static getActiveWorkers = (req, res) => {
 
-    sqlDB.query('SELECT admin_workers.name, admin_offices.type FROM admin_workers INNER JOIN admin_offices ON admin_workers.id = admin_offices.id WHERE admin_workers.ativo = 1', (err, data) => {
+    sqlDB.query('SELECT admin_workers.name, admin_offices.type FROM workers_offices INNER JOIN admin_offices INNER JOIN admin_workers ON admin_workers.id = workers_offices.id_worker AND admin_offices.id = workers_offices.id_office WHERE admin_workers.ativo = 1', (err, data) => {
 
       if (err) {
         res.status(500).send({ message: err.message })
@@ -42,7 +42,7 @@ class FuncionariosController {
 
   static getInactiveWorkers = (req, res) => {
 
-    sqlDB.query('SELECT admin_workers.name, admin_offices.type FROM admin_workers INNER JOIN admin_offices ON admin_workers.id = admin_offices.id WHERE admin_workers.ativo = 0', (err, data) => {
+    sqlDB.query('SELECT admin_workers.name, admin_offices.type FROM workers_offices INNER JOIN admin_offices INNER JOIN admin_workers ON admin_workers.id = workers_offices.id_worker AND admin_offices.id = workers_offices.id_office WHERE admin_workers.ativo = 0', (err, data) => {
 
       if (err) {
         res.status(500).send({ message: err.message })

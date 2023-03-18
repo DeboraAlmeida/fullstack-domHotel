@@ -169,6 +169,26 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }: Props) => {
     }, 3000)
   }
 
+  const handleForgotPassword = async () => {
+    const email = valueField.email
+
+    if(email === '') {
+      setErrosFields((prev) => ({ ...prev, email: true }))
+      handleShowMessage('Preencha o campo de e-mail')
+      return
+    }
+
+    await backEnd('/forgot-password', 'POST', false, { email }).then(res => {
+      if (res.status === 200) {
+        handleShowMessage('Enviamos um e-mail para você com as instruções para redefinir sua senha')
+      } else {
+        handleShowMessage(res.message)
+      }
+    }).catch(err => {
+      handleShowMessage(err.message)
+    })
+  }
+
   const inputsSignIn = [
     { 
       id: 'email-login',
@@ -232,8 +252,7 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }: Props) => {
                       <GenericInput type={element.type} id={element.id} onChange={(e) => element.method(e.target.value)} error={element.model} value={valueField[`${element.valueId}`]} />
                     </ S.ContainerInputSignIn>
                   ))}
-                  {/* opção de esqueceu a senha: */}
-                  <Anchor href={'#'} msg={''} />
+                  <Anchor action={handleForgotPassword} href={'#'} msg={'Esqueceu a senha ?'} />
                   <Button disabled={(errorFields.email || errorFields.password)} action={handleButton}>Entrar</Button>
                   <S.ContainerSignUp>
                     <DescriptionParagraph msg={'Não tem uma conta?'} /><Anchor action={() => setTypeLogin('sign-up')} msg={'Criar conta'} />
