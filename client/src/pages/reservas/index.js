@@ -1,4 +1,6 @@
 // Arquivo criado: 15/12/2022 às 20:49
+import pdfMake from 'pdfmake/build/pdfmake'
+import pdfFonts from 'pdfmake/build/vfs_fonts'
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import Button from '../../components/atoms/Button'
@@ -380,10 +382,10 @@ const Reservas = ({ setForcedLogin }) => {
       setInputsValue(prev => ({ ...prev }))
       return inputsValue
     }))
-
+    
     setReserveResume()
   }
-
+  
   let choosenRoom = ''
   let roomValue = 0
 
@@ -468,8 +470,9 @@ const Reservas = ({ setForcedLogin }) => {
     obj[`${id}`] = valueFields[`${id}`]
     localStorage.setItem('userData', JSON.stringify(obj))
   }
-
+  
   const handleOpenConfirmationModal = () => {
+    onButtonClick()
     resumeItens.forEach(item => {
       if (item.id === 'quarto') {
         if (item.content.img !== '') {
@@ -500,6 +503,98 @@ const Reservas = ({ setForcedLogin }) => {
     }
     setForcedLogin(true)
   }
+  
+  const getDataForPDF = () => {
+    pdfMake.vfs = pdfFonts.pdfMake.vfs
+    if (sessionStorage.getItem('isLogged')) {
+      // nome do user
+      const userData = JSON.parse(localStorage.getItem('userData'))
+      userData.name = JSON.parse(sessionStorage.getItem('isLogged')).name 
+      // dados da reserva
+      const reserva = JSON.parse(localStorage.getItem('reserva'))
+      const reserve = [`Número de adultos: ${reserva.adultos}`, `Número de crianças: ${reserva.criancas}`, `Data de check-in: ${reserva.checkin.split('-').reverse().join('/')}`, `Data de check-out: ${reserva.checkout.split('-').reverse().join('/')}`, `Quarto: ${reserva.quarto}`]
+      // serviços adicionais contratados
+      const moreService = JSON.parse(localStorage.getItem('moreServices'))
+      let services = ['Não foram contratados serviços adicionais.']
+      const contractedServices = []
+      if (moreService) {
+        services = Object.keys(moreService)
+        services.forEach((service) => {
+          if (moreService[service] !== 0) {
+            switch (service) {
+              case 'mordomo':
+                contractedServices.push('Serviço de mordomo')
+                break
+              case 'cofre':
+                contractedServices.push('Cofre no quarto')
+                break
+              case 'pet':
+                contractedServices.push('Hospedagem para pet')
+                break
+              case 'cafe':
+                contractedServices.push('Incluso café da manhã')
+                break
+              case 'massagem':
+                contractedServices.push('Cadeira de massagem no quarto')
+                break
+              case 'ac':
+                contractedServices.push('Ar condicionado no talo!')
+                break
+              default:
+                contractedServices.push('Não foram contratados serviços adicionais.')
+            }
+          }
+        })
+        services = contractedServices
+      }     
+      // buscando o valor final
+      let totalReserve = ''
+      const checkResumeItens = resumeItens
+      checkResumeItens.filter((item) => {
+        if (item.id === 'total') {
+          totalReserve = item.content
+        }
+        return checkResumeItens
+      })
+      // data e hora atual
+      const date = new Date().toLocaleString()
+      
+      // gerando o pdf com os dados resgatados
+      const docDefinitions = {
+        pageSize: 'A4',
+        pageMargins: [30, 50, 30, 40],
+        header: [{ text: `Olá, ${userData.name}! Bem vindo(a) ao DOM Hotel!`, style: 'header' }],
+        content: [{ text: 'Esta é a sua reserva:', style: 'subheader' }, [reserve], { text: 'Serviços adicionais contratados:', style: 'subheader' }, [services], { text: 'Valor total da reserva:', style: 'subheader' }, [totalReserve]],
+        footer: [{ text: `Reserva impressa em ${date}`, style: 'footer' }],
+        styles: {
+          header: {
+            fontSize: 18,
+            bold: true,
+            margin: 20,
+            alignment: 'center'
+          },
+          subheader: {
+            fontSize: 15,
+            bold: true,
+            margin: [0, 10, 0, 10]
+          },
+          footer: {
+            fontSize: 12,
+            bold: false,
+            margin: 20,
+            alignment: 'right'
+          }
+        }
+      }
+      pdfMake.createPdf(docDefinitions).open()
+      
+    }    
+  }
+
+  const [showReserveButton, setShowReserveButton] = useState(false)
+  const onButtonClick = () => setShowReserveButton(true)
+  
+  
 
   return (
     <>
@@ -562,7 +657,8 @@ const Reservas = ({ setForcedLogin }) => {
                 const value = typeof element.content === 'object' ? element.content.title : element.content
                 return (`${element.name} ${value}`)
               })} />
-              <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Confirmar</Button>
+              { !showReserveButton ? <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Confirmar</Button> : <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Alterar Reserva</Button> }              
+              { showReserveButton ? <Button width='100%' action={() => getDataForPDF()} target='_blank'>Imprimir Reserva</Button> : null }
             </S.ContainerResume>
           </S.RoomsContainer>
         </S.FormContainer>
