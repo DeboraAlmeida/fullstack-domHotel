@@ -15,7 +15,6 @@ const Coupon = ({ totalValue }) => {
     setCouponCode(event.target.value)
   }
 
-
   useEffect(() => {
     const ActiveReservesById = async () => {
       const result = await getActiveReservesbyId()
@@ -26,16 +25,14 @@ const Coupon = ({ totalValue }) => {
   }, [])
 
   const handleCouponApply = () => {
-    if (reservesById) {
-      if (couponCode === 'domhotel10%') {
-        const price = parseInt(totalValue, 10)
-        const discount = Math.round(price * 0.1)
-        setDiscountedPrice(price - discount)
-        localStorage.setItem('discountedValue', JSON.stringify(price - discount))
-      } else {
-        alert('Código Inválido')
-      }
-    } 
+    if (couponCode === 'domhotel10%') {
+      const price = parseInt(totalValue, 10)
+      const discount = Math.round(price * 0.1)
+      setDiscountedPrice(price - discount)
+      localStorage.setItem('discountedValue', JSON.stringify(price - discount))
+    } else {
+      alert('Código Inválido')
+    }
     setCouponCode('')
     setCodeUsed(true)
   }
@@ -54,6 +51,7 @@ const Coupon = ({ totalValue }) => {
       )}
     </S.boxCoupon>
   )
+  
 }
 
 export default Coupon
