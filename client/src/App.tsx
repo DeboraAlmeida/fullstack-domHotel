@@ -5,6 +5,7 @@ import Admin from 'pages/admin'
 import Contato from 'pages/contato'
 import Home from 'pages/home'
 import Reservas from 'pages/reservas'
+import ResetPassword from 'pages/reset-password'
 import Sobre from 'pages/sobre'
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
@@ -39,6 +40,7 @@ const App = () => {
           <Route path='/contato' element={<Contato />} />
           <Route path='/sobre' element={<Sobre />} />
           <Route path='/admin' element={<Admin />} />
+          <Route path='/reset-password/:token' element={<ResetPassword />} />
         </Routes>
       </Template>
       <Footer />
