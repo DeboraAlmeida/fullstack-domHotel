@@ -7,7 +7,7 @@ const router = express.Router()
 
 router
   .get('/reservas', validateToken(true), ReservasController.getReserves)
-  .get('/reservas/:id', validateToken(true), ReservasController.getReserveById)
+  .get('/reservas/:id', validateToken(false), ReservasController.getReserveById)
   .get('/reservas-ativas', validateToken(true), ReservasController.getActiveReserves)
   .get('/reservas-ativas-total', validateToken(true), ReservasController.getReservesNumber)
   .post('/reserva', validateToken(false), ReservasController.postReserve)

@@ -78,28 +78,28 @@ class ReservasController {
 
   static getReserveById = (req, res) => {
 
-    const id = req.params.id
+    const id = req.body.user.id
 
-    sqlDB.query('SELECT * FROM `reserve` WHERE `id` = ?', id, (err, data) => {
+    sqlDB.query('SELECT COUNT(`user_id`) FROM `reserve` WHERE `user_id` = ?', id, (err, data) => {
 
       if (err) {
         res.status(500).send({ message: err.message })
         return
       }
-
-      if (data.length <= 0) {
-        res.status(500).json({
-          status: 500,
-          message: 'Não existe reserva com esse ID'
+      
+      if (data.length === 1) {
+        res.status(200).json({
+          status: 200,
+          message: 'Usuário não possui reservas',
+          enableCoupon: true
         })
         return
       }
-
       res.status(200).json({
         status: 200,
-        data
+        message: 'Usuário já possui reservas ativas',
+        enableCoupon: false
       })
-
     })
 
   }
