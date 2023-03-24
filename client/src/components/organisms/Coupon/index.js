@@ -30,7 +30,7 @@ const Coupon = ({ totalValue }) => {
         const price = parseInt(totalValue, 10)
         const discount = Math.round(price * 0.1)
         setDiscountedPrice(price - discount)
-        localStorage.setItem('discountedValue', JSON.stringify(price - discount))
+        // localStorage.setItem('discountedValue', JSON.stringify(price - discount))
       } else {
         alert('Código Inválido')
       }
