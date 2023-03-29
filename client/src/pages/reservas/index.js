@@ -596,6 +596,8 @@ const Reservas = ({ setForcedLogin }) => {
   
   
 
+  // const discountedValue = JSON.parse(localStorage.getItem('discountedValue'))
+  
   return (
     <>
       <Helmet>
@@ -730,6 +732,7 @@ const Reservas = ({ setForcedLogin }) => {
                 )
               })} />
             </S.ModalResume2>
+            {/* <S.boxDiscounted><SubTitle>{`Total: R$ ${(discountedValue).toFixed(2).toString().replace('.', ',')}`}</SubTitle></S.boxDiscounted> */}
             <S.Btn01>
               {/* <Button action={() => setResumeOpen(false)}>Finalizar</Button> */}
               <Button action={() => sendReserve()}>Finalizar</Button>
