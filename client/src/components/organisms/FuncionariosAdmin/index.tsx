@@ -1,4 +1,3 @@
-// Arquivo criado: 19/01/2023 às 15:54
 import React, { useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
 import pallete from '../../../pallete'
