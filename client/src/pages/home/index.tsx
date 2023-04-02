@@ -39,9 +39,9 @@ const Home = () => {
         <title>DOM Hotel - Home</title>
         <meta name='description' content='DOM Hotel - Inicio' />
       </Helmet>
-      <Banner/>
       <S.Wrapper>
         <PrincipalTitle>{content.section1.title}</PrincipalTitle>
+        <Banner/>
         <ImageDefault src={imgBanner}></ImageDefault>
         <DescriptionParagraph msg={content.section1.description} />
         <SubTitle>{content.section2.title}</SubTitle>

@@ -4,13 +4,15 @@ export const BoxBanner = styled.div`
     display: flex;
     width: 100%;
     background-color: #F2F2F2;
-    margin: 0 auto;
+    margin: 10px auto;
     border: 2px solid #b49c21;
     border-radius: 5px;
+    box-shadow: 5px 5px 5px gray;
         
     h2{
         color: #02732A;
         text-align: center;
+        margin:5px;
     }
 
     span{
