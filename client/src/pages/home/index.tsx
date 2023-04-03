@@ -8,9 +8,9 @@ import DescriptionParagraph from '../../components/atoms/DescriptionParagraph'
 import ImageDefault from '../../components/atoms/ImageDefault'
 import PrincipalTitle from '../../components/atoms/PrincipalTitle'
 import SubTitle from '../../components/atoms/SubTitle'
-import imgBanner from '../../components/organisms/Banner/images/banner.webp'
 import ModalAvaliationRoom from '../../components/organisms/ModalAvaliationRoom'
 import { content } from './data'
+import imgBanner from './images/hotel.webp'
 import * as S from './styles'
 
 const Home = () => {
