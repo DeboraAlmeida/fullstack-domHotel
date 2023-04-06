@@ -6,7 +6,7 @@ import getActiveReservesbyId from 'services/getActiveReservesbyId'
 import * as S from './styles'
 
 interface Props {
-  totalValue: any
+  totalValue: ''
 }
 
 const Coupon = ({ totalValue }: Props) => {
@@ -14,7 +14,7 @@ const Coupon = ({ totalValue }: Props) => {
   const [couponCode, setCouponCode] = useState('')
   const [codeUsed, setCodeUsed] = useState(false)
 
-  const handleCouponCodeChange = (event:any) => {
+  const handleCouponCodeChange = (event:React.ChangeEvent<HTMLInputElement>) => {
     setCouponCode(event.target.value)
   }
 
