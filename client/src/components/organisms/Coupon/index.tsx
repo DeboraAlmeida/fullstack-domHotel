@@ -5,12 +5,16 @@ import React, { useState } from 'react'
 import getActiveReservesbyId from 'services/getActiveReservesbyId'
 import * as S from './styles'
 
-const Coupon = ({ totalValue }) => {
+interface Props {
+  totalValue: any
+}
+
+const Coupon = ({ totalValue }: Props) => {
   const [discountedPrice, setDiscountedPrice] = useState(0)
   const [couponCode, setCouponCode] = useState('')
   const [codeUsed, setCodeUsed] = useState(false)
 
-  const handleCouponCodeChange = (event) => {
+  const handleCouponCodeChange = (event:any) => {
     setCouponCode(event.target.value)
   }
 
@@ -19,18 +23,17 @@ const Coupon = ({ totalValue }) => {
     return result
   }
 
-  const handleCouponApply = async() => {
+  const handleCouponApply = async(): Promise<void> => {
     const logado = sessionStorage.getItem('isLogged')
     if (logado) {
       const reserveById = await ActiveReservesById()
       if (reserveById) {
         if (couponCode === 'domhotel10%') {
-          const price = parseFloat(totalValue.replace('R$', ''), 10)
+          const price: number = parseFloat(totalValue.replace('R$', ''))
           const discount = Math.round(price * 0.1)
           const newValue = price - discount
           setDiscountedPrice(newValue)
           localStorage.setItem('newValue', JSON.stringify(newValue))
-          // localStorage.setItem('discountedValue', JSON.stringify(price - discount))
         } else {
           alert('Código Inválido')
         }

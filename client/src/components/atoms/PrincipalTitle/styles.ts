@@ -5,7 +5,7 @@ export const TitleH1 = styled.h1`
     justify-content: center;
     align-items: center;
     gap: 15px;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
     text-align: center;
 
     :after, :before {
