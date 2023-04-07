@@ -596,7 +596,7 @@ const Reservas = ({ setForcedLogin }) => {
   
   
 
-  // const discountedValue = JSON.parse(localStorage.getItem('discountedValue'))
+  const finalValue = JSON.parse(localStorage.getItem('newValue'))
   
   return (
     <>
@@ -661,6 +661,8 @@ const Reservas = ({ setForcedLogin }) => {
               })} />
               { !showReserveButton ? <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Confirmar</Button> : <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Alterar Reserva</Button> }              
               { showReserveButton ? <Button width='100%' action={() => getDataForPDF()} target='_blank'>Imprimir Reserva</Button> : null }
+              <Coupon totalValue={resumeItens[resumeItens.length - 1].content}/>
+              <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Confirmar</Button>
             </S.ContainerResume>
           </S.RoomsContainer>
         </S.FormContainer>
@@ -732,7 +734,11 @@ const Reservas = ({ setForcedLogin }) => {
                 )
               })} />
             </S.ModalResume2>
-            {/* <S.boxDiscounted><SubTitle>{`Total: R$ ${(discountedValue).toFixed(2).toString().replace('.', ',')}`}</SubTitle></S.boxDiscounted> */}
+            {finalValue > 0 && (
+              <S.boxDiscounted>
+                <SubTitle>{`Total: R$ ${(finalValue).toFixed(2).toString().replace('.', ',')}`}</SubTitle>
+             </S.boxDiscounted>
+            )}
             <S.Btn01>
               {/* <Button action={() => setResumeOpen(false)}>Finalizar</Button> */}
               <Button action={() => sendReserve()}>Finalizar</Button>

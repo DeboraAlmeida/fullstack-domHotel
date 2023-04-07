@@ -74,7 +74,7 @@ export const ModalResume2 = styled.div`
   ul li:last-child {  
    font-weight: bold;
    text-align: right;
-   text-decoration: line-through;
+   text-decoration: none;
   }
   
 `
