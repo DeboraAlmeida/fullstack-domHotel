@@ -179,20 +179,57 @@ class ReservasController {
       user_name: payload.userData.name
     }
 
-    sqlDB.query('INSERT INTO `reserve` (amount_people, check_in, check_out, user_id, room_id, active, user_name, room_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [obj.amount_people, obj.check_in, obj.check_out, obj.user_id, obj.room_id, obj.active, obj.user_name, payload.reserva.quarto], (err, data) => {
-
+    sqlDB.query(`SELECT * FROM reserve`, (err, data) => {
       if (err) {
         res.status(500).send({ message: err.message })
         return
       }
 
-      res.status(201).json({
-        status: 201,
-        data: `reserva cadastrada com sucesso. ${data}`
+      const result = []
+
+      data.map((reserve) => {
+       const data = {
+        check_in: reserve.check_in.toISOString().split("T")[0],
+        check_out: reserve.check_out.toISOString().split("T")[0],
+       }
+
+        if (
+          ((Date.parse(data.check_out) <= Date.parse(obj.check_out) && Date.parse(data.check_in) >= Date.parse(obj.check_in)) && reserve.room_id === obj.room_id) 
+        ) {
+          result.push(reserve.id)
+        }
       })
+
+      if (result.length > 0) {
+        res.status(400).send({ message: 'Data indisponível para esta reserva', data: result})
+        return
+      }  
+
+      sqlDB.query('INSERT INTO `additional_service` (service_obj) VALUES (?)', [JSON.stringify(payload.moreService)], (err, data) => {
+        if (err) {
+          res.status(500).send({
+            status: 500,
+            message: err.message
+          })
+          return
+        }
+  
+        sqlDB.query('INSERT INTO `reserve` (amount_people, check_in, check_out, user_id, room_id, active, user_name, room_name, additional_service_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [obj.amount_people, obj.check_in, obj.check_out, obj.user_id, obj.room_id, obj.active, obj.user_name, payload.reserva.quarto, data.insertId], (err, data) => {
+  
+          if (err) {
+            res.status(500).send({ message: err.message })
+            return
+          }
+  
+          res.status(201).json({
+            status: 201,
+            data: `reserva cadastrada com sucesso. ${data}`
+          })
+        })
+  
+      }) 
     })
   }
-
 }
 
 export default ReservasController
