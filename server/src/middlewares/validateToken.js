@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-const validateToken = (req, res, next) => {
+const validateToken = (isAdmin = false) => (req, res, next) => {
 
   const authHeader = req.headers.authorization
 
@@ -16,10 +16,32 @@ const validateToken = (req, res, next) => {
     return
   }
 
-  jwt.verify(token, process.env.JWT_TOKEN, (err, decoded) => {
+  jwt.verify(token, process.env.JWT_TOKEN, { ignoreExpiration: false }, (err, decoded) => {
     if (err) {
-      return res.status(401).send({ message: 'Unauthorized!' })
+
+      if (err.name === 'TokenExpiredError') {
+        res.status(401).send({ 
+          status: 401,
+          message: 'Token expired!'
+        })
+        return
+      }
+
+      res.status(401).send({ 
+        status: 401,
+        message: 'Unauthorized'
+      })
+      return 
     }
+
+    if (isAdmin && !decoded.admin) {
+      res.status(401).send({ 
+        status: 401,
+        message: 'You are not an admin!'
+      })
+      return 
+    }
+
     req.body.user = decoded
     
     next()

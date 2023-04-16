@@ -1,17 +1,17 @@
 // Arquivo criado: 19/01/2023 às 15:56
-import { Reserves } from '@/interfaces/Reserves'
+import Button from 'components/atoms/Button'
+import ContainerLayoutAdmin from 'components/atoms/ContainerLayoutAdmin'
+import GenericInput from 'components/atoms/GenericInput'
+import GenericLabel from 'components/atoms/GenericLabel'
+import Modal from 'components/atoms/Modal'
+import SubTitle from 'components/atoms/SubTitle'
+import { Reserves } from 'interfaces/Reserves'
+import pallete from 'pallete'
 import React, { FormEvent, useEffect, useState } from 'react'
 import { FaInfoCircle } from 'react-icons/fa'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
-import pallete from '../../../pallete'
-import backEnd from '../../../utils/backEnd'
-import dataFormatter from '../../../utils/dataFormatter'
-import Button from '../../atoms/Button'
-import ContainerLayoutAdmin from '../../atoms/ContainerLayoutAdmin'
-import GenericInput from '../../atoms/GenericInput'
-import GenericLabel from '../../atoms/GenericLabel'
-import Modal from '../../atoms/Modal'
-import SubTitle from '../../atoms/SubTitle'
+import backEnd from 'utils/backEnd'
+import dataFormatter from 'utils/dataFormatter'
 import CommentArea from '../CommentArea'
 import * as S from './styles'
 
@@ -26,7 +26,7 @@ const ReservasAdmin = (): JSX.Element => {
   })
 
   useEffect(() => {
-    backEnd('/reservas', 'GET', false).then((res) => {
+    backEnd('/reservas', 'GET', 'admin').then(res => {
       if (res.status === 200) {
         setReservas(res.data)
       }
@@ -64,8 +64,8 @@ const ReservasAdmin = (): JSX.Element => {
 
   const updateStatusReserva = (id: number, active: boolean) => {
 
-    const changeStatus = () => {
-      return reservas.filter(d => {
+    const changeStatus = (arr: Reserves[]) => {
+      return arr.filter(d => {
         if (d.id === id) {
           d.active = active
         }
@@ -76,13 +76,13 @@ const ReservasAdmin = (): JSX.Element => {
     if (searchResults.data.length > 0) {
       setSearchResults({
         isSearching: true,
-        data: changeStatus()
+        data: changeStatus(searchResults.data)
       })
     }
 
-    backEnd(`/reservas/${id}`, 'PUT', false, { active }).then(res => {
+    backEnd(`/reservas/${id}`, 'PUT', 'admin', { active }).then(res => {
       if (res.status === 200) {
-        setReservas(changeStatus())
+        setReservas(changeStatus(reservas))
         return
       }
 
@@ -112,7 +112,7 @@ const ReservasAdmin = (): JSX.Element => {
       data: []
     })
 
-    backEnd(`/reservas-by-date/${data.inicioData}/${data.finalData}`, 'GET', false).then(res => {
+    backEnd(`/reservas-pela-data/${data.inicioData}/${data.finalData}`, 'GET', 'admin').then(res => {
 
       if (res.status === 200) {
         setSearchResults({
@@ -255,9 +255,9 @@ const ReservasAdmin = (): JSX.Element => {
                         button={
                           <S.ContainerButton>
                             {
-                              data.active 
+                              data.active
                                 ? <Button hoverColor={pallete.greenDefault} paddingVertical='4px' paddingHorizontal='5px'>Em Andamento</Button>
-                                : <Button backgroundColor='gray' hoverColor='gray' paddingVertical='4px' paddingHorizontal='5px'>Finalizado</Button> 
+                                : <Button backgroundColor='gray' hoverColor='gray' paddingVertical='4px' paddingHorizontal='5px'>Finalizado</Button>
                             }
                           </S.ContainerButton>
                         }

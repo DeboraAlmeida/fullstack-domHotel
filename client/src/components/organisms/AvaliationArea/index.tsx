@@ -1,24 +1,19 @@
-import { Content } from '@/interfaces/Content'
+import Button from 'components/atoms/Button'
+import GenericLabel from 'components/atoms/GenericLabel'
+import SubTitle from 'components/atoms/SubTitle'
+import TextArea from 'components/atoms/TextArea'
+import { Content } from 'interfaces/Content'
 import React from 'react'
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
-import backEnd from '../../../utils/backEnd'
-import Button from '../../atoms/Button'
-import GenericLabel from '../../atoms/GenericLabel'
-import SubTitle from '../../atoms/SubTitle'
-import TextArea from '../../atoms/TextArea'
+import backEnd from 'utils/backEnd'
 import * as S from './styles'
 
 interface Props {
   content: Content
 }
 
-interface Login {
-  email: string
-  password: string
-}
-
 export default class AvaliationArea extends React.Component<Props> {
-  
+
   content: Content
 
   state = {
@@ -42,8 +37,8 @@ export default class AvaliationArea extends React.Component<Props> {
   componentDidMount(): void {
 
     const handleCanComment = () => {
-      if(sessionStorage.getItem('isLogged')){
-        backEnd(`/verify-can-comment/${this.content.id}`, 'GET', true).then(res => {
+      if (sessionStorage.getItem('isLogged')) {
+        backEnd(`/verifica-pode-comentar/${this.content.id}`, 'GET', 'user').then(res => {
           if (res.canComment) {
             this.setState({
               form: {
@@ -74,13 +69,13 @@ export default class AvaliationArea extends React.Component<Props> {
           msg: 'É preciso estar logado para avaliar'
         },
       })
-      
+
     }
 
     const handleNameUser = () => {
       if (this.handleLogged()) {
         const isLogged: string | null = sessionStorage.getItem('isLogged')
-        if(isLogged){
+        if (isLogged) {
           const nome = JSON.parse(isLogged).name
           if (nome !== '') {
             const nomeInput = document.getElementById('name') as HTMLInputElement
@@ -93,14 +88,14 @@ export default class AvaliationArea extends React.Component<Props> {
     handleNameUser()
     handleCanComment()
   }
-  
+
 
   handleLogged = (): boolean => {
-    
+
     if (sessionStorage.getItem('isLogged')) {
       return true
-    } 
-    
+    }
+
     this.setState({
       buttonInfo: {
         name: 'Faça login para avaliar',
@@ -120,7 +115,7 @@ export default class AvaliationArea extends React.Component<Props> {
         return 'void'
       }
     })
-    
+
     this.setState({
       stars: result
     })
@@ -130,12 +125,12 @@ export default class AvaliationArea extends React.Component<Props> {
     const msg = document.getElementById('comment') as HTMLTextAreaElement
 
     const feedBack = (msg: string) => {
-     this.setState({
+      this.setState({
         buttonInfo: {
           name: msg,
           disabled: true
         }
-     })
+      })
 
       setTimeout(() => {
         this.setState({
@@ -153,8 +148,8 @@ export default class AvaliationArea extends React.Component<Props> {
         avaliation: this.state.stars.filter((star: string) => star === 'marked').length
       }
 
-      backEnd(`/comment/${this.content.id}`, 'POST', true, comment).then(res => {
-        if(res.status === 200){
+      backEnd(`/comentarios/${this.content.id}`, 'POST', 'user', comment).then(res => {
+        if (res.status === 200) {
           this.setState({
             form: {
               show: false,
@@ -177,18 +172,18 @@ export default class AvaliationArea extends React.Component<Props> {
 
     if (!this.state.stars.find(star => star !== 'void')) {
       feedBack('Preencha as Estrelas')
-      return 
+      return
     }
 
     if (msg.value.length > 250) {
       feedBack('Mensagem muito grande')
       return
-    } 
-    
+    }
+
     savingComment()
 
   }
-  
+
   render(): JSX.Element {
     return (
       <S.Wrapper>
@@ -197,7 +192,7 @@ export default class AvaliationArea extends React.Component<Props> {
             ? (
               <>
                 <S.TitleContainer id={'title-container'}>
-                  <SubTitle>{'Avalie'}</SubTitle>
+                  <SubTitle>Avalie</SubTitle>
                 </S.TitleContainer>
                 <GenericLabel for={'comment'}>Comentário:</GenericLabel>
                 <TextArea id={'comment'} />
@@ -225,5 +220,5 @@ export default class AvaliationArea extends React.Component<Props> {
       </S.Wrapper>
     )
   }
- 
+
 }

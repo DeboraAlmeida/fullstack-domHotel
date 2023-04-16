@@ -2,18 +2,13 @@ import jwt from 'jsonwebtoken'
 
 const secret = process.env.JWT_TOKEN
 
-const createToken = ({ name, email, id }) => {
-  const payload = {
-    name,
-    email,
-    id
-  }
+const createToken = (obj, expiresIn = '1d') => {
 
   const options = {
-    expiresIn: '1d'
+    expiresIn
   }
 
-  return jwt.sign(payload, secret, options)
+  return jwt.sign(obj, secret, options)
 }
 
 export default createToken

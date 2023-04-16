@@ -1,7 +1,8 @@
 // Arquivo criado: 15/12/2022 às 20:49
+import Coupon from 'components/organisms/Coupon'
 import React, { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet'
 import Button from '../../components/atoms/Button'
-import DescriptionParagraph from '../../components/atoms/DescriptionParagraph'
 import GenericInput from '../../components/atoms/GenericInput'
 import GenericLabel from '../../components/atoms/GenericLabel'
 import ImageDefault from '../../components/atoms/ImageDefault'
@@ -20,7 +21,7 @@ import vip from './images/acomodacao_vip.webp'
 import * as S from './styles'
 
 
-export const Reservas = ({ setForcedLogin }) => {
+const Reservas = ({ setForcedLogin }) => {
   const [valueFields] = useState(
     {
       email: '',
@@ -496,44 +497,50 @@ export const Reservas = ({ setForcedLogin }) => {
       }
 
 
-      const result = await postReserve(payload)
-    } 
+      await postReserve(payload)
+    }
     setForcedLogin(true)
   }
 
+  const finalValue = JSON.parse(localStorage.getItem('newValue'))
+  
   return (
-    <S.PrincipalContainer>
-      <PrincipalTitle>Reserve sua Acomodação</PrincipalTitle>
-      <MiniTitle span='Passo 1: ' text='Insira seus dados' />
-      <S.FormContainer>
-        <S.DataContainer>
-          {inputsCollection.map((element, index) => (
-            <S.Container key={index}>
-              <GenericLabel for={element.id}>{element.label}</GenericLabel>
-              <GenericInput type={element.type} id={element.id} value={valueFields[`${element.valueId}`]}
-                onChange={(e) => element.method(e.target.value)}
-                onBlur={() => saveUserStorage(element.valueId)}
-                error={element.model} />
-            </S.Container>
-          ))}
-        </S.DataContainer>
-        <S.ContainerReserve>
-          {inputsReserve.map(element => (
-            <S.ReserveItem key={element.id}>
-              <GenericLabel for={element.id}>{element.label}</GenericLabel>
-              <GenericInput type={element.type} id={element.id} error={element.error} placeholder={element.placeholder} min={element.min} max={element.max} name={element.id} onChange={(e) => handleInputChange(element.id, e)} />
-            </S.ReserveItem>
-          ))}
-        </S.ContainerReserve>
-        <S.RoomsContainer>
-          <S.ModalContainer>
-            <S.containerQuartos>
-              <MiniTitle span='Passo 2: ' text='Escolha o Quarto' />
+    <>
+      <Helmet>
+        <title>DOM Hotel - Reservas</title>
+        <meta name='description' content='Faça sua reserva na DOM Hotel' />
+      </Helmet>
+      <S.PrincipalContainer>
+        <PrincipalTitle>Reserve sua Acomodação</PrincipalTitle>
+        <MiniTitle span='Passo 1: ' text='Insira seus dados' />
+        <S.FormContainer>
+          <S.DataContainer>
+            {inputsCollection.map((element, index) => (
+              <S.Container key={index}>
+                <GenericLabel for={element.id}>{element.label}</GenericLabel>
+                <GenericInput type={element.type} id={element.id} value={valueFields[`${element.valueId}`]}
+                  onChange={(e) => element.method(e.target.value)}
+                  onBlur={() => saveUserStorage(element.valueId)}
+                  error={element.model} />
+              </S.Container>
+            ))}
+          </S.DataContainer>
+          <S.ContainerReserve>
+            {inputsReserve.map(element => (
+              <S.ReserveItem key={element.id}>
+                <GenericLabel for={element.id}>{element.label}</GenericLabel>
+                <GenericInput type={element.type} id={element.id} error={element.error} placeholder={element.placeholder} min={element.min} max={element.max} name={element.id} onChange={(e) => handleInputChange(element.id, e)} />
+              </S.ReserveItem>
+            ))}
+          </S.ContainerReserve>
+          <S.RoomsContainer>
+            <S.ModalContainer>
+              <S.containerQuartos>
+                <MiniTitle span='Passo 2: ' text='Escolha o Quarto' />
 
-              <div className='-wraper'>
-                {
-                  quartos.map((element, index) => (
-                    <S.quartoSingleInput key={index} >
+                <div className='-wraper'>
+                  {quartos.map((element, index) => (
+                    <S.quartoSingleInput key={index}>
                       <div className='-img'><ImageDefault src={element.img} alt={element.title} /></div>
                       <div className='-informacoes'>
                         <MiniTitle span={element.title} />
@@ -544,96 +551,107 @@ export const Reservas = ({ setForcedLogin }) => {
                         </div>
                       </div>
                     </S.quartoSingleInput>
-                  ))
-                }
-              </div>
-            </S.containerQuartos>
-            <S.Btn01>
-              <S.BtnModal1>
-                <Button useDefaultStyle={false} action={() => setModalOpen(true)}>Mais Serviços</Button>
-              </S.BtnModal1>
-            </S.Btn01>
-          </S.ModalContainer>
-          <S.ContainerResume>
-            <UnorderedList arr={resumeItens.map(element => {
-              const value = typeof element.content === 'object' ? element.content.title : element.content
-              return (`${element.name} ${value}`)
-            })} />
-            <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Confirmar</Button>
-          </S.ContainerResume>
-        </S.RoomsContainer>
-      </S.FormContainer>
+                  ))}
+                </div>
+              </S.containerQuartos>
+              <S.Btn01>
+                <S.BtnModal1>
+                  <Button useDefaultStyle={false} action={() => setModalOpen(true)}>Mais Serviços</Button>
+                </S.BtnModal1>
+              </S.Btn01>
+            </S.ModalContainer>
+            <S.ContainerResume>
+              <UnorderedList arr={resumeItens.map(element => {
+                const value = typeof element.content === 'object' ? element.content.title : element.content
+                return (`${element.name} ${value}`)
+              })} />
+              <Coupon totalValue={resumeItens[resumeItens.length - 1].content}/>
+              <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Confirmar</Button>
+            </S.ContainerResume>
+          </S.RoomsContainer>
+        </S.FormContainer>
 
-      {/* Aqui iniciam os modais */}
+        {/* Aqui iniciam os modais */}
 
-      <S.ContainerModal>
-        <Modal isOpen={modalOpen} setIsOpen={setModalOpen}>
-          <S.HeaderModal>
-            <SubTitle>Mais serviços</SubTitle>
-          </S.HeaderModal>
-          <S.ModalOptions>
-            <ul>
-              {optionsCollection.map((element) => (
-                <li key={element.id}>
-                  <S.ModalCont>
+        <S.ContainerModal>
+          <Modal isOpen={modalOpen} setIsOpen={setModalOpen}>
+            <S.HeaderModal>
+              <SubTitle>Mais serviços</SubTitle>
+            </S.HeaderModal>
+            <S.ModalOptions>
+              <ul>
+                {optionsCollection.map(element => (
+                  <li key={element.id}>
                     <GenericLabel>
-                      <GenericInput type={element.type} onClick={handleCheckbox} name={element.name} id={element.id} value={element.price} ></GenericInput>
+                      <div>
+                        <GenericInput
+                          type={element.type}
+                          onClick={handleCheckbox}
+                          name={element.name}
+                          id={element.id}
+                          value={element.price} />
+                        <span>{element.msg}</span>
+                      </div>
+                      <SpanText>{element.price}</SpanText>
                     </GenericLabel>
-                    <DescriptionParagraph msg={element.msg}></DescriptionParagraph></S.ModalCont><SpanText>{element.price}</SpanText>
-                </li>)
-              )}
-            </ul>
-          </S.ModalOptions>
-          <S.Btn01>
-            <Button action={handleMoreService}>Confirmar</Button>
-          </S.Btn01>
-        </Modal>
+                  </li>)
+                )}
+              </ul>
+            </S.ModalOptions>
+            <S.Btn01>
+              <Button action={handleMoreService}>Confirmar</Button>
+            </S.Btn01>
+          </Modal>
 
-        <Modal isOpen={resumeOpen} setIsOpen={setResumeOpen}>
-          <S.HeaderModal>
-            <SubTitle>Confirme sua reserva</SubTitle>
-          </S.HeaderModal>
-          <S.ModalResume>
-            <UnorderedList arr={inputsCollection.map(element => {
-              const value = element.valueId === 'telephone' ? phoneFormatter(valueFields[element.valueId]) : valueFields[element.valueId]
-              return (
-                <p
-                  style={{ textTransform: element.valueId === 'name' ? 'capitalize' : 'none' }}
-                  key={element.id}
-                >
-                  {element.label} {value}
-                </p>
-              )
-            })} />
-          </S.ModalResume>
-          <S.ModalResume2>
-            <UnorderedList arr={resumeItens.map(element => {
-              const isQuarto = typeof element.content === 'object'
-              const value = isQuarto ? element.content.title : element.content
-              return (
-                <>
-                  {
-                    isQuarto && (
+          <Modal isOpen={resumeOpen} setIsOpen={setResumeOpen}>
+            <S.HeaderModal>
+              <SubTitle>Confirme sua reserva</SubTitle>
+            </S.HeaderModal>
+            <S.ModalResume>
+              <UnorderedList arr={inputsCollection.map(element => {
+                const value = element.valueId === 'telephone' ? phoneFormatter(valueFields[element.valueId]) : valueFields[element.valueId]
+                return (
+                  <p
+                    style={{ textTransform: element.valueId === 'name' ? 'capitalize' : 'none' }}
+                    key={element.id}
+                  >
+                    {element.label} {value}
+                  </p>
+                )
+              })} />
+            </S.ModalResume>
+            <S.ModalResume2>
+              <UnorderedList arr={resumeItens.map(element => {
+                const isQuarto = typeof element.content === 'object'
+                const value = isQuarto ? element.content.title : element.content
+                return (
+                  <>
+                    {isQuarto && (
                       <S.ContentImgInsideModal>
                         <ImageDefault altText="Imagem do Quarto selecionado" src={element.content.img} />
                         <p>{element.content.description}</p>
                       </S.ContentImgInsideModal>
-                    )
-                  }
+                    )}
 
-                  <p key={element.id}>{element.name} {value}</p>
-                </>
-              )
-            })} />
-          </S.ModalResume2>
-          <S.Btn01>
-            {/* <Button action={() => setResumeOpen(false)}>Finalizar</Button> */}
-            <Button action={() => sendReserve()}>Finalizar</Button>
-          </S.Btn01>
-        </Modal>
-      </S.ContainerModal>
-      
-    </S.PrincipalContainer>
+                    <p key={element.id}>{element.name} {value}</p>
+                  </>
+                )
+              })} />
+            </S.ModalResume2>
+            {finalValue > 0 && (
+              <S.boxDiscounted>
+                <SubTitle>{`Total: R$ ${(finalValue).toFixed(2).toString().replace('.', ',')}`}</SubTitle>
+             </S.boxDiscounted>
+            )}
+            <S.Btn01>
+              {/* <Button action={() => setResumeOpen(false)}>Finalizar</Button> */}
+              <Button action={() => sendReserve()}>Finalizar</Button>
+            </S.Btn01>
+          </Modal>
+        </S.ContainerModal>
+
+      </S.PrincipalContainer>
+    </>
   )
 
 }

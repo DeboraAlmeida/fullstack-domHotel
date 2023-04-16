@@ -24,13 +24,13 @@ export const contentRoomBox = [
     },
     {
       title: 'Standard',
-      id: '2',
+      id: '1',
       src: quarto2,
       alt: 'primeiro quarto standard',
       titleDescription: 'Todos os quartos standard possuem iluminação agardável e são climatizados. '
     },
     {
-      id: '3',
+      id: '1',
       src: quarto3,
       title: 'Standard',
       alt: 'primeiro quarto standard',
@@ -41,21 +41,21 @@ export const contentRoomBox = [
     title: 'Premium',
     imgCollection: [{
       title: 'Premium',
-      id: '4',
+      id: '2',
       src: quarto4,
       alt: 'primeiro quarto premium',
       titleDescription: 'A acomodação premium dispõe de espaço amplo com camas queen, mesa de jantar, Tv, além de decoração exclusiva.'
     },
     {
       title: 'Premium',
-      id: '5',
+      id: '2',
       src: quarto5,
       alt: 'primeiro quarto premium',
       titleDescription: 'Todas as acomodações premium possuem sala de estar e espaço office com tomadas extras.'
     },
     {
       title: 'Premium',
-      id: '6',
+      id: '2',
       src: quarto6,
       alt: 'primeiro quarto premium',
       titleDescription: 'Banheiros com box e espelhos amplos, secador, além de bancada espaçosa para seus itens pessoais de higiene.'
@@ -65,21 +65,21 @@ export const contentRoomBox = [
     title: 'V.I.P',
     imgCollection: [{
       title: 'VIP',
-      id: '7',
+      id: '3',
       src: quarto7,
       alt: 'primeiro quarto vip',
       titleDescription: 'Nossa acomodação Vip, é premiada por seu espaço aconchegante, amplo e confortável. Com camas King-Size, espaço office, TV, armários extras, sala de estar e jantar e uma bela sacada gourmet. Um verdadeiro privilégio ao acordar.'
     },
     {
       title: 'VIP',
-      id: '8',
+      id: '3',
       src: quarto8,
       alt: 'primeiro quarto standard',
       titleDescription: 'Armários extras, amplos espaços e decoração impecável definem nossas suítes Vip.'
     },
     {
       title: 'VIP',
-      id: '9',
+      id: '3',
       src: quarto9,
       alt: 'primeiro quarto standard',
       titleDescription: 'Os banheiros Vip possuem banheira de hidromassagem, armários embutidos e muito conforto.'

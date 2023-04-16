@@ -29,6 +29,7 @@ export const ImageContainer = styled.div`
 
   img {
     width: 28%;
+    cursor: pointer;
   }
 
   @media screen and (max-width: 576px) {
@@ -37,8 +38,8 @@ export const ImageContainer = styled.div`
     gap: 50px;
     
     img {
-    width: 80%;
-  }
+      width: 80%;
+    }
   }
 `
 

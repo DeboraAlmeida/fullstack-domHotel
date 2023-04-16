@@ -39,3 +39,8 @@ export const ContainerInputSignIn = styled.div`
     margin-bottom: 0;
   }
 `
+
+export const tittleAviso = styled.h3`
+  margin: 20px;
+  text-align: center;
+`

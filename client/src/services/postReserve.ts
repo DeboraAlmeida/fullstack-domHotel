@@ -1,5 +1,7 @@
+import getIdToken from "utils/getIdToken"
+
 const postReserve = async (payload: any) => {
-    const {userData, moreService, reserva} = payload
+    const { userData, moreService, reserva } = payload
     const obj = {
         userData,
         reserva,
@@ -12,12 +14,12 @@ const postReserve = async (payload: any) => {
                 'Content-Type': 'application/json',
                 'Connection': 'keep-alive',
                 'Keep-Alive': 'timeout=5',
-            }, body: JSON.stringify(obj) 
+                'Authorization': `Bearer ${getIdToken('user')}`
+            }, body: JSON.stringify(obj)
         })
         const result = await response.json()
         return result.data
     } catch (error) {
-        console.error(`post reserves failed ${error}`)
         return
     }
 }

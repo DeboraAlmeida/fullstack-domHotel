@@ -1,6 +1,6 @@
 // Arquivo criado: 19/01/2023 às 14:32
+import ContainerLayoutAdmin from 'components/atoms/ContainerLayoutAdmin'
 import React from 'react'
-import ContainerLayoutAdmin from '../../atoms/ContainerLayoutAdmin'
 
 const HospedesAdmin = () => {
 

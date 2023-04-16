@@ -1,12 +1,12 @@
+import Anchor from 'components/atoms/Anchor/index'
+import Button from 'components/atoms/Button/index'
+import DescriptionParagraph from 'components/atoms/DescriptionParagraph/index'
+import GenericInput from 'components/atoms/GenericInput/index'
+import GenericLabel from 'components/atoms/GenericLabel/index'
+import MiniTitle from 'components/atoms/MiniTitle/index'
 import React, { useState } from 'react'
-import backEnd from '../../../utils/backEnd'
-import { validateEmail, validateName } from '../../../utils/validateFields'
-import Anchor from '../../atoms/Anchor/index'
-import Button from '../../atoms/Button'
-import DescriptionParagraph from '../../atoms/DescriptionParagraph/index'
-import GenericInput from '../../atoms/GenericInput/index'
-import GenericLabel from '../../atoms/GenericLabel/index'
-import MiniTitle from '../../atoms/MiniTitle/index'
+import backEnd from 'utils/backEnd'
+import { validateEmail, validateName } from 'utils/validateFields'
 import * as S from './styles'
 
 interface Props {
@@ -102,8 +102,6 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }: Props) => {
       } else {
         handleShowMessage(res.message)
       }
-    }).catch(err => {
-      console.log(err)
     })
   }
 
@@ -171,6 +169,26 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }: Props) => {
     }, 3000)
   }
 
+  const handleForgotPassword = async () => {
+    const email = valueField.email
+
+    if(email === '') {
+      setErrosFields((prev) => ({ ...prev, email: true }))
+      handleShowMessage('Preencha o campo de e-mail')
+      return
+    }
+
+    await backEnd('/forgot-password', 'POST', false, { email }).then(res => {
+      if (res.status === 200) {
+        handleShowMessage('Enviamos um e-mail para você com as instruções para redefinir sua senha')
+      } else {
+        handleShowMessage(res.message)
+      }
+    }).catch(err => {
+      handleShowMessage(err.message)
+    })
+  }
+
   const inputsSignIn = [
     { 
       id: 'email-login',
@@ -234,8 +252,7 @@ const LoginContent = ({ type, setIsLogged, setLoggedName }: Props) => {
                       <GenericInput type={element.type} id={element.id} onChange={(e) => element.method(e.target.value)} error={element.model} value={valueField[`${element.valueId}`]} />
                     </ S.ContainerInputSignIn>
                   ))}
-                  {/* opção de esqueceu a senha: */}
-                  <Anchor href={'#'} msg={''} />
+                  <Anchor action={handleForgotPassword} href={'#'} msg={'Esqueceu a senha ?'} />
                   <Button disabled={(errorFields.email || errorFields.password)} action={handleButton}>Entrar</Button>
                   <S.ContainerSignUp>
                     <DescriptionParagraph msg={'Não tem uma conta?'} /><Anchor action={() => setTypeLogin('sign-up')} msg={'Criar conta'} />
