@@ -152,30 +152,30 @@ class FuncionariosController {
     const datatime = new Date()
 
 
-      sqlDB.query('INSERT INTO `admin_workers` (name, email, password, ativo, lastLogin, createdAt, visible) VALUES (?, ?, ?, ?, ?, ?, ?)', [name, email, encryptedPassword, true, datatime, datatime, visible], (err, data) => {
+    sqlDB.query('INSERT INTO `admin_workers` (name, email, password, ativo, lastLogin, createdAt, visible) VALUES (?, ?, ?, ?, ?, ?, ?)', [name, email, encryptedPassword, true, datatime, datatime, visible], (err, data) => {
+      if (err) {
+        res.status(500).send({
+          status: 500,
+          message: err.message
+        })
+        return
+      }
+
+      sqlDB.query('INSERT INTO `workers_offices` (id_worker, id_office) VALUES (?, ?)', [data.insertId, office], (err, data) => {
         if (err) {
           res.status(500).send({
             status: 500,
             message: err.message
           })
           return
-        }
-
-        sqlDB.query('INSERT INTO `workers_offices` (id_worker, id_office) VALUES (?, ?)', [data.insertId, office], (err, data) => {
-          if (err) {
-            res.status(500).send({
-              status: 500,
-              message: err.message
-            })
-            return
-          }  
+        }  
   
-          res.status(201).json({
-            status: 201,
-            message: 'Funcionário cadastrado com sucesso!'
-          })
-        }) 
-      })      
+        res.status(201).json({
+          status: 201,
+          message: 'Funcionário cadastrado com sucesso!'
+        })
+      }) 
+    })      
   }
 }
 

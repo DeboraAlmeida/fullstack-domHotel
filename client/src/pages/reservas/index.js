@@ -1,4 +1,5 @@
 // Arquivo criado: 15/12/2022 às 20:49
+import Coupon from 'components/organisms/Coupon'
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import Button from '../../components/atoms/Button'
@@ -501,6 +502,8 @@ const Reservas = ({ setForcedLogin }) => {
     setForcedLogin(true)
   }
 
+  const finalValue = JSON.parse(localStorage.getItem('newValue'))
+  
   return (
     <>
       <Helmet>
@@ -562,6 +565,7 @@ const Reservas = ({ setForcedLogin }) => {
                 const value = typeof element.content === 'object' ? element.content.title : element.content
                 return (`${element.name} ${value}`)
               })} />
+              <Coupon totalValue={resumeItens[resumeItens.length - 1].content}/>
               <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Confirmar</Button>
             </S.ContainerResume>
           </S.RoomsContainer>
@@ -634,6 +638,11 @@ const Reservas = ({ setForcedLogin }) => {
                 )
               })} />
             </S.ModalResume2>
+            {finalValue > 0 && (
+              <S.boxDiscounted>
+                <SubTitle>{`Total: R$ ${(finalValue).toFixed(2).toString().replace('.', ',')}`}</SubTitle>
+             </S.boxDiscounted>
+            )}
             <S.Btn01>
               {/* <Button action={() => setResumeOpen(false)}>Finalizar</Button> */}
               <Button action={() => sendReserve()}>Finalizar</Button>

@@ -42,7 +42,7 @@ export const ContainerReserve = styled.div`
   }
 `
 export const ModalResume = styled.div`
- display: block;
+ display: inline-flex;
  justify-content: center;
  ul {
     padding: 10px 0px;
@@ -67,7 +67,6 @@ export const ModalResume2 = styled.div`
     width: 100%;
   }
   ul li {
-    display: block;
     flex-direction: row;
     justify-content: space-between;
     padding: 10px 0px;
@@ -75,6 +74,17 @@ export const ModalResume2 = styled.div`
   ul li:last-child {  
    font-weight: bold;
    text-align: right;
+   text-decoration: none;
+  }
+  
+`
+
+export const boxDiscounted = styled.div`
+  padding: 0 0 30px 0;
+  h2 {
+    text-align: right;
+    color: #02732A;
+        
   }
 `
 

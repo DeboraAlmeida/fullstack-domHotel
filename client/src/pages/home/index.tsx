@@ -1,4 +1,5 @@
 // Arquivo criado: 15/12/2022 às 20:47
+import Banner from 'components/organisms/Banner'
 import { Content } from 'interfaces/Content'
 import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
@@ -9,6 +10,7 @@ import PrincipalTitle from '../../components/atoms/PrincipalTitle'
 import SubTitle from '../../components/atoms/SubTitle'
 import ModalAvaliationRoom from '../../components/organisms/ModalAvaliationRoom'
 import { content } from './data'
+import imgBanner from './images/hotel.webp'
 import * as S from './styles'
 
 const Home = () => {
@@ -39,6 +41,8 @@ const Home = () => {
       </Helmet>
       <S.Wrapper>
         <PrincipalTitle>{content.section1.title}</PrincipalTitle>
+        <Banner/>
+        <ImageDefault src={imgBanner}></ImageDefault>
         <DescriptionParagraph msg={content.section1.description} />
         <SubTitle>{content.section2.title}</SubTitle>
         <S.AccommodationContainer>
