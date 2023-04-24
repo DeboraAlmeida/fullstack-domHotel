@@ -28,6 +28,8 @@ const Coupon = ({ totalValue }: Props) => {
     if (logado) {
       const reserveById = await ActiveReservesById()
       if (reserveById) {
+        alert('Cupom válido apenas para primeira reserva')
+      } else {
         if (couponCode === 'domhotel10%') {
           const price: number = parseFloat(totalValue.replace('R$', ''))
           const discount = Math.round(price * 0.1)
