@@ -315,6 +315,9 @@ export const ContainerResume = styled.div`
   li:nth-child(odd) {
     margin-bottom: 30px;
   }
+  button:nth-of-type(2) {
+    margin-top: 20px;
+  }
 `
 
 export const ContentImgInsideModal = styled.div`

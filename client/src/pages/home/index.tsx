@@ -41,7 +41,7 @@ const Home = () => {
       </Helmet>
       <S.Wrapper>
         <PrincipalTitle>{content.section1.title}</PrincipalTitle>
-        <Banner/>
+        <Banner />
         <ImageDefault src={imgBanner}></ImageDefault>
         <DescriptionParagraph msg={content.section1.description} />
         <SubTitle>{content.section2.title}</SubTitle>

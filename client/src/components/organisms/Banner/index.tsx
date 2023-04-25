@@ -20,14 +20,18 @@ const Banner = (): JSX.Element => {
   return (
     <S.BoxBanner>
       <ImageDefault src={imgBanner}></ImageDefault>
-      <S.boxSpan>
-        <SpanText ref={codeRef}>domhotel10%</SpanText>
-      </S.boxSpan>
-      <S.btnCoupon>
-        <Button disabled={copied} action={copyCode}>
-          Copie o código
-        </Button>
-      </S.btnCoupon>
+
+      <div>
+        <S.boxSpan>
+          <SpanText ref={codeRef}>domhotel10%</SpanText>
+        </S.boxSpan>
+        <S.btnCoupon>
+          <Button disabled={copied} action={copyCode}>
+            Copie o código
+          </Button>
+        </S.btnCoupon>
+      </div>
+
     </S.BoxBanner>
   );
 };
