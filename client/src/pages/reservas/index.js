@@ -13,6 +13,7 @@ import Modal from '../../components/atoms/Modal'
 import PrincipalTitle from '../../components/atoms/PrincipalTitle'
 import SubTitle from '../../components/atoms/SubTitle'
 import UnorderedList from '../../components/atoms/UnorderedList'
+import Coupon from '../../components/organisms/Coupon'
 import postReserve from '../../services/postReserve'
 import phoneFormatter from '../../utils/phoneFormatter'
 import { validateEmail, validateName, validateNumber } from '../../utils/validateFields'
@@ -382,10 +383,10 @@ const Reservas = ({ setForcedLogin }) => {
       setInputsValue(prev => ({ ...prev }))
       return inputsValue
     }))
-    
+
     setReserveResume()
   }
-  
+
   let choosenRoom = ''
   let roomValue = 0
 
@@ -470,7 +471,7 @@ const Reservas = ({ setForcedLogin }) => {
     obj[`${id}`] = valueFields[`${id}`]
     localStorage.setItem('userData', JSON.stringify(obj))
   }
-  
+
   const handleOpenConfirmationModal = () => {
     onButtonClick()
     resumeItens.forEach(item => {
@@ -501,15 +502,15 @@ const Reservas = ({ setForcedLogin }) => {
 
       await postReserve(payload)
     }
-    setForcedLogin(true)
+    // setForcedLogin(true)
   }
-  
+
   const getDataForPDF = () => {
     pdfMake.vfs = pdfFonts.pdfMake.vfs
     if (sessionStorage.getItem('isLogged')) {
       // nome do user
       const userData = JSON.parse(localStorage.getItem('userData'))
-      userData.name = JSON.parse(sessionStorage.getItem('isLogged')).name 
+      userData.name = JSON.parse(sessionStorage.getItem('isLogged')).name
       // dados da reserva
       const reserva = JSON.parse(localStorage.getItem('reserva'))
       const reserve = [`Número de adultos: ${reserva.adultos}`, `Número de crianças: ${reserva.criancas}`, `Data de check-in: ${reserva.checkin.split('-').reverse().join('/')}`, `Data de check-out: ${reserva.checkout.split('-').reverse().join('/')}`, `Quarto: ${reserva.quarto}`]
@@ -546,7 +547,7 @@ const Reservas = ({ setForcedLogin }) => {
           }
         })
         services = contractedServices
-      }     
+      }
       // buscando o valor final
       let totalReserve = ''
       const checkResumeItens = resumeItens
@@ -558,7 +559,7 @@ const Reservas = ({ setForcedLogin }) => {
       })
       // data e hora atual
       const date = new Date().toLocaleString()
-      
+
       // gerando o pdf com os dados resgatados
       const docDefinitions = {
         pageSize: 'A4',
@@ -587,17 +588,17 @@ const Reservas = ({ setForcedLogin }) => {
         }
       }
       pdfMake.createPdf(docDefinitions).open()
-      
-    }    
+
+    }
   }
 
   const [showReserveButton, setShowReserveButton] = useState(false)
   const onButtonClick = () => setShowReserveButton(true)
-  
-  
+
+
 
   const finalValue = JSON.parse(localStorage.getItem('newValue'))
-  
+
   return (
     <>
       <Helmet>
@@ -659,9 +660,9 @@ const Reservas = ({ setForcedLogin }) => {
                 const value = typeof element.content === 'object' ? element.content.title : element.content
                 return (`${element.name} ${value}`)
               })} />
-              { !showReserveButton ? <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Confirmar</Button> : <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Alterar Reserva</Button> }              
-              { showReserveButton ? <Button width='100%' action={() => getDataForPDF()} target='_blank'>Imprimir Reserva</Button> : null }
-              <Coupon totalValue={resumeItens[resumeItens.length - 1].content}/>
+              {/* {!showReserveButton ? <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Confirmar</Button> : <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Alterar Reserva</Button>} */}
+              {showReserveButton ? <Button width='100%' action={() => getDataForPDF()} target='_blank'>Imprimir Reserva</Button> : null}
+              <Coupon totalValue={resumeItens[resumeItens.length - 1].content} />
               <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Confirmar</Button>
             </S.ContainerResume>
           </S.RoomsContainer>
@@ -737,7 +738,7 @@ const Reservas = ({ setForcedLogin }) => {
             {finalValue > 0 && (
               <S.boxDiscounted>
                 <SubTitle>{`Total: R$ ${(finalValue).toFixed(2).toString().replace('.', ',')}`}</SubTitle>
-             </S.boxDiscounted>
+              </S.boxDiscounted>
             )}
             <S.Btn01>
               {/* <Button action={() => setResumeOpen(false)}>Finalizar</Button> */}
