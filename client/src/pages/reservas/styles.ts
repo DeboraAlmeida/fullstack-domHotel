@@ -111,6 +111,18 @@ export const HeaderModal = styled.div`
   }
 `
 
+export const BPrintPDF = styled.div`
+ button {
+  padding: 0;
+  background-color: transparent;
+  color:  ${pallete.greenDefault};
+  text-decoration: underline;
+  margin-top: 10px;
+ }
+
+  
+`
+
 export const ModalOptions = styled.div`
   display: flex;
   ul {

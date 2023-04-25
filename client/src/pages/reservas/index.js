@@ -473,7 +473,7 @@ const Reservas = ({ setForcedLogin }) => {
   }
 
   const handleOpenConfirmationModal = () => {
-    onButtonClick()
+    // onButtonClick()
     resumeItens.forEach(item => {
       if (item.id === 'quarto') {
         if (item.content.img !== '') {
@@ -485,6 +485,7 @@ const Reservas = ({ setForcedLogin }) => {
 
   const sendReserve = async () => {
     setResumeOpen(false)
+    onButtonClick()
     if (sessionStorage.getItem('isLogged')) {
 
       const userData = JSON.parse(localStorage.getItem('userData'))
@@ -661,9 +662,9 @@ const Reservas = ({ setForcedLogin }) => {
                 return (`${element.name} ${value}`)
               })} />
               {/* {!showReserveButton ? <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Confirmar</Button> : <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Alterar Reserva</Button>} */}
-              {showReserveButton ? <Button width='100%' action={() => getDataForPDF()} target='_blank'>Imprimir Reserva</Button> : null}
               <Coupon totalValue={resumeItens[resumeItens.length - 1].content} />
               <Button disabled={(errorFields.email || errorFields.name || errorFields.telephone || controlButton.checkin || controlButton.checkout)} width='100%' action={handleOpenConfirmationModal}>Confirmar</Button>
+              {showReserveButton ? <S.BPrintPDF><Button width='100%' action={() => getDataForPDF()} target='_blank'>Imprimir Reserva</Button></S.BPrintPDF> : null}
             </S.ContainerResume>
           </S.RoomsContainer>
         </S.FormContainer>

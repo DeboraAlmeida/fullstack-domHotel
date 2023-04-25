@@ -14,7 +14,7 @@ const Coupon = ({ totalValue }: Props) => {
   const [couponCode, setCouponCode] = useState('')
   const [codeUsed, setCodeUsed] = useState(false)
 
-  const handleCouponCodeChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+  const handleCouponCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCouponCode(event.target.value)
   }
 
@@ -23,7 +23,7 @@ const Coupon = ({ totalValue }: Props) => {
     return result
   }
 
-  const handleCouponApply = async(): Promise<void> => {
+  const handleCouponApply = async (): Promise<void> => {
     const logado = sessionStorage.getItem('isLogged')
     if (logado) {
       const reserveById = await ActiveReservesById()
@@ -39,18 +39,18 @@ const Coupon = ({ totalValue }: Props) => {
         } else {
           alert('Código Inválido')
         }
-      } 
+      }
       setCouponCode('')
       setCodeUsed(true)
     }
-    
+
   }
 
   return (
     <S.boxCoupon>
       <GenericInput type={'text'} id={'couponCode'} onChange={handleCouponCodeChange} value={couponCode} placeholder={'Digite seu código'} />
       <S.boxButton>
-      <Button disabled={codeUsed} action={handleCouponApply}>Adicionar</Button>
+        <Button disabled={codeUsed} action={handleCouponApply}>Adicionar</Button>
       </S.boxButton>
       {discountedPrice > 0 && (
         <S.boxPrice>
@@ -59,7 +59,7 @@ const Coupon = ({ totalValue }: Props) => {
       )}
     </S.boxCoupon>
   )
-  
+
 }
 
 export default Coupon
