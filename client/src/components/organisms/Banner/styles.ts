@@ -23,6 +23,40 @@ export const BoxBanner = styled.div`
     img{
         width: 100%;
     }
+
+    > div {
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        div, button {
+            margin: 0;
+            width: 90%;
+        }
+        button {
+            margin-left: 20px;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        > div {
+            flex-direction: column;
+ 
+            
+            div, button {
+                margin: 0;
+                width: 100%;
+            }
+
+            button {
+                margin-top: 20px;
+            }
+        }
+        img {
+            display: none;
+        }
+    }
   }
 `
 export const boxSpan = styled.div`
